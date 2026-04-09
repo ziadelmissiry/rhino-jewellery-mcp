@@ -1,8 +1,8 @@
 # Rhino Jewellery MCP
 
-A comprehensive Model Context Protocol (MCP) server providing **124 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
+A comprehensive Model Context Protocol (MCP) server providing **139 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
 
-Built from professional jewelry CAD workflows, GIA gemstone standards, and techniques extracted from PJ Chen's 58-video tutorial series on jewelry design in Rhino 3D.
+Built from professional jewelry CAD workflows, GIA gemstone standards, techniques extracted from PJ Chen's 58-video tutorial series on jewelry design in Rhino 3D, and advanced techniques from *Advanced Jewellery CAD Modelling in Rhino*.
 
 ## How It Works
 
@@ -87,7 +87,7 @@ strings; the Rhino MCP server executes them inside Rhino.
 
 Ask Claude: "Create a size 7 solitaire ring". Geometry should appear in Rhino.
 
-## Tool Reference (124 tools)
+## Tool Reference (139 tools)
 
 ### Necklace & Base Structures (12 tools)
 
@@ -323,6 +323,26 @@ Complex jewelry patterns extracted from 58 PJ Chen tutorial transcripts.
 | `duplicate_and_mirror` | Copy and mirror objects for bilateral symmetry |
 | `validate_jewelry_params` | Check proposed dimensions against manufacturing minimums |
 
+### Advanced CAD Techniques — from *Advanced Jewellery CAD Modelling in Rhino* (15 tools)
+
+| Tool | Description |
+|---|---|
+| `revolve_profile` | Revolve a 2D profile around an axis — gem cutters, domes, gallery bars |
+| `loft_sections` | Loft between cross-sections at different heights for tapered/organic forms |
+| `hollow_ring` | Hollow a solid ring with wall thickness control for weight reduction |
+| `create_cabochon_gem` | Create a cabochon (domed, unfaceted) gemstone — round or oval |
+| `create_cabochon_setting` | Bezel setting that wraps around a cabochon stone |
+| `create_filigree_cutout` | Pierced decorative cutout patterns (circles, diamonds, teardrops) |
+| `create_surface_inset` | Recessed panel on curved surfaces for enamel/engraving |
+| `create_ear_post` | Earring post + butterfly back with manufacturing tolerances |
+| `create_hinge_mechanism` | Barrel hinge with interlocking knuckles and pin hole |
+| `create_gallery_wire` | Gallery wire swept around a gemstone's pavilion |
+| `create_trellis_gallery` | Open lattice gallery under a stone setting (light entry) |
+| `apply_edge_softening` | Non-destructive render-only edge rounding |
+| `create_wire_cuff_bangle` | Wire cuff bangle with opening gap and parallel wires |
+| `mesh_for_printing` | Optimized NURBS-to-mesh conversion for 3D printing |
+| `create_pave_row` | Pavé stone row with book-standard tolerances (0.25mm spacing) |
+
 ## Usage Examples
 
 ### Create a Solitaire Engagement Ring
@@ -405,7 +425,7 @@ This avoids the costly pattern of deleting everything and rebuilding from scratc
 
 ## Dimensional Standards
 
-Based on PJ Chen's professional standards and GIA specifications:
+Based on PJ Chen's professional standards, GIA specifications, and *Advanced Jewellery CAD Modelling in Rhino*:
 
 | Element | Typical Range | Notes |
 |---|---|---|
@@ -419,12 +439,20 @@ Based on PJ Chen's professional standards and GIA specifications:
 | Fillet radius | 0.2-0.5mm | Critical for casting (no sharp internal corners) |
 | Milgrain bead | 0.3-0.5mm | 0.44mm is PJ Chen's standard |
 | Halo stones | 1.0-1.5mm | Typically 1/3 of center stone diameter |
+| Pavé stone spacing | 0.20-0.28mm | 0.25mm average for 1.5mm stones |
+| Pavé prong thickness | 0.4-0.6mm | 0.5mm average; height matches stone table |
+| Ear post | 0.8mm x 11mm | Standard friction post diameter and length |
+| Gallery wire min | 1.0mm dia | Must not extend wider than girdle |
+| Hollow ring wall | 0.8mm min | For signet/solid rings; reduces casting weight |
+| Polishing allowance | 0.1mm | Metal loss from polishing cast surfaces |
+| Hinge pin hole | 1.0mm CAD | Drilled to 1.25mm in manufacturing |
+| Cuff bangle gap | ~30° | Opening for wrist flex |
 
 ## RhinoScript Functions Used
 
 The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
-**Geometry Creation:** `AddSphere`, `AddCylinder`, `AddCone`, `AddTorus`, `AddBox`, `AddPipe`, `AddLoftSrf`, `AddRevSrf`, `AddSweep1`, `AddSweep2`, `AddInterpCurve`, `AddPolyline`, `AddCircle`, `AddLine`, `AddArc3Pt`, `ExtrudeCurveStraight`
+**Geometry Creation:** `AddSphere`, `AddCylinder`, `AddCone`, `AddTorus`, `AddBox`, `AddPipe`, `AddLoftSrf`, `AddRevSrf`, `AddSweep1`, `AddSweep2`, `AddInterpCurve`, `AddPolyline`, `AddCircle`, `AddEllipse`, `AddLine`, `AddArc3Pt`, `AddPolygon`, `ExtrudeCurveStraight`
 
 **Boolean Operations:** `BooleanUnion`, `BooleanDifference`, `BooleanIntersection`
 
@@ -432,7 +460,7 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 **Curve Analysis:** `CurveDomain`, `EvaluateCurve`, `CurveTangent`, `CurvePerpFrame`, `CurveLength`, `CurveArcLengthPoint`, `CurveClosestPoint`
 
-**Surface Analysis:** `SurfaceVolume`, `SurfaceArea`, `OffsetSurface`, `CapPlanarHoles`, `ProjectCurveToSurface`
+**Surface Analysis:** `SurfaceVolume`, `SurfaceArea`, `OffsetSurface`, `CapPlanarHoles`, `ProjectCurveToSurface`, `IsPolysurfaceClosed`, `IsMesh`, `MeshSettings`
 
 **Materials:** `AddMaterialToLayer`, `MaterialColor`, `MaterialReflectiveColor`, `MaterialShine`, `MaterialTransparency`, `MaterialName`
 
@@ -444,7 +472,7 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 **Dimensions:** `AddLinearDimension`, `WorldXYPlane`
 
-**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `LayerNames`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`, `ObjectName`, `DuplicateEdgeCurves`, `ExplodePolysurfaces`, `SurfaceDomain`, `SurfaceNormal`, `IsSurface`
+**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `LayerNames`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`, `MovePlane`, `ObjectName`, `DuplicateEdgeCurves`, `ExplodePolysurfaces`, `SurfaceDomain`, `SurfaceNormal`, `IsSurface`, `IsPolysurface`, `SelectObject`, `UnselectAllObjects`
 
 ## Project Structure
 

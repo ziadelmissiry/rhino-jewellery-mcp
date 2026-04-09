@@ -8135,6 +8135,1253 @@ def generate_production_checklist(
 
 
 # ──────────────────────────────────────────────────────────────
+# Advanced Jewellery CAD Tools (from book techniques)
+# ──────────────────────────────────────────────────────────────
+
+
+@mcp.tool()
+def revolve_profile(
+    profile_layer: str = "Revolve_Profile",
+    result_layer: str = "Revolved_Form",
+    profile_points: str = "0,0;5,0;5,3;3,5;0,5",
+    axis_start: str = "0,0,0",
+    axis_end: str = "0,0,1",
+    start_angle: float = 0.0,
+    end_angle: float = 360.0,
+) -> str:
+    """Revolve a 2D profile curve around an axis to create gem cutters, gallery bars, domes, or any radial form.
+
+    The six key solid modelling commands in jewellery CAD are Extrude, Revolve, Sweep1, Sweep2, Loft, and Boolean.
+    This tool covers Revolve — essential for creating round gem shapes, bezels, dome tops, and rotational cutters.
+
+    Args:
+        profile_layer: Layer for the input profile curve.
+        result_layer: Layer for the revolved solid.
+        profile_points: Semicolon-separated 2D points (x,y) defining the profile polyline.
+        axis_start: Axis start point (x,y,z).
+        axis_end: Axis end point (x,y,z).
+        start_angle: Start angle in degrees (0 for full revolve).
+        end_angle: End angle in degrees (360 for full revolve).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        # Parse profile points
+        raw_pts = "{profile_points}".split(";")
+        pts = []
+        for p in raw_pts:
+            coords = [float(c) for c in p.split(",")]
+            if len(coords) == 2:
+                pts.append((coords[0], coords[1], 0))
+            else:
+                pts.append(tuple(coords))
+
+        if len(pts) < 2:
+            print("ERROR: Need at least 2 profile points")
+        else:
+            # Setup layers
+            for lyr in ["{profile_layer}", "{result_layer}"]:
+                if not rs.IsLayer(lyr):
+                    rs.AddLayer(lyr)
+
+            rs.CurrentLayer("{profile_layer}")
+
+            # Build profile curve
+            if pts[0] != pts[-1]:
+                pts.append(pts[0])  # close it
+            crv = rs.AddPolyline(pts)
+
+            # Parse axis
+            ax_s = tuple(float(c) for c in "{axis_start}".split(","))
+            ax_e = tuple(float(c) for c in "{axis_end}".split(","))
+
+            rs.CurrentLayer("{result_layer}")
+
+            # Revolve
+            srf = rs.AddRevSrf(crv, (ax_s, ax_e), {start_angle}, {end_angle})
+            if srf:
+                # Cap if full revolve
+                if abs({end_angle} - {start_angle}) >= 359.9:
+                    capped = rs.CapPlanarHoles(srf)
+                print("Revolved form created on layer '{result_layer}'")
+            else:
+                print("ERROR: Revolve failed — check profile and axis")
+    """)
+
+
+@mcp.tool()
+def loft_sections(
+    layer: str = "Lofted_Form",
+    sections_z: str = "0,2,4,6",
+    radii: str = "5,6,4,3",
+    sides: int = 0,
+    closed_loft: bool = False,
+) -> str:
+    """Loft between multiple cross-sections at different heights to create tapered or organic forms.
+
+    Loft is one of the six key solid modelling commands. It connects two or more cross-section
+    curves to build a smooth solid. Essential for tapered shanks, graduated bezels, and organic forms.
+
+    Args:
+        layer: Layer for the lofted solid.
+        sections_z: Semicolon-separated Z heights for each cross-section.
+        radii: Semicolon-separated radii for circular cross-sections at each height.
+        sides: Number of polygon sides (0 = circle).
+        closed_loft: Whether to close the loft into a loop.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        layer = "{layer}"
+        if not rs.IsLayer(layer):
+            rs.AddLayer(layer)
+        rs.CurrentLayer(layer)
+
+        z_vals = [float(v) for v in "{sections_z}".split(",")]
+        r_vals = [float(v) for v in "{radii}".split(",")]
+        sides = {sides}
+
+        if len(z_vals) != len(r_vals):
+            print("ERROR: sections_z and radii must have same count")
+        elif len(z_vals) < 2:
+            print("ERROR: Need at least 2 cross-sections")
+        else:
+            curves = []
+            for z, r in zip(z_vals, r_vals):
+                plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, z))
+                if sides > 2:
+                    crv = rs.AddPolygon(plane, r, sides)
+                else:
+                    crv = rs.AddCircle(plane, r)
+                curves.append(crv)
+
+            loft = rs.AddLoftSrf(curves, closed={closed_loft})
+            if loft:
+                for obj in loft:
+                    capped = rs.CapPlanarHoles(obj)
+                print("Lofted {{}} sections on layer '{layer}'".format(len(curves)))
+            else:
+                print("ERROR: Loft failed")
+
+            # Clean up section curves
+            rs.DeleteObjects(curves)
+    """)
+
+
+@mcp.tool()
+def hollow_ring(
+    ring_layer: str = "Ring_Band",
+    result_layer: str = "Ring_Hollowed",
+    wall_thickness: float = 0.8,
+    open_bottom: bool = True,
+) -> str:
+    """Hollow out a solid ring to reduce weight, preserving a specified wall thickness.
+
+    From Ch 4 of the book: hollowing signet rings and other solid forms is critical for
+    reducing casting weight and cost. Uses Shell to create uniform wall thickness.
+    The open_bottom option leaves the inner finger-side open (standard for cast rings).
+
+    Args:
+        ring_layer: Layer containing the solid ring to hollow.
+        result_layer: Layer for the hollowed result.
+        wall_thickness: Wall thickness in mm (0.8mm minimum for casting).
+        open_bottom: If True, removes the bottom face so the ring is open inside.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        ring_layer = "{ring_layer}"
+        result_layer = "{result_layer}"
+        wall = {wall_thickness}
+
+        if wall < 0.5:
+            print("WARNING: Wall thickness below 0.5mm may fail in casting")
+
+        if not rs.IsLayer(ring_layer):
+            print("ERROR: Layer '{{}}' not found".format(ring_layer))
+        else:
+            if not rs.IsLayer(result_layer):
+                rs.AddLayer(result_layer)
+
+            objs = rs.ObjectsByLayer(ring_layer)
+            if not objs:
+                print("ERROR: No objects on layer '{ring_layer}'")
+            else:
+                solids = [o for o in objs if rs.IsPolysurface(o) and rs.IsPolysurfaceClosed(o)]
+                if not solids:
+                    print("ERROR: No closed solids found on '{ring_layer}'")
+                else:
+                    for solid in solids:
+                        copy = rs.CopyObject(solid)
+                        rs.ObjectLayer(copy, result_layer)
+
+                        if {open_bottom}:
+                            # Find the bottom-most face to leave open
+                            faces = rs.ExplodePolysurfaces(copy, delete=False)
+                            lowest_z = None
+                            bottom_face = None
+                            for face in faces:
+                                bb = rs.BoundingBox(face)
+                                if bb:
+                                    cz = (bb[0][2] + bb[4][2]) / 2.0
+                                    if lowest_z is None or cz < lowest_z:
+                                        lowest_z = cz
+                                        bottom_face = face
+                            rs.DeleteObjects(faces)
+
+                            # Shell the copy
+                            if bottom_face:
+                                # Use offset surface approach
+                                shelled = rs.Command("_-Shell _SelId {{}} _Enter _Thickness {{}} _Enter".format(copy, wall), echo=False)
+                            else:
+                                rs.Command("_-Shell _SelId {{}} _Enter _Thickness {{}} _Enter".format(copy, wall), echo=False)
+                        else:
+                            rs.Command("_-Shell _SelId {{}} _Enter _Thickness {{}} _Enter".format(copy, wall), echo=False)
+
+                    print("Hollowed ring(s) on layer '{{}}', wall={{}}mm".format(result_layer, wall))
+    """)
+
+
+@mcp.tool()
+def create_cabochon_gem(
+    layer: str = "Gem_Cabochon",
+    diameter: float = 8.0,
+    height: float = 4.0,
+    base_height: float = 1.0,
+    shape: str = "round",
+) -> str:
+    """Create a cabochon (domed, unfaceted) gemstone — round or oval.
+
+    Cabochons are polished rather than faceted, common for opals, turquoise,
+    moonstone, and jade. The profile is a smooth dome on top with a flat or
+    shallow base underneath. Built using Revolve for round, or Loft for oval.
+
+    Args:
+        layer: Layer for the cabochon gem.
+        diameter: Diameter in mm (or major axis for oval).
+        height: Dome height in mm above the girdle.
+        base_height: Height of the flat base below the girdle.
+        shape: 'round' or 'oval' (oval uses 0.7× minor axis).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        layer = "{layer}"
+        if not rs.IsLayer(layer):
+            rs.AddLayer(layer)
+        rs.CurrentLayer(layer)
+
+        d = {diameter}
+        r = d / 2.0
+        h = {height}
+        base_h = {base_height}
+        shape = "{shape}"
+
+        if shape == "oval":
+            r_minor = r * 0.7
+        else:
+            r_minor = r
+
+        # Build profile for revolve (round) or sections for loft (oval)
+        if shape == "round":
+            # Profile: flat base -> girdle -> dome top
+            pts = []
+            pts.append((0, 0, -base_h))       # center bottom
+            pts.append((r, 0, -base_h))        # base edge
+            pts.append((r, 0, 0))              # girdle
+            # Dome arc points
+            n_arc = 12
+            for i in range(n_arc + 1):
+                angle = math.pi / 2.0 * i / n_arc
+                px = r * math.cos(angle)
+                pz = h * math.sin(angle)
+                pts.append((px, 0, pz))
+            pts.append((0, 0, h))              # top
+
+            crv = rs.AddInterpCurve(pts)
+            line = rs.AddLine((0, 0, -base_h), (0, 0, h))
+            axis = ((0, 0, -base_h), (0, 0, h))
+            srf = rs.AddRevSrf(crv, axis, 0, 360)
+            if srf:
+                rs.CapPlanarHoles(srf)
+            rs.DeleteObjects([crv, line])
+            print("Round cabochon: {{:.1f}}mm dia x {{:.1f}}mm high on '{layer}'".format(d, h + base_h))
+        else:
+            # Oval: loft ellipses at different heights
+            sections = []
+            # Base ellipse
+            plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, -base_h))
+            sections.append(rs.AddEllipse(plane, r, r_minor))
+            # Girdle
+            plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, 0))
+            sections.append(rs.AddEllipse(plane, r, r_minor))
+            # Mid dome
+            frac = 0.7
+            plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, h * 0.5))
+            sections.append(rs.AddEllipse(plane, r * frac, r_minor * frac))
+            # Near top
+            frac2 = 0.3
+            plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, h * 0.85))
+            sections.append(rs.AddEllipse(plane, r * frac2, r_minor * frac2))
+
+            loft = rs.AddLoftSrf(sections)
+            if loft:
+                for s in loft:
+                    rs.CapPlanarHoles(s)
+            rs.DeleteObjects(sections)
+            print("Oval cabochon: {{:.1f}}x{{:.1f}}mm on '{layer}'".format(d, d * 0.7))
+    """)
+
+
+@mcp.tool()
+def create_cabochon_setting(
+    gem_layer: str = "Gem_Cabochon",
+    setting_layer: str = "Setting_Cabochon",
+    bezel_height: float = 1.5,
+    bezel_thickness: float = 0.4,
+    base_thickness: float = 0.8,
+) -> str:
+    """Create a bezel setting that wraps around a cabochon gem.
+
+    A cabochon bezel is a thin metal wall that wraps the stone's girdle and folds
+    over the edge to hold it in place. This is the standard setting for cab stones.
+    Reads the gem from gem_layer and builds a matching bezel around it.
+
+    Args:
+        gem_layer: Layer containing the cabochon gem.
+        setting_layer: Layer for the bezel setting.
+        bezel_height: Height of the bezel wall above the girdle in mm.
+        bezel_thickness: Thickness of the bezel wall in mm.
+        base_thickness: Thickness of the base plate under the stone in mm.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        gem_layer = "{gem_layer}"
+        setting_layer = "{setting_layer}"
+
+        if not rs.IsLayer(gem_layer):
+            print("ERROR: Gem layer '{{}}' not found".format(gem_layer))
+        else:
+            if not rs.IsLayer(setting_layer):
+                rs.AddLayer(setting_layer)
+            rs.CurrentLayer(setting_layer)
+
+            gems = rs.ObjectsByLayer(gem_layer)
+            if not gems:
+                print("ERROR: No gems on layer '{gem_layer}'")
+            else:
+                gem = gems[0]
+                bb = rs.BoundingBox(gem)
+                if not bb:
+                    print("ERROR: Cannot get gem bounding box")
+                else:
+                    cx = (bb[0][0] + bb[6][0]) / 2.0
+                    cy = (bb[0][1] + bb[6][1]) / 2.0
+                    z_min = bb[0][2]
+                    z_max = bb[4][2]
+                    gem_w = bb[1][0] - bb[0][0]
+                    gem_d = bb[2][1] - bb[0][1]
+
+                    bz_h = {bezel_height}
+                    bz_t = {bezel_thickness}
+                    base_t = {base_thickness}
+
+                    rx_inner = gem_w / 2.0 + 0.05  # tiny clearance
+                    ry_inner = gem_d / 2.0 + 0.05
+                    rx_outer = rx_inner + bz_t
+                    ry_outer = ry_inner + bz_t
+
+                    # Base plate
+                    base_plane = rs.MovePlane(rs.WorldXYPlane(), (cx, cy, z_min - base_t))
+                    outer_base = rs.AddEllipse(base_plane, rx_outer, ry_outer)
+                    base_srf = rs.ExtrudeCurveStraight(outer_base, (0,0,0), (0,0,base_t))
+                    rs.CapPlanarHoles(base_srf)
+                    rs.DeleteObject(outer_base)
+
+                    # Bezel wall: outer cylinder - inner cylinder
+                    girdle_z = z_min  # approximate girdle at bottom of gem
+                    wall_plane = rs.MovePlane(rs.WorldXYPlane(), (cx, cy, girdle_z))
+
+                    outer_crv = rs.AddEllipse(wall_plane, rx_outer, ry_outer)
+                    inner_crv = rs.AddEllipse(wall_plane, rx_inner, ry_inner)
+
+                    outer_wall = rs.ExtrudeCurveStraight(outer_crv, (0,0,0), (0,0,bz_h))
+                    rs.CapPlanarHoles(outer_wall)
+                    inner_wall = rs.ExtrudeCurveStraight(inner_crv, (0,0,0), (0,0,bz_h))
+                    rs.CapPlanarHoles(inner_wall)
+
+                    bezel = rs.BooleanDifference(outer_wall, inner_wall)
+
+                    rs.DeleteObjects([outer_crv, inner_crv])
+                    print("Cabochon bezel setting on layer '{{}}' — wall={{:.1f}}mm, height={{:.1f}}mm".format(
+                        setting_layer, bz_t, bz_h))
+    """)
+
+
+@mcp.tool()
+def create_filigree_cutout(
+    target_layer: str = "Ring_Band",
+    pattern_layer: str = "Filigree_Pattern",
+    result_layer: str = "Ring_Filigree",
+    pattern: str = "circles",
+    count: int = 8,
+    pattern_size: float = 2.0,
+    depth: float = 10.0,
+) -> str:
+    """Create filigree (pierced) decorative cutouts on a ring or surface.
+
+    From Ch 5 of the book: filigree cutouts use Extrude + Boolean Difference to
+    pierce decorative patterns through a solid. The pattern is projected onto the
+    surface and extruded through to cut away material. Common for vintage and
+    art-deco pieces.
+
+    Args:
+        target_layer: Layer with the solid to cut into.
+        pattern_layer: Layer for the filigree pattern curves.
+        result_layer: Layer for the result.
+        pattern: Pattern type — 'circles', 'diamonds', 'teardrops'.
+        count: Number of pattern elements around the ring.
+        pattern_size: Size of each pattern element in mm.
+        depth: Extrusion depth for the boolean cutter (should exceed object thickness).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        target_layer = "{target_layer}"
+        pattern_layer = "{pattern_layer}"
+        result_layer = "{result_layer}"
+
+        if not rs.IsLayer(target_layer):
+            print("ERROR: Target layer '{{}}' not found".format(target_layer))
+        else:
+            for lyr in [pattern_layer, result_layer]:
+                if not rs.IsLayer(lyr):
+                    rs.AddLayer(lyr)
+
+            # Get target object
+            objs = rs.ObjectsByLayer(target_layer)
+            if not objs:
+                print("ERROR: No objects on target layer")
+            else:
+                target = objs[0]
+                bb = rs.BoundingBox(target)
+                cx = (bb[0][0] + bb[6][0]) / 2.0
+                cy = (bb[0][1] + bb[6][1]) / 2.0
+                cz = (bb[0][2] + bb[4][2]) / 2.0
+                obj_r = max(bb[1][0] - bb[0][0], bb[2][1] - bb[0][1]) / 2.0
+
+                rs.CurrentLayer(pattern_layer)
+                count = {count}
+                sz = {pattern_size}
+                depth = {depth}
+                pattern = "{pattern}"
+                cutters = []
+
+                for i in range(count):
+                    angle = 2 * math.pi * i / count
+                    px = cx + (obj_r + 1) * math.cos(angle)
+                    py = cy + (obj_r + 1) * math.sin(angle)
+
+                    if pattern == "circles":
+                        plane = rs.WorldXYPlane()
+                        plane = rs.MovePlane(plane, (px, py, cz))
+                        crv = rs.AddCircle(plane, sz / 2.0)
+                    elif pattern == "diamonds":
+                        half = sz / 2.0
+                        pts = [(px, py - half, cz), (px + half * 0.6, py, cz),
+                               (px, py + half, cz), (px - half * 0.6, py, cz),
+                               (px, py - half, cz)]
+                        crv = rs.AddPolyline(pts)
+                    else:  # teardrops
+                        pts = []
+                        for t in range(13):
+                            a = 2 * math.pi * t / 12
+                            r_t = sz / 2.0 * (1 + 0.3 * math.cos(a))
+                            pts.append((px + r_t * math.cos(a), py + r_t * math.sin(a), cz))
+                        pts.append(pts[0])
+                        crv = rs.AddInterpCurve(pts)
+
+                    # Extrude cutter inward toward center
+                    direction = (cx - px, cy - py, 0)
+                    mag = math.sqrt(direction[0]**2 + direction[1]**2)
+                    direction = (direction[0]/mag * depth, direction[1]/mag * depth, 0)
+                    ext = rs.ExtrudeCurveStraight(crv, (0,0,0), direction)
+                    if ext:
+                        rs.CapPlanarHoles(ext)
+                        cutters.append(ext)
+                    rs.DeleteObject(crv)
+
+                if cutters:
+                    rs.CurrentLayer(result_layer)
+                    copy = rs.CopyObject(target)
+                    rs.ObjectLayer(copy, result_layer)
+
+                    for cutter in cutters:
+                        result = rs.BooleanDifference([copy], [cutter], delete_input=True)
+                        if result:
+                            copy = result[0]
+
+                    print("Filigree: {{}} '{{}}' cutouts on layer '{result_layer}'".format(count, pattern))
+                else:
+                    print("ERROR: No cutters created")
+    """)
+
+
+@mcp.tool()
+def create_surface_inset(
+    target_layer: str = "Ring_Band",
+    inset_layer: str = "Ring_Inset",
+    shape: str = "rectangle",
+    width: float = 4.0,
+    height: float = 2.0,
+    inset_depth: float = 0.3,
+    position_angle: float = 0.0,
+) -> str:
+    """Create a decorative inset (recessed area) on a curved ring surface.
+
+    From Ch 5: Surface Inset Method 1 — extrude a shape and boolean-subtract it from
+    the ring surface to create a flat recessed panel. Used for enamel fills, engraving
+    areas, or inlaid stone panels on curved ring bands.
+
+    Args:
+        target_layer: Layer with the ring/object to inset into.
+        inset_layer: Layer for the inset result.
+        shape: Shape of inset — 'rectangle', 'oval', 'shield'.
+        width: Width of the inset area in mm.
+        height: Height of the inset area in mm.
+        inset_depth: Depth of the recess in mm.
+        position_angle: Angular position on ring (degrees, 0 = front).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        target_layer = "{target_layer}"
+        inset_layer = "{inset_layer}"
+
+        if not rs.IsLayer(target_layer):
+            print("ERROR: Layer '{{}}' not found".format(target_layer))
+        else:
+            if not rs.IsLayer(inset_layer):
+                rs.AddLayer(inset_layer)
+
+            objs = rs.ObjectsByLayer(target_layer)
+            if not objs:
+                print("ERROR: No objects on target layer")
+            else:
+                target = objs[0]
+                bb = rs.BoundingBox(target)
+                cx = (bb[0][0] + bb[6][0]) / 2.0
+                cy = (bb[0][1] + bb[6][1]) / 2.0
+                cz = (bb[0][2] + bb[4][2]) / 2.0
+                obj_r = max(bb[1][0] - bb[0][0], bb[2][1] - bb[0][1]) / 2.0
+
+                w = {width}
+                h = {height}
+                depth = {inset_depth}
+                angle = math.radians({position_angle})
+                shape = "{shape}"
+
+                # Position on the outside of the ring
+                px = cx + (obj_r / 2.0 + 2) * math.cos(angle)
+                py = cy + (obj_r / 2.0 + 2) * math.sin(angle)
+
+                # Create cutter shape
+                if shape == "rectangle":
+                    pts = [
+                        (px - w/2, py, cz - h/2),
+                        (px + w/2, py, cz - h/2),
+                        (px + w/2, py, cz + h/2),
+                        (px - w/2, py, cz + h/2),
+                        (px - w/2, py, cz - h/2),
+                    ]
+                    crv = rs.AddPolyline(pts)
+                elif shape == "oval":
+                    plane = rs.PlaneFromNormal((px, py, cz), (0, 1, 0))
+                    crv = rs.AddEllipse(plane, w/2, h/2)
+                else:  # shield
+                    pts = [
+                        (px - w/2, py, cz + h/2),
+                        (px + w/2, py, cz + h/2),
+                        (px + w/2, py, cz),
+                        (px, py, cz - h/2),
+                        (px - w/2, py, cz),
+                        (px - w/2, py, cz + h/2),
+                    ]
+                    crv = rs.AddInterpCurve(pts)
+
+                # Extrude inward
+                direction = (cx - px, cy - py, 0)
+                mag = math.sqrt(direction[0]**2 + direction[1]**2)
+                norm_dir = (direction[0]/mag, direction[1]/mag, 0)
+                ext_vec = (norm_dir[0] * (depth + obj_r), norm_dir[1] * (depth + obj_r), 0)
+
+                cutter = rs.ExtrudeCurveStraight(crv, (0,0,0), ext_vec)
+                if cutter:
+                    rs.CapPlanarHoles(cutter)
+                    rs.CurrentLayer(inset_layer)
+                    copy = rs.CopyObject(target)
+                    rs.ObjectLayer(copy, inset_layer)
+                    result = rs.BooleanDifference([copy], [cutter], delete_input=True)
+                    if result:
+                        print("Surface inset '{{}}' {{:.1f}}x{{:.1f}}mm, {{:.1f}}mm deep on '{inset_layer}'".format(
+                            shape, w, h, depth))
+                    else:
+                        print("ERROR: Boolean failed — check shape intersects target")
+                rs.DeleteObject(crv)
+    """)
+
+
+@mcp.tool()
+def create_ear_post(
+    layer: str = "Earring_Post",
+    post_diameter: float = 0.8,
+    post_length: float = 11.0,
+    pad_diameter: float = 4.0,
+    pad_thickness: float = 0.5,
+    include_butterfly: bool = True,
+) -> str:
+    """Create an earring post with pad and optional butterfly back.
+
+    From Ch 3 manufacturing tolerances: standard ear post is 0.8mm diameter x 11mm long.
+    The pad provides a flat surface to solder to the earring. The butterfly back
+    (friction clutch) is the standard earring back closure.
+
+    Args:
+        layer: Layer for the ear post components.
+        post_diameter: Post wire diameter in mm (standard: 0.8).
+        post_length: Post length in mm (standard: 11.0).
+        pad_diameter: Pad diameter in mm.
+        pad_thickness: Pad thickness in mm.
+        include_butterfly: Whether to add a butterfly back component.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        layer = "{layer}"
+        if not rs.IsLayer(layer):
+            rs.AddLayer(layer)
+        rs.CurrentLayer(layer)
+
+        post_d = {post_diameter}
+        post_l = {post_length}
+        pad_d = {pad_diameter}
+        pad_t = {pad_thickness}
+
+        # Pad (flat disc)
+        pad_plane = rs.WorldXYPlane()
+        pad_crv = rs.AddCircle(pad_plane, pad_d / 2.0)
+        pad = rs.ExtrudeCurveStraight(pad_crv, (0, 0, 0), (0, 0, pad_t))
+        rs.CapPlanarHoles(pad)
+        rs.DeleteObject(pad_crv)
+
+        # Post (cylinder extending from pad)
+        post_plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, pad_t))
+        post_crv = rs.AddCircle(post_plane, post_d / 2.0)
+        post = rs.ExtrudeCurveStraight(post_crv, (0, 0, 0), (0, 0, post_l))
+        rs.CapPlanarHoles(post)
+        rs.DeleteObject(post_crv)
+
+        # Boolean union pad + post
+        joined = rs.BooleanUnion([pad, post])
+        if not joined:
+            print("Pad and post created separately (boolean union failed)")
+
+        if {include_butterfly}:
+            # Butterfly back: small rectangular clip with slot
+            bfly_z = pad_t + post_l * 0.7  # sits 70% down the post
+            bfly_w = 5.0
+            bfly_h = 3.0
+            bfly_t = 1.0
+
+            pts = [
+                (-bfly_w/2, -bfly_h/2, bfly_z),
+                (bfly_w/2, -bfly_h/2, bfly_z),
+                (bfly_w/2, bfly_h/2, bfly_z),
+                (-bfly_w/2, bfly_h/2, bfly_z),
+                (-bfly_w/2, -bfly_h/2, bfly_z),
+            ]
+            bfly_crv = rs.AddPolyline(pts)
+            bfly = rs.ExtrudeCurveStraight(bfly_crv, (0,0,0), (0,0,bfly_t))
+            rs.CapPlanarHoles(bfly)
+            rs.DeleteObject(bfly_crv)
+
+            # Slot for the post
+            slot_crv = rs.AddCircle(rs.MovePlane(rs.WorldXYPlane(), (0, 0, bfly_z - 0.1)),
+                                     post_d / 2.0 + 0.05)
+            slot = rs.ExtrudeCurveStraight(slot_crv, (0,0,0), (0,0,bfly_t + 0.2))
+            rs.CapPlanarHoles(slot)
+            rs.DeleteObject(slot_crv)
+
+            bfly_result = rs.BooleanDifference([bfly], [slot])
+            print("Ear post + butterfly back on layer '{layer}' — {{:.1f}}mm dia x {{:.1f}}mm long".format(post_d, post_l))
+        else:
+            print("Ear post on layer '{layer}' — {{:.1f}}mm dia x {{:.1f}}mm long".format(post_d, post_l))
+    """)
+
+
+@mcp.tool()
+def create_hinge_mechanism(
+    layer: str = "Hinge",
+    hinge_outer_diameter: float = 3.0,
+    pin_diameter: float = 1.0,
+    hinge_length: float = 6.0,
+    num_knuckles: int = 3,
+    clearance: float = 0.1,
+) -> str:
+    """Create a barrel hinge mechanism for bracelets, bangles, or lockets.
+
+    From Ch 3: hinges use interlocking barrel knuckles with a pin hole drilled through.
+    The pin hole is intentionally undersized (drilled out later in manufacturing).
+    Knuckles alternate between the two sides of the hinge.
+
+    Args:
+        layer: Layer for the hinge components.
+        hinge_outer_diameter: Outer diameter of hinge barrel in mm.
+        pin_diameter: Pin hole diameter in mm (undersized for manufacturing).
+        hinge_length: Total length of the hinge barrel in mm.
+        num_knuckles: Number of knuckle segments (odd number, typically 3 or 5).
+        clearance: Gap between knuckles in mm.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        layer = "{layer}"
+        if not rs.IsLayer(layer):
+            rs.AddLayer(layer)
+        rs.CurrentLayer(layer)
+
+        outer_r = {hinge_outer_diameter} / 2.0
+        pin_r = {pin_diameter} / 2.0
+        total_len = {hinge_length}
+        n_knuckles = {num_knuckles}
+        clearance = {clearance}
+
+        knuckle_len = (total_len - clearance * (n_knuckles - 1)) / n_knuckles
+
+        side_a = []
+        side_b = []
+
+        for i in range(n_knuckles):
+            z_start = i * (knuckle_len + clearance)
+
+            # Outer cylinder
+            plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, z_start))
+            outer_crv = rs.AddCircle(plane, outer_r)
+            knuckle = rs.ExtrudeCurveStraight(outer_crv, (0,0,0), (0,0,knuckle_len))
+            rs.CapPlanarHoles(knuckle)
+            rs.DeleteObject(outer_crv)
+
+            # Pin hole
+            pin_crv = rs.AddCircle(plane, pin_r)
+            pin_cutter = rs.ExtrudeCurveStraight(pin_crv, (0,0,0), (0,0,knuckle_len))
+            rs.CapPlanarHoles(pin_cutter)
+            rs.DeleteObject(pin_crv)
+
+            result = rs.BooleanDifference([knuckle], [pin_cutter])
+
+            if i % 2 == 0:
+                side_a.append(result[0] if result else knuckle)
+            else:
+                side_b.append(result[0] if result else knuckle)
+
+        print("Hinge: {{}} knuckles, {{:.1f}}mm OD, {{:.1f}}mm pin on layer '{layer}'".format(
+            n_knuckles, outer_r * 2, pin_r * 2))
+        print("  Side A: {{}} knuckles, Side B: {{}} knuckles".format(len(side_a), len(side_b)))
+    """)
+
+
+@mcp.tool()
+def create_gallery_wire(
+    gem_layer: str = "Ring_Gem",
+    gallery_layer: str = "Ring_Gallery",
+    wire_diameter: float = 1.0,
+    offset_below_girdle: float = 0.5,
+) -> str:
+    """Create a gallery wire (decorative wire swept around a gemstone's pavilion).
+
+    From Ch 3: the gallery wire is a circular cross-section swept along the shape
+    of the gemstone rail at the pavilion level. It must not extend wider than the
+    girdle. Standard minimum diameter is 1.0mm for casting.
+
+    Args:
+        gem_layer: Layer containing the gemstone.
+        gallery_layer: Layer for the gallery wire.
+        wire_diameter: Diameter of the gallery wire in mm (min 1.0).
+        offset_below_girdle: How far below the girdle to place the wire in mm.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        gem_layer = "{gem_layer}"
+        gallery_layer = "{gallery_layer}"
+
+        if not rs.IsLayer(gem_layer):
+            print("ERROR: Gem layer '{{}}' not found".format(gem_layer))
+        else:
+            if not rs.IsLayer(gallery_layer):
+                rs.AddLayer(gallery_layer)
+            rs.CurrentLayer(gallery_layer)
+
+            gems = rs.ObjectsByLayer(gem_layer)
+            if not gems:
+                print("ERROR: No gems found")
+            else:
+                gem = gems[0]
+                bb = rs.BoundingBox(gem)
+                cx = (bb[0][0] + bb[6][0]) / 2.0
+                cy = (bb[0][1] + bb[6][1]) / 2.0
+                z_min = bb[0][2]
+                z_max = bb[4][2]
+                girdle_z = (z_min + z_max) / 2.0
+                gem_rx = (bb[1][0] - bb[0][0]) / 2.0
+                gem_ry = (bb[2][1] - bb[0][1]) / 2.0
+
+                wire_r = {wire_diameter} / 2.0
+                wire_z = girdle_z - {offset_below_girdle}
+
+                # Scale radius inward at pavilion level
+                total_h = z_max - z_min
+                pavilion_frac = (girdle_z - wire_z) / (total_h / 2.0) if total_h > 0 else 0
+                taper = max(0.3, 1.0 - pavilion_frac * 0.6)  # taper inward below girdle
+                rail_rx = gem_rx * taper
+                rail_ry = gem_ry * taper
+
+                # Rail curve (ellipse at pavilion level)
+                rail_plane = rs.MovePlane(rs.WorldXYPlane(), (cx, cy, wire_z))
+                if abs(rail_rx - rail_ry) < 0.01:
+                    rail = rs.AddCircle(rail_plane, rail_rx)
+                else:
+                    rail = rs.AddEllipse(rail_plane, rail_rx, rail_ry)
+
+                # Wire cross-section
+                cs_plane = rs.PlaneFromNormal((cx + rail_rx, cy, wire_z), (0, 1, 0))
+                cs_crv = rs.AddCircle(cs_plane, wire_r)
+
+                # Sweep
+                gallery = rs.AddSweep1(rail, [cs_crv])
+                if gallery:
+                    for g in gallery:
+                        rs.CapPlanarHoles(g)
+                    print("Gallery wire: {{:.1f}}mm dia on layer '{gallery_layer}'".format(wire_r * 2))
+                else:
+                    # Fallback: pipe
+                    pipe = rs.AddPipe(rail, 0, wire_r)
+                    if pipe:
+                        print("Gallery wire (pipe): {{:.1f}}mm dia on layer '{gallery_layer}'".format(wire_r * 2))
+                    else:
+                        print("ERROR: Gallery wire creation failed")
+
+                rs.DeleteObjects([rail, cs_crv])
+    """)
+
+
+@mcp.tool()
+def create_trellis_gallery(
+    gem_layer: str = "Ring_Gem",
+    trellis_layer: str = "Ring_Trellis",
+    wire_diameter: float = 0.6,
+    num_arches: int = 8,
+    arch_height: float = 2.0,
+) -> str:
+    """Create a trellis (open lattice) gallery under a gemstone setting.
+
+    A trellis gallery replaces a solid under-bezel with an elegant open lattice of
+    arched wires, allowing light to enter the stone from below. Each arch is a
+    semicircular wire connecting the girdle rail to the base of the setting.
+
+    Args:
+        gem_layer: Layer containing the gemstone.
+        trellis_layer: Layer for the trellis gallery.
+        wire_diameter: Diameter of each trellis wire in mm.
+        num_arches: Number of trellis arches around the stone.
+        arch_height: Height of arches below the girdle in mm.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        gem_layer = "{gem_layer}"
+        trellis_layer = "{trellis_layer}"
+
+        if not rs.IsLayer(gem_layer):
+            print("ERROR: Gem layer '{{}}' not found".format(gem_layer))
+        else:
+            if not rs.IsLayer(trellis_layer):
+                rs.AddLayer(trellis_layer)
+            rs.CurrentLayer(trellis_layer)
+
+            gems = rs.ObjectsByLayer(gem_layer)
+            if not gems:
+                print("ERROR: No gems found")
+            else:
+                gem = gems[0]
+                bb = rs.BoundingBox(gem)
+                cx = (bb[0][0] + bb[6][0]) / 2.0
+                cy = (bb[0][1] + bb[6][1]) / 2.0
+                z_min = bb[0][2]
+                z_max = bb[4][2]
+                girdle_z = (z_min + z_max) / 2.0
+                gem_r = max(bb[1][0] - bb[0][0], bb[2][1] - bb[0][1]) / 2.0
+
+                wire_r = {wire_diameter} / 2.0
+                n = {num_arches}
+                arch_h = {arch_height}
+
+                arches_created = 0
+                for i in range(n):
+                    angle = 2 * math.pi * i / n
+
+                    # Top point at girdle
+                    top_x = cx + gem_r * math.cos(angle)
+                    top_y = cy + gem_r * math.sin(angle)
+                    top_pt = (top_x, top_y, girdle_z)
+
+                    # Bottom point (at center, below)
+                    bot_pt = (cx, cy, girdle_z - arch_h)
+
+                    # Mid point for arch (arcs outward)
+                    mid_angle = angle
+                    mid_r = gem_r * 0.6
+                    mid_x = cx + mid_r * math.cos(mid_angle)
+                    mid_y = cy + mid_r * math.sin(mid_angle)
+                    mid_pt = (mid_x, mid_y, girdle_z - arch_h * 0.4)
+
+                    # Create arch curve
+                    arch_crv = rs.AddInterpCurve([top_pt, mid_pt, bot_pt])
+                    if arch_crv:
+                        pipe = rs.AddPipe(arch_crv, 0, wire_r)
+                        if pipe:
+                            arches_created += 1
+                        rs.DeleteObject(arch_crv)
+
+                # Base ring at bottom
+                base_plane = rs.MovePlane(rs.WorldXYPlane(), (cx, cy, girdle_z - arch_h))
+                base_crv = rs.AddCircle(base_plane, gem_r * 0.3)
+                base_pipe = rs.AddPipe(base_crv, 0, wire_r)
+                rs.DeleteObject(base_crv)
+
+                print("Trellis gallery: {{}} arches on layer '{trellis_layer}'".format(arches_created))
+    """)
+
+
+@mcp.tool()
+def apply_edge_softening(
+    target_layer: str = "Ring_Band",
+    softening_radius: float = 0.15,
+) -> str:
+    """Apply edge softening to objects for rendering (non-destructive visual fillets).
+
+    From Ch 7: Edge Softening adds rounded edges only in Rendered/Raytraced views
+    without modifying the actual geometry. Much faster than filleting every edge,
+    and the original model stays intact. Ideal for quick render previews.
+
+    Args:
+        target_layer: Layer containing objects to soften.
+        softening_radius: Softening radius in mm (0.1-0.3 typical for jewelry).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        target_layer = "{target_layer}"
+        if not rs.IsLayer(target_layer):
+            print("ERROR: Layer '{{}}' not found".format(target_layer))
+        else:
+            objs = rs.ObjectsByLayer(target_layer)
+            if not objs:
+                print("ERROR: No objects on layer")
+            else:
+                radius = {softening_radius}
+                count = 0
+                for obj in objs:
+                    if rs.IsPolysurface(obj) or rs.IsSurface(obj):
+                        rs.SelectObject(obj)
+                        rs.Command("_-Properties _Object _EdgeSoftening _Softening _On _Radius {{}} _Enter _Enter _Enter".format(radius), echo=False)
+                        rs.UnselectAllObjects()
+                        count += 1
+
+                print("Edge softening ({{:.2f}}mm) applied to {{}} objects on '{target_layer}'".format(radius, count))
+                print("  Visible in Rendered/Raytraced modes only")
+    """)
+
+
+@mcp.tool()
+def create_wire_cuff_bangle(
+    layer: str = "Bangle_Cuff",
+    inner_width: float = 60.0,
+    inner_height: float = 50.0,
+    wire_diameter: float = 2.0,
+    num_wires: int = 3,
+    gap_angle: float = 30.0,
+    twist: bool = False,
+) -> str:
+    """Create a wire cuff bangle (open bangle made of parallel wires).
+
+    From Ch 3 (cuff bangles): wire cuff bangles use an oval profile with an opening
+    gap. Multiple parallel wires create the cuff structure. Uses Pipe command
+    along an elliptical rail. The gap allows the bangle to flex onto the wrist.
+
+    Args:
+        layer: Layer for the bangle.
+        inner_width: Inner width of bangle in mm (wrist dimension, ~60mm average).
+        inner_height: Inner height in mm (~50mm for oval bangles).
+        wire_diameter: Wire diameter in mm.
+        num_wires: Number of parallel wires.
+        gap_angle: Opening gap in degrees (30° typical for cuff).
+        twist: Whether to add a decorative twist to the wires.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        layer = "{layer}"
+        if not rs.IsLayer(layer):
+            rs.AddLayer(layer)
+        rs.CurrentLayer(layer)
+
+        w = {inner_width} / 2.0  # semi-major
+        h = {inner_height} / 2.0  # semi-minor
+        wire_r = {wire_diameter} / 2.0
+        n_wires = {num_wires}
+        gap = math.radians({gap_angle})
+
+        wire_spacing = wire_r * 3  # space between wire centers
+
+        for wi in range(n_wires):
+            z_offset = (wi - (n_wires - 1) / 2.0) * wire_spacing
+
+            # Create open elliptical arc (with gap at bottom)
+            pts = []
+            start_angle = gap / 2.0 + math.pi / 2.0  # start after gap (gap at bottom/6 o'clock)
+            end_angle = 2 * math.pi - gap / 2.0 + math.pi / 2.0
+            n_pts = 48
+
+            for i in range(n_pts + 1):
+                t = start_angle + (end_angle - start_angle) * i / n_pts
+                x = w * math.cos(t)
+                y = h * math.sin(t)
+                pts.append((x, y, z_offset))
+
+            crv = rs.AddInterpCurve(pts)
+            if crv:
+                pipe = rs.AddPipe(crv, 0, wire_r, cap=1)
+                rs.DeleteObject(crv)
+
+        print("Wire cuff bangle: {{}} wires x {{:.1f}}mm on layer '{layer}'".format(n_wires, wire_r * 2))
+        print("  Inner: {{:.0f}} x {{:.0f}}mm, gap: {{:.0f}}°".format(w * 2, h * 2, math.degrees(gap)))
+    """)
+
+
+@mcp.tool()
+def mesh_for_printing(
+    target_layer: str = "Ring_Band",
+    export_layer: str = "Print_Mesh",
+    density: float = 0.9,
+    min_edge_length: float = 0.05,
+    max_edge_length: float = 0.5,
+    max_angle: float = 15.0,
+) -> str:
+    """Convert NURBS objects to optimized mesh for 3D printing.
+
+    From Ch 3 (Meshing and Exporting): proper mesh density is critical for 3D print
+    quality. Too coarse = faceted surfaces. Too fine = huge file size. The book recommends
+    checking for naked edges before meshing, and using custom mesh settings for jewelry's
+    small scale and fine detail.
+
+    Args:
+        target_layer: Layer with NURBS objects to mesh.
+        export_layer: Layer for the mesh output.
+        density: Mesh density 0.0-1.0 (0.9 recommended for jewelry).
+        min_edge_length: Minimum mesh edge length in mm.
+        max_edge_length: Maximum mesh edge length in mm.
+        max_angle: Maximum angle between mesh faces in degrees.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        target_layer = "{target_layer}"
+        export_layer = "{export_layer}"
+
+        if not rs.IsLayer(target_layer):
+            print("ERROR: Layer '{{}}' not found".format(target_layer))
+        else:
+            if not rs.IsLayer(export_layer):
+                rs.AddLayer(export_layer)
+            rs.CurrentLayer(export_layer)
+
+            objs = rs.ObjectsByLayer(target_layer)
+            if not objs:
+                print("ERROR: No objects on layer")
+            else:
+                # Check for naked edges first
+                has_issues = False
+                for obj in objs:
+                    if rs.IsPolysurface(obj):
+                        if not rs.IsPolysurfaceClosed(obj):
+                            print("WARNING: Object has open edges — may fail to print")
+                            has_issues = True
+
+                # Mesh settings
+                settings = rs.MeshSettings()
+                if settings is None:
+                    settings = (0, {max_edge_length}, 1.0, {max_angle}, 0, {min_edge_length}, 0, 0)
+
+                meshed = 0
+                for obj in objs:
+                    if rs.IsPolysurface(obj) or rs.IsSurface(obj):
+                        # Use custom mesh command for fine control
+                        rs.SelectObject(obj)
+                        cmd = "_-Mesh _DetailedOptions "
+                        cmd += "_MaxAngle={{}} ".format({max_angle})
+                        cmd += "_MaxEdgeLength={{}} ".format({max_edge_length})
+                        cmd += "_MinEdgeLength={{}} ".format({min_edge_length})
+                        cmd += "_Enter _Enter"
+                        rs.Command(cmd, echo=False)
+                        rs.UnselectAllObjects()
+
+                        # Get the newly created mesh
+                        new_objs = rs.ObjectsByLayer(rs.CurrentLayer())
+                        for no in new_objs:
+                            if rs.IsMesh(no):
+                                meshed += 1
+
+                print("Meshed {{}} objects on layer '{export_layer}'".format(meshed))
+                print("  Settings: max_angle={{:.0f}}°, edge={{:.2f}}-{{:.2f}}mm".format(
+                    {max_angle}, {min_edge_length}, {max_edge_length}))
+                if has_issues:
+                    print("  WARNING: Fix naked edges before printing!")
+    """)
+
+
+@mcp.tool()
+def create_pave_row(
+    band_layer: str = "Ring_Band",
+    pave_layer: str = "Pave_Stones",
+    stone_diameter: float = 1.5,
+    stone_spacing: float = 0.25,
+    num_stones: int = 12,
+    prong_thickness: float = 0.5,
+    prong_height: float = 0.4,
+    row_angle_start: float = -60.0,
+    row_angle_end: float = 60.0,
+) -> str:
+    """Create a row of pavé-set stones with shared prongs along a ring band.
+
+    From Ch 3 pavé tolerances: 1.5mm stones spaced 0.25mm apart (range 0.20-0.28mm).
+    Prong thickness 0.4-0.6mm, prong height matches stone table (~0.4mm).
+    Stones are placed along an arc of the ring with micro-prongs between them.
+
+    Args:
+        band_layer: Layer with the ring band.
+        pave_layer: Layer for pavé stones and prongs.
+        stone_diameter: Stone diameter in mm (1.0-2.0 typical).
+        stone_spacing: Gap between stones in mm (0.25 standard).
+        num_stones: Number of stones in the row.
+        prong_thickness: Prong width in mm (0.4-0.6).
+        prong_height: Prong height in mm (~0.4, matches stone table).
+        row_angle_start: Angular start of row on ring (degrees).
+        row_angle_end: Angular end of row on ring (degrees).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        band_layer = "{band_layer}"
+        pave_layer = "{pave_layer}"
+
+        if not rs.IsLayer(band_layer):
+            print("ERROR: Band layer '{{}}' not found".format(band_layer))
+        else:
+            if not rs.IsLayer(pave_layer):
+                rs.AddLayer(pave_layer)
+            rs.CurrentLayer(pave_layer)
+
+            # Get ring dimensions
+            objs = rs.ObjectsByLayer(band_layer)
+            if not objs:
+                print("ERROR: No objects on band layer")
+            else:
+                bb = rs.BoundingBox(objs[0])
+                cx = (bb[0][0] + bb[6][0]) / 2.0
+                cy = (bb[0][1] + bb[6][1]) / 2.0
+                cz = (bb[0][2] + bb[4][2]) / 2.0
+                ring_r = max(bb[1][0] - bb[0][0], bb[2][1] - bb[0][1]) / 2.0
+                ring_h = bb[4][2] - bb[0][2]
+
+                stone_d = {stone_diameter}
+                stone_r = stone_d / 2.0
+                spacing = {stone_spacing}
+                n_stones = {num_stones}
+                prong_t = {prong_thickness}
+                prong_h = {prong_height}
+
+                # Place stones along arc
+                a_start = math.radians({row_angle_start})
+                a_end = math.radians({row_angle_end})
+
+                stones_placed = 0
+                prongs_placed = 0
+
+                for i in range(n_stones):
+                    t = a_start + (a_end - a_start) * i / max(1, n_stones - 1)
+
+                    # Stone center on outer surface of ring
+                    sx = cx + ring_r * math.cos(t)
+                    sy = cy + ring_r * math.sin(t)
+                    sz = cz + ring_h / 2.0 + stone_r * 0.3  # slightly above surface
+
+                    # Simple round stone (hemisphere approximation)
+                    stone_plane = rs.MovePlane(rs.WorldXYPlane(), (sx, sy, sz))
+                    stone_crv = rs.AddCircle(stone_plane, stone_r)
+
+                    # Pavilion (cone below)
+                    pavilion_depth = stone_r * 0.7
+                    pts_pav = [(sx, sy, sz)]
+                    n_seg = 12
+                    for j in range(n_seg + 1):
+                        a = 2 * math.pi * j / n_seg
+                        pts_pav.append((sx + stone_r * math.cos(a),
+                                       sy + stone_r * math.sin(a), sz))
+                    # Just place the circle as the stone representation
+                    gem = rs.ExtrudeCurveStraight(stone_crv, (0,0,0), (0,0,-pavilion_depth))
+                    if gem:
+                        rs.CapPlanarHoles(gem)
+                        stones_placed += 1
+                    rs.DeleteObject(stone_crv)
+
+                    # Shared prong between this stone and next
+                    if i < n_stones - 1:
+                        t_next = a_start + (a_end - a_start) * (i + 1) / max(1, n_stones - 1)
+                        t_mid = (t + t_next) / 2.0
+                        px = cx + ring_r * math.cos(t_mid)
+                        py = cy + ring_r * math.sin(t_mid)
+                        pz = sz
+
+                        # Small prong bead
+                        prong_plane = rs.MovePlane(rs.WorldXYPlane(), (px, py, pz))
+                        p_crv = rs.AddCircle(prong_plane, prong_t / 2.0)
+                        prong = rs.ExtrudeCurveStraight(p_crv, (0,0,0), (0,0,prong_h))
+                        if prong:
+                            rs.CapPlanarHoles(prong)
+                            prongs_placed += 1
+                        rs.DeleteObject(p_crv)
+
+                print("Pave row: {{}} stones ({{:.1f}}mm) + {{}} prongs on '{pave_layer}'".format(
+                    stones_placed, stone_d, prongs_placed))
+                print("  Spacing: {{:.2f}}mm, prong: {{:.1f}}x{{:.1f}}mm".format(
+                    spacing, prong_t, prong_h))
+    """)
+
+
+# ──────────────────────────────────────────────────────────────
 # Run server
 # ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":

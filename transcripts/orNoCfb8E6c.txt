@@ -1,0 +1,522 @@
+[Music]
+a lot
+a lot more trick and tips in my
+actually pipe it uh one thing you can do
+after that you can put the jump ring and
+all of them down and the distance i want
+all of this might be casting in one
+all right and let's bring back to the
+all right and make sure that they fit it
+all right double check if
+all right so 32 look nice for the share
+all right so how do we do the bottom one
+all right so it looked nice over there
+all right so now this is my prong and
+all right so now we get it really close
+all right so now we have all the part
+all right so now we have the stone there
+all right so now we have this one let's
+all right so then we are going to design
+all we need to do is coming into the
+alright so if we take a look on the
+also talk about the
+and 3
+and again i'm going to coming over here
+and again you want to make sure it's
+and all of the rest of them will cast in
+and also maybe enlarge this one and if
+and change to other color as well so
+and coming into inside something look
+and double make sure that you wanted to
+and i will get something like this
+and i would like to have a shared prong
+and i'm going to hit 0 as my
+and i'm going to stay like this i'm
+and if it is
+and if you don't like the the shape
+and if you wanted to
+and let's click ok all right so now we
+and let's click on this edge inside so
+and let's do the bowling union there so
+and let's go ahead to use exactly the
+and let's pipe it not something like a
+and let's try here here here and here
+and let's try something a little bit big
+and let's try the polar array
+and make sure it's touching on the both
+and of course you see the stone and
+and see if the prong size look alright i
+and so that will be the surface for our
+and so then you will get this surface
+and somewhere about 2 millimeter
+and the reason it's not flat is because
+and then we are going to use the pipe
+and we also want to cut it this taper so
+and we also wanted to trim it so i'm
+and we are going to
+and we are going to pick up the same
+and we are going to use the command it's
+and we are going to use the polar array
+and we can pick up this surface
+and we can trim it all at once if that
+and we want to delete input so now you
+and we want to make a copy over there
+and we want to offset so now it's offset
+and we're going to have six of them and
+and you can consider to make this
+and you can pick up the surface and you
+and you can using your mouse to tell
+and you want to taper it down for
+any of the prong is not in the right
+anywhere that you can see you want to
+are going to pick up both of them
+arrange my stone but i do want them to
+arrangement so that's now making prong
+array
+as well
+as well so it's easier for you to see
+automatically calculate it
+basically a lot of time i do not want
+be
+be my stone
+beautiful surface and we're going to use
+because
+because the stone never coming into
+before we
+before you actually make them so you
+below okay so we want to make the c for
+better um but it's up to you for what
+bigger it's because we're gonna do the
+bigger so here's what i'm going to do
+bigger so that filling the space much
+bigger whichever that fit into your
+but it's really up to you for how long
+but it's up to you for what you'd like
+but kind of notice that it's extruded
+but since we are going to fill it let's
+cage there
+called fitted corners
+can extrude it if you don't like this
+can have
+case i want them to be just a little bit
+case i'm just gonna quickly
+center and i want to have six of them
+close to the surface there and also want
+cluster setting
+cluster setting and b
+coming into the front view
+coming into the transform array a long
+coming just a little bit over the uh
+coming over to be something like this
+coming to the top we can scale it down
+command
+command let's go ahead to pipe it
+curve
+curve and the same number for 32
+curve into other objects so i can turn
+curve is flat so let me create another
+curve on the object
+cutting
+delete this one did it that one okay so
+design
+design a puzzle and that will
+direction
+direction here
+distance
+do is design some sort of a key there so
+double check
+down for whatever the position is going
+down like this and then going to use the
+down something like this okay so
+each of a stone
+equal six of them and i want them to be
+especially outside edges anything like
+every single edges there and i'm gonna
+everybody because i don't know
+everybody we are going to use the pipe
+everything looks all right to you you're
+exact size
+extrude it straight
+extruded
+extrusion so you
+fill it
+fill the edges because when it whenever
+fillet
+first beside
+first you can coming into the solid you
+flat
+for it
+for loft and we're gonna loft from here
+for piping so i'm gonna
+for what do you think it's a proper size
+for what you like to do for them to
+for whatever
+front view
+give it a try we're going to do polar
+go
+go ahead to fill
+going
+going to be trim
+going to do the cluster
+going to draw a big box
+going to move the outer one
+going to turn this surface
+going to use the shear prong
+have a cooler which is the point of the
+have a prong touching the stone
+have extruded surface and then you can
+have this curve
+have to make
+here i want to show you something else
+hit enter and we're going to pick up the
+hope you enjoy let me know what you
+hope you enjoy the video there's
+how many do we need it i don't know i'm
+however
+i mean the design can be um really 3d
+i simply just want to have a bevel h
+i usually don't want to have the stone
+i want to keep it like this first and
+i will suggest you to do one thing is to
+i'm also want to see the side view and
+i'm going to draw a line simply going to
+i'm going to offset this guy
+i'm going to use uh the straight line
+i'm gonna draw a line just holding my
+i'm in looking at this one double make
+i'm just go by aesthetic and see which
+if
+if everything looks okay to you we are
+if i'm moving this one back to here
+if that is what i'm going to have i
+if that look all right to you i'm going
+if they look alright okay so now
+important for polish and that means i
+in between depends on what type of prong
+in my case i'm going to have something
+in my stone setting class but in this
+in my storm setting class but in this
+in rhino are you ready let's get started
+in the inner side of this prong
+in the stone setting you don't want to
+inside of it
+into all snap into the object
+into the angle here but the same angle
+into the solid there are two way to make
+is
+is a little bit bigger
+is actually snapping into the zero
+is going to be this
+is in a reality most of the time you
+is to do rail revolve and we are going
+is you can pick up all your pipe
+it into the solid
+it looks something like this and we want
+it the offset they will just
+it was snapping
+it well
+it won't look nice
+it's a little bit too small then you can
+it's easier for us to see see it is not
+it's easier for you to see
+it's hard for your jewelry to set so
+it's much nicer it's rounded there back
+it's not touching yet all right so we
+it's similar like taper
+it's to rebuild this line to be even
+just create a cylinder underneath it and
+just guessing maybe
+kind of tapered a little bit so i'm
+know how to make this stone i have the
+know your stone size
+layer change that
+let me go ahead to hiding everybody
+let's go ahead to make a prong i'm going
+let's go ahead to pick up
+let's go ahead to pick up all the thing
+let's pick up the stone
+like outside
+like this
+like this so that will be my first uh
+like three here
+like what direction you want them to go
+like what i have here
+line
+link on the right top corner
+little bit
+little bit closer
+little bit or tilt it
+longer if you want to
+look like this is a little bit ugly
+look nice in my song setting class i
+lot of explanation
+make sure that it's not cutting too much
+make sure you have a little bit distance
+make the
+make the center stone a little bit
+making a copy
+manually to move it
+mean
+mean you look huge
+membership program
+might need to adjust the prong at this
+millimeter
+more information about why and there's a
+more than 20 25 then the prong is
+need to make sure it's touching
+next i wanted to do is do the design
+next things i wanted to do is i want to
+nice there uh in this case i
+not following well we're just gonna
+not gonna changing then we're gonna do
+notice that this is a little bit
+now there are so many lines over there
+now we can delete our surface see all
+of a space or something like that
+of this design and how to build them
+of those stone and we are going to using
+off and i'm going to pipe it this one
+offset twice that's once that's
+okay so i'm going to turn it back on
+okay so let's give it a try
+okay so now you can see we have
+on both sides you do not want them to be
+on the side view but if you look at the
+on the top i'm going to do 12 of them
+one in the middle it's for me it's going
+one line there so since we have 32 stone
+one look nice
+one stone every one stone have
+one way to extrude it and um
+only touching on one side
+or less and this is just a guideline for
+or make it lower whichever you think the
+or um you can download there's a link at
+or you're going to have full prong for
+other layer
+other layer and change to other colors
+other piece
+our prong over here to see if that fit
+our surface so it's not get too confused
+part
+path and which is the one in the middle
+pick up all four of them
+piece
+place
+point
+position is going to look nice
+possible but do not want to have the
+pro
+pro i have a
+prong like
+prong size smaller if you want to i
+put it like here and double check
+puzzle this piece and this piece back
+rail
+ready and
+really important part
+really well
+reason
+remember this one and this one
+render you can see
+rendering so we are going to try a small
+rest of it
+rest of the stuff and we want to move it
+right here
+right there and bring down a little bit
+roughly
+roughly about this you can make the
+roughly something like this
+roughly wanting to know what size of my
+same number
+say 0.85 is actually pretty good
+scale
+scale down this stone
+see always lie there and we need to have
+see how that goes with the
+see if it is
+see it's flat
+see you next
+set there i say i'm going to copy this
+setting on the side for this pendant i
+shift and click on this
+side all right
+side okay
+sit
+sit flat with your surface
+smaller
+smaller it's up to you but i like to
+so 0.35 on the radius over there
+so 30 and let's try
+so coming into the curve you have the
+so i might need to make it a little bit
+so i'm going to change the strong into
+so i'm going to do
+so i'm going to move it the stone
+so i'm going to stop there and that will
+so if everything look okay we're going
+so it's evenly out for 18 of them uh you
+so let me grab that and change the layer
+so let me turn on the rest of it let's
+so let's go ahead to try the bevel 4.4
+so let's say maybe 18 of them and see
+so let's say we want them to go like
+so maybe i want to get the stone a
+so now this is the center for my cluster
+so now this is what we get for the prong
+so somewhere like this will be
+so that way it will be the correct
+so that way um you can polish inside
+so that way we can offset that as well
+so that way you can polish inside and
+so that's one way to do it the other way
+so the stone is roughly about 1.7
+so then we're gonna click up this one
+so this is how my stone is going to sit
+so we are going to hiding this piping
+so we want to get it as close as
+so we'll get this over here now if it is
+so you need to have uh some tolerance
+so you pick up this surface
+something like this
+something like this this is like 2d
+something look like this
+sometimes if it is the space is usually
+sometimes like to do have a center stone
+somewhere like here here
+stick it out like this
+stone
+stone for
+stone is sticky out
+stone the same size or you want to make
+stone to sit on
+stop here and we're going to work on the
+sure that everything is looks
+sure they are flat this
+surface
+surface then you want them to be tapered
+table and then uh coming down something
+take a look
+take some time to show you every single
+that one because we will need this curve
+that will be this design with the
+that you can do
+that's basically what we are looking for
+that's recorder history just in case
+that's starting with bringing one stone
+the bottom it doesn't matter if you
+the bullying unit it say it will break
+the cluster i may want to moving in a
+the cooler does not stick it out that's
+the description before
+the distance in between i usually like
+the edges it will look much nicer on a
+the other option you have is when you
+the prong
+the prong is gonna get into weak
+the prong will break for sure so we want
+the proper way to sit the stone i have a
+the rail is this one and the axis
+the seat to be see on the top i have
+the start command make sure the number
+the taper you can choose the angle for
+the whole discussion in my course as
+them
+then if that look all right to you we
+then uh your jeweler doesn't have to cut
+then we have something like that double
+then you can solder
+there
+there all right
+they won't like tilt it on the on the
+things over here
+think thank you for watching
+this curve and we also have this for
+this off
+this one back to here so all you need to
+this one so i'm going to
+this out of this one
+this so that's
+this surface to creating our curve
+this will be our nest in the back
+those beautiful lines that we can use
+those like uh web looking things so i'm
+those lines for us to do the piping
+tilt it this one and move it down a
+to
+to be
+to be two millimeter and so i'm going to
+to coming back
+to do let me try this to
+to draw just a straight line
+to fit your stone and the demonstration
+to have 0.1 millimeter of 2.2 millimeter
+to here
+to inside
+to just temporarily to group on
+to making a surface we wanted to do
+to move it down
+to move them into
+to moving
+to pick up this one
+to talk about it you want a girdle to be
+to the ghost view
+to the top on my top view i'm going to
+to the top we want to flip
+to use a bowling difference
+together
+too long on the bottom because it's
+too many curve so i'm going to do maybe
+too wide we should you know check on it
+top view
+touch sometimes it's
+touching
+touching on the both side
+try the radius for 0.35
+two so that's showing where the boundary
+uh you cannot get it zero um it's
+um not to be bigger than this
+us to know where the stone is going to
+use the commands for projector to cplane
+usually but um in this case since i'm
+usually keep it the same um
+want it to prompt to be stick together
+wanted to have your cage have a more
+watch out something over here you do not
+way too fat
+we are going to cut and let's go ahead
+we are going to do the cluster so i'm
+we don't need to be
+we want the cylinder
+we want to move them all right so make
+we're going to array along curve and
+we're going to use the array tool
+welcome back to pj chain design today i
+well i don't want to spend too much time
+what happened
+what i have there next we wanted to know
+what is the size of a stone is going to
+what size of a stone for what size of a
+whatever degree you're going to have
+without touching whether it be too much
+work better for you
+would like to
+you
+you are interesting about
+you can actually coming into the
+you can actually just using the offset
+you can change here to
+you can change it if you want to and now
+you can put the bell and then
+you can you know enlarge if you want to
+you could have
+you could have this getting a little bit
+you fill
+you have
+you have extract wireframe
+you like to do
+you may want to do more like 24 whatever
+you want it as long as
+you want to make sure that the gap that
+you're going to put it whether you're
+your history that's okay

@@ -1,0 +1,304 @@
+Circle so this circle is going to snip
+I have those two red line I'm going to
+I just notied there's a one spot right
+I'm going to have that um curve for the
+I'm going to type it zero and for 23 of
+I'm going to uh draw a line somewhere
+I'm just simply using the Gumble and
+Polar
+Stone and each of them will have a high
+Stone in the file and what you wanted to
+[Music]
+a lot more problem to fix them all right
+a tag there just for the reference so we
+a try we want to pick up this red one
+a very clean as you can see double check
+able to print it out to solve this issue
+all right now with this one we are going
+all right so now we can uh building the
+and a low and actually share the third
+and also on the bottom so this won't be
+and here and I do rebuild this line to
+and if that is okay you just click okay
+and let's give it a try and see if that
+and make sure that you touch the stone
+and now we can select all the curve and
+and see how it look we are going to use
+and the way to scale is you use a scale
+and this one and it go up like
+and we just need to kind of moving this
+and we want to rebuild this into 45
+and you can download the stone file at
+and you'll get the same result but you
+another control Point going down so we
+another control Point here at the peek
+are going to use the circle command tape
+are going to use the command uh for
+are they is we have this earlier
+array and snapping into the zero doing
+array and to snapping into the zero I
+array and we're going to snaping into
+as possible right so I'm going to bump
+as you can see I intentionally make them
+ball in difference of this one this
+be too much let's turn it back to the
+because a lot of time if you happen to
+because the wall will break when you
+before we do that I want to show you
+bit all right so somewhere there now we
+bit like this I want to move it
+black
+bowling difference this one and this one
+building the wall again I simply just
+but it's roughly about2 mm see if I can
+but you don't want to cut it too much
+by 23 or I can simply just draw two
+calculation for 15.7 so I'm going to
+can simply just do the calculation 360 /
+center of the construction plane and I'm
+click okay so then we'll have this one
+click okay so we don't need this
+click on it it will say close solid poly
+close solid polish surface it seems
+color and everything look pretty good A
+color so this easier for you to see
+coming into the top view we can decide
+command that you have extruded planner
+control point we need a lot more point
+correctly for different ring size are
+counting the beginning at the end and we
+crosssection and we'll get something
+curve and we want to extrude it on both
+cut um but scale it down for uh half
+degree over here all right so now we
+distance is in between 0.1 to2 mm so if
+do is uh copy paste or you can just use
+down like this it should follow this
+enough okay the second thing is we need
+every step on your modeling process
+everywhere is fine it's just that
+extrude it and we're going to use a
+extrude it straight and then we want to
+extrude it um straight under the solid
+find it later then that's going to cause
+folding there all right so be aware of
+folding there as you can see right here
+for this one and this
+get something like this all right notice
+going
+going to move it halfway so I'm going to
+going to use the 23 there and let's
+going to use the diameter for 16 here
+guess right yes we need 23 of them so
+guy up all right so the ideal um Stone
+have 23 Stone meaning it's the stone
+have a line right here in between here
+have and it follow the stone curvature
+have more point in this case we're not
+have this one again using this curve
+have this one we can see simply just
+have this right here and I also like it
+here and you can type any number here I
+here with this point I'm just going to
+how big the ring size is going to B we
+how do we know that one section how big
+how many do we need it you probably
+in 2.5 mm currently the stone is
+in the import and then we need to size
+in there so we're going to use the
+inside of the ring shank is because
+into here on the vertex and I roughly
+into the certain size that we want in
+into the correct point so if you look at
+into the zero and we're going to come in
+is a close solid polish surface and
+is happen to be exactly right at the
+is the CCT to the ring size you want to
+is where the beginning is as you can see
+it a try sweep one rail rail one
+it is 45 points and it's unless you want
+it up to 22 and see if that works work I
+it zero so it can snap in right in the
+it's 5 mm so we need to cut the another
+it's a pretty good distance there so I'm
+it's connected so 45 Point let's give it
+it's perfect it's no longer have that
+jam in two more here we're going to try
+join
+just a little bit right and then we can
+keep a good distance for in between 05
+kind of need to calculate it how many
+let me draw a line right there if I do
+let me show you um what happened is if
+let's put it into the green color all
+let's take a look on the render View
+like really nice uh curve over there but
+like this you can actually moving up
+like this you can see this is much
+like to do I'm going to delete one side
+like to do is just doing one section and
+line I'm talking about all right so now
+line and it is showing currently is 15.7
+little bar and out of this one there all
+little bit bigger as you can see I make
+little bit longer so I'm going to move
+long to stick it out so I'll get
+longer than what I need uh cutting
+look on this this one and over like
+mean it's really close it's not too bad
+middle right there I'm going to turn on
+midpoint we want to do the polar
+mind if this one is um kind of uh over
+mirror command and using
+model that has all the bump on the tip
+move it a little bit higher follow the
+move it from here to here and move it to
+move it like that so this is one side
+move it like this two line um I'm just
+my right View and going to creating a
+need 23 of them and I have all of them
+need a control point over here and
+need to make sure that it's not smaller
+need to move this one just up a little
+of it and we just need to have a good
+of the model that has each side of the
+of this Stone right here so you will
+off this guy and this guy there so now
+okay so now what we do is we have a 23
+on the bottom no the bottom look okay
+one and you take a look on here it say
+one in the middle and going to move it
+one in the middle the one in between the
+one out of this
+one so we actually need is
+one they happen to be exactly on the
+out of this one all right so now this is
+over there or I noticed that uh because
+perspective each of a stone you got the
+point and let's preview and see it come
+quadrant right and I'm going to turn
+rebuild and let's rebuild this and
+rectangle with the corner so I'm going
+reference anymore we know this close
+right place and we can make them just a
+right so let me put this bar in other
+right so we need this bar go over and
+right there so the buling may work but
+right to you we need to have a mirror to
+ring by imported stone for the practice
+ring size and we're going to straight
+ring size is so we want to use the solid
+section is not good uh we can actually
+see the the surface is gone right so
+setting the stone let's give it a try
+show you how to calculate the stone
+side and rotate it right so if we take a
+side okay so I know the red color might
+simply just using the polar
+size
+smoother there it might be a little bit
+snapping
+snapping into a Vertex here and here and
+so in between the two kolet we know it's
+so now we wanted to come back here and
+so using the command align centers and
+so we'll have this wavy shape over there
+so you will have a some bar in between
+something like this rotate it a little
+something look like this okay and for
+something right here um on the model
+somewhere into the middle and make sure
+sort of a wall there as starting
+started we are going to starting this
+stone and that's what we're looking for
+stone is needed for this ring and one
+straight line from the vertex to the
+surface we come back to look at here
+than the 0.1 mm so I kind of want to put
+that I made earlier as you can see each
+that is not working there um so what I
+that just don't want to get it as close
+that this one is um over where our um
+that we will need to have some points so
+the
+the command for sweep one rail this is
+the control point and just pick up the
+the degree in between this line and this
+the description below just need to sign
+the left for how much much is
+the other side so that's using the
+the point higher the same thing over
+the rail this is the crosssection and
+the same like a stone we got 27 of them
+the wall for it I'm going to coming into
+the way that we edit the control point
+the zero and I'm just going to guessing
+them and we'll have all the bar there so
+them into a red color so you know which
+them so now this is the curve that we
+them too short I should make them a
+there it looks all right and I'm going
+there it's going to be the problem when
+there right there it's folding and that
+there so that's using duplicate edges
+thing important right at this area where
+this and the one in the middle going
+this angle Dimension to find out what is
+this case I would like to have my stone
+this eternity band I will also like to
+this now one thing you want to keep in
+this one we only have eight point on the
+this way right so we need to build some
+those two ring is actually not touching
+to 1 mm as well okay so that's actually
+to be taper it's just more graceful so
+to building something look like this and
+to click all of them I pretty much would
+to find out the angle in between uh you
+to join it right so once you join and we
+to making something like this and we
+to moving the whole things like this
+to the middle
+to the vertex so we can simply by using
+to touch on the both side but not too
+to what um the ring size is okay now we
+today I would like to show you making
+too all right so if that side look all
+top somewhere there and the one in the
+trim it off the rest of them all right
+trim it off this section and copy this
+type it 2.5 there and we also wanted to
+type it zero so it will be at the uh
+um to have them to align to the centers
+up like this so ideally if you move it
+up on every middle one so like this one
+up the newsletter so once you get this
+up to somewhere about the girdle and for
+use those two red line and I'm going to
+using this curve and this curve to trim
+want it to be 2.5 so I'm just going to
+want to make sure that it's long enough
+wanted to do is I want to draw another
+we can move it down if that makes sense
+we can moveing up this one and this one
+we can simply just moving this curve out
+we do have a two harder uh darker line
+we only have that little one section
+we'll get something like
+we're going to trim it off later uh it
+we're going to try 23 all right so I
+welcome back to PJ CH Design This is PJ
+whole curve we want to move it to the
+will avoid that folding there let's give
+will get the inside ring it's more close
+with this little one section we can
+working right but you see the folding
+you buling difference this one and this
+you don't want to have the big gap like
+you don't want to touch the stone right
+you ready let's get
+you try to uh export it and in fact you
+you're not going to setting the stone in
+zero as our uh mirror access and we'll
+zero construction plan all right and
+zero there and again from this 0o point

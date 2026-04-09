@@ -1,0 +1,220 @@
+I'm going
+I'm going to do let go back one step and
+I'm going to do something roughly about
+I'm going to draw a curve starting from
+I'm going to uh having a six pedal later
+I'm going to um just creating a circle
+PJ today I would like to show you how to
+Rail and we want to go from here and
+Rhino 3D software are you ready let's
+[Music]
+a little bit just follow you know the
+adjust
+again this point to this point let's go
+ahead to draw a straight line and this
+ahead to pick up all of them
+all right if you feel like this is too
+all right so then I'm going to have uh
+and also change change the color to
+and coming down something like this all
+and coming over for roughly about 1
+and join
+and let's go ahead to project this one
+and make sure your stone is in the right
+and rounded so something like that okay
+and somewhere about here as long as it
+and the scale is
+and then we want to move this one to
+and we want
+another Bell so when you finish they
+are going to create this surface it's
+back on the back I want them to be nice
+back to this
+back to uh for the stone that we have
+be fine so we are going to trimate
+be split
+because the rail is coming together so
+become two of them and then I'm going to
+better for the casting okay so that is
+bigger fitter edges let's try uh maybe 6
+bit straight there okay all right so
+by polar array and the number is six
+by this curve and this curve so now it
+by using the same command we used
+check if that work for you you're going
+color all right so this one is going to
+coming over here and if that is too
+command cap on all three of them so they
+create this flower pendant with the
+crosssection okay so notice that um the
+deal in with the bottom for the bottom I
+description below it's completely free
+design for the beginner it's starting
+earlier for Orient 2 point and I want to
+easier for you to
+edges and it will be something like that
+else but those line here all right so I
+enjoy this video if you like to know
+even though you say you want to have a
+everything in the middle so now we have
+for something like that okay so before
+for you so hope to see you there thank
+get
+going down or going up either one will
+going of coming up and something like
+going to be rail revolve and you're
+going to draw on the side my pedal is
+going to pick up his profile this is
+going to use a rectangle coric cornner
+group them together just in case we
+have
+have something like this and coming down
+have them uh mirror to the other side so
+here and pass the center point there and
+here and we will get something like this
+here coming over here and we want to
+here here to
+here so now I have this uh we need to
+here this one to this
+hold a shift so then you got this really
+instead of six I need to have 12 of them
+into the midpoint here and midpoint
+into the zero and make sure that this
+is going to fit your design in my case
+is uh inside of that stone so that will
+it is thickness is changing as well and
+just cap this
+lay I would like to have them rotated
+layer here and I'm going to change this
+layer into the red color and so what we
+layer that me bring them to that layer
+lazy on that but that work for me and
+let's go ahead to using the pipe command
+like it nice and round here so if we
+like it to be super puffy so here's what
+like no Gap there okay and so double
+line need to pass the shape of what you
+maintain a good thickness it's much
+make sure that it is sitting on
+me change this into the Scion color all
+middle so it's easier for you to see now
+might need to change something the prom
+mm after that we want to uh work on the
+mm size there so I now I have this prong
+mm that might still be okay but I really
+more about the stone setting I have a
+much of an angle you might need to
+nice bump there to making the surface we
+on so I'm going to make it into six prom
+one and another one over
+one and maybe we just going to work on
+one and then we're using the fill
+one can turn it off this one now we need
+one of the pedal will be right at 12:00
+one okay so now we don't need everything
+one there and I'm going to continue with
+one you want to make sure that you go up
+or we can do a easy way
+over
+over there okay so now we have this
+pick up this one Orient from this point
+point so then we will have a puffy one
+polar array snapping in to the zero and
+position and all you need to do is have
+position or something like that and let
+profile so now we have this one let's go
+prong first so I'm going to draw a line
+prong set right in the middle with the
+puffy one if we go back and turn on our
+rail and you want to go from this point
+red color so it's easier for you to see
+render view you should see them going
+right and then we're going to come in
+right so I may also want to tell it the
+right so now we have this we wanted to
+rotate this uh 15° so that way my pedal
+see in fact let's change to darker green
+see my stone so the pedal doesn't have
+set hat check out the link at the
+shape of that all right so now we have
+shift this is super important the first
+six pedal so I'm going to using the
+smaller all right so I'm a little bit
+smoothly it's almost
+snaping here to
+snapping but going somewhere about here
+snapping in center for the zero here and
+snapping into the zero hold the shift
+so now we have prong and we wanted to
+so this will be the shape and let me
+something a little bit rounded all right
+something so I'm going to go with the
+something we can separate them for green
+started we are going to bring in the
+stone and size it up for whatever size
+stone setting mini course specific
+surface and we also want to make a new
+taper and I might want to go a little
+temperate the height this setting in the
+that maybe a little bit
+that's using the mirror uh snapping into
+the bottom so instead of doing bunch of
+the end point over here holding the
+the near point maybe somewhere about
+the overall shape first so again I'm
+the padal it's about depends on how big
+the surface you have revolve and
+the sweep to rail this
+the transform and we have the oriented
+the uh curve that you have uh if you
+the zero and then so we'll have that
+them okay and um if I turn it back to
+then we'll have something like this turn
+there all right so let me temporary just
+there and coming over to my right view
+there and let me turning this into the
+there okay okay let's create another
+they do join um and we want to use a
+thickness is changing too it's it's
+this and kind of dip it in and coming
+this in in order to making the surface
+this is rail one rail to and
+this place so we are going to come in to
+three of them and it will just mirror to
+threp point and snapping somewhere not
+to copy and scale 3D and we want to go
+to creating the surface so the way we
+to do the same to this one or that one
+to go all the way to the middle and so
+to kind of hiding this one so it's
+to this
+to this Arc
+to this point and uh make sure you want
+to this point to this point and
+to work on the padal is I need to create
+together okay so double make sure that
+two point and make sure we want to copy
+uh close solid poly surface so that's
+uh making an arc snapping into snapping
+want to use a sweep to
+wanted to be less angled than this
+wanted to do for the small pedal you can
+we are going to use the sweep to rail
+we project I would like to actually
+we want to draw a straight line snapping
+we want to maintain High here so we'll
+we're simply going to pipe this one so
+welcome back to PJ chain Design This is
+what we're looking for and we do want to
+wider we want to use the command under
+will also show you how to custom a pron
+will do a demo for the prong set and I
+will look something like this I hope you
+with the stone setting concept and we
+work on the paddle so the way I'm going
+work so then we will have this surface
+would like to design the pedal um I'm
+you can create exactly process again or
+you for watching and I'll see you next
+you simply can making a copy to this new
+you want them to be so I'm roughly want

@@ -1,0 +1,235 @@
+[Music]
+a lot of facet if you take a render view
+a more friendly for your jeweler
+a undersea bezel and i'm going to
+about this size make sure the pipe is
+about this technique and thank you for
+actually doesn't matter to me
+actually touching
+again we are going to use the polar
+ahead
+all right so i'm going to use the
+all right so now this is what we have
+also from here
+also want to bring it
+an earring write it down in the comments
+and bigger to create your own pattern
+and bring down something like this and i
+and bring it down just about like this
+and do the same here snapping into the
+and for about this long as long as your
+and going for whatever how tall you want
+and i also want to draw a box to cut out
+and i'm going to duplicate border of
+and i'm going to rotate and make sure
+and just moving this two up so you got
+and snapping into the endpoint so let me
+and sometimes i'll intentionally make
+and then now we have this surface there
+and then uh we do need to have a bevel
+and to be even on the bottom
+and to creating the surface we are going
+and we can do 12 of them so you become
+and we can go ahead to join them
+and we want to chamfer this one for
+and we want to have 12 of them
+and you can continue to build this one
+and you notice that you have control
+are going to talk about how to build a
+array we know there's a number 12
+be
+because we know there are 12 of them
+bell then it can be a pendant or it can
+boiling all of this by bowling union
+by 24
+can see there's a chamfer there so it's
+can trim it later with the prong
+casting over there
+casting purpose
+commands duplicate border
+cooler does not stick it out you will be
+copy equal
+degree
+delete the input
+description below
+divided by 24 and that will be something
+do something like that
+download this stone
+draw a line here and snapping into the
+edges
+end for 360 degree
+fine
+first one
+flat
+for the stone setting so i'm bringing
+for your practice the link is in the
+go over on the bottom and simply just
+going to bring up just a little bit
+going to go
+going up even more and getting bigger
+how to get
+how to make the diamond video or you can
+how to make this stone i have on the
+i like to do
+i'm going to
+i'm going to starting with here for the
+i'm going to stop it here and show you
+if you don't have the calculator you can
+in just a little bit
+inside and then so that is chamfers you
+into 24 and make a curve on the left and
+into other color and we simply just need
+into the red color that easier for you
+into the surface by extruded stray
+is 120 degree the second one is 260
+is actually moving this down so they are
+is i'm going to use the all snap make
+is pick up this prong and i'm going to
+it looks like a couple of box so
+it now if we pick up those two curves
+it to be
+it's easier for you to see so now i have
+it's follow the h over there and i'm
+join them and also let me turn them into
+just because i will have a better
+kind of a little bit too low so i'm
+let me know what you think
+let's take a look on the render view
+let's turn on this one and see this is
+like that so we need to create the space
+like this with
+like to do
+line
+line snapping into the zero
+loft and only loft from here to here and
+look at the bottom
+make a curve from the right 360 divided
+make a straight line snapping to the end
+make sure you are not cutting too much
+maybe
+midpoint coming into the top
+midpoint coming to the top
+mirror command and
+need to have those two reference lines
+not the curve
+now if you feel like this is too fat uh
+now with this one i'm going to use the
+number is 12 then we'll have all of them
+of all we need to make
+of the prong the prong will break
+off everything so we can just deal in
+off so it's easier for you to see first
+okay and we want to do the same thing
+okay so for this though i'm going to
+on the bottom over here so now if you
+on the top view use a command project
+once you add the jump ring you put the
+one
+one of the stone you want to know
+other color
+our construction plane that's okay
+out just want to show you
+out of the box so the bottom will be
+over close to my stone so let's turn
+over here
+over there
+over there so let's hit the center and
+perfectly
+pick up this curve and mirror from this
+pipe with this pipe this one so let's go
+point is on
+point to
+point to the end point
+polar array and snapping into the zero
+ready let's get started
+right top corner to show you
+rotate command and copy equal yes
+rounded on the top and we want to move
+snapping into the vertex over here
+so i'm going to divide it 360
+so i'm going to do is draw a straight
+so i'm going to starting a straight line
+so i'm going to use a bowling difference
+so if we join rest of it together
+so let's go ahead to polar array again
+so now you can see they are completely
+so now you have a high all right so now
+so that will be
+so that's using the chamfer command
+so then we got this shape here we don't
+so then we'll i'll get it perfectly like
+so to creating the surface i would like
+so we can delete
+so we're gonna pick up the cur the point
+something
+something like this
+space i do like to have
+starting from the center
+structure specific the one in the center
+sure you're snapping into the endpoint
+surface edges is actually touching
+surface i'm going to loft again from
+surface on the top
+that even though this is not exactly on
+that one as you can see
+the cap command
+the first part now let's take a look on
+the rest of it
+the result
+the wave of making it so the size is
+them into the solid let me join all of
+them together
+then
+then this one will be completely solid
+then we will have this high over there
+then you can boolean them but for the
+then you get that
+then you got something like that
+there
+they should able to join because all the
+this area over here so the easiest way
+this curve
+this is not really i'm going to print it
+this is the basic shape we can coming
+this now if you
+this one
+this one is not touching so that way
+this point so next things we want to
+this slightly bigger
+this view right here the second part i
+three prongs that are four prong so what
+to
+to cplane and make sure that you want to
+to have
+to here all right don't forget to
+to make it into the solid we're using
+to make it look nice to fitting in this
+to make it more sun ray style are you
+to see
+to this curve so then i got this one
+to use the loft
+to use the pipe command and for
+together
+together because
+trim it
+turn everything else
+turn on what you have there and you like
+turn this
+uh the shape in between those space so
+up this one and you do
+use the
+want to create in
+watching i'll see you next
+we are going to use that to trim off the
+we did the right calculation if you pick
+we don't actually need that long but we
+we're gonna loft from here to here and
+welcome back to pj chain design today we
+what i'm going to do next is
+what you can do is you can draw another
+with that one we are going to make it
+with this one and also turn the stone
+yes i'm going to have 12 of them at the
+you
+you will have something like this okay
+you won't have a good casting what i

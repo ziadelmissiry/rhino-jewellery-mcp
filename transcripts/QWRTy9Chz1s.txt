@@ -1,0 +1,384 @@
+[Applause]
+[Music]
+a linear array
+a mirror and mirror to the other side so
+a point
+about right in the
+ahead to join them and we want to
+ahead to um
+all of them
+all right double make sure if this is
+all right double make sure this is a
+all right for those two let's just go
+all right if you just go ahead to sweep
+all right so maybe i want to have it
+all right so now it is all set we're
+all right so now we got everything let's
+all right so we need to have something
+all right so we want to transfer the
+and again go from this point to
+and again i want to copy
+and again i'm going to pick up those two
+and coming over here on my right view
+and don't forget to cut out a c for the
+and don't forget to join the surface
+and from this point to this point and
+and here
+and i want to snapping into the endpoint
+and if the other row had 0.3 then i will
+and it doesn't need to be too big i
+and just hit enter right so you can see
+and pick up this one
+and pick up this one and just type it
+and see how it look it looks
+and snapping into this endpoint
+and something like this for those two
+and thank you for watching see you next
+and that will be our gentleman ring for
+and the cross section you're going to
+and the stone so we want to have
+and then i wanna snapping into the
+and then so this is a little bit wider
+and then so we can did it half of them
+and then we are going to use the command
+and then we can pick up this point i'm
+and then you can
+and then you will get something like
+and to be like that and don't forget to
+and type it 0.35
+and use a mirror command
+and very last one you pick up the here
+and we are going to
+and we are going to use the linear array
+and we just need to close it now to
+and we simply just going to
+and we want to align to the zero point
+and we want to erase seven of them
+and we want to use the align
+arc
+are sitting directly in there sometimes
+at the end of the prong i actually just
+at the front view realize i did not have
+average size but for the demonstration
+be two millimeter
+become flat
+bit like this
+boolean difference this one will be
+both are solid before you actually
+bottom of the ring shank i would like to
+bottom to be flat
+bunch of endpoint right there
+but my goal is to having something it's
+case i would like to have a prong that's
+centers
+certain line so i'm going to reproduce a
+chamfer edges and we are going to do the
+close this is quite simple
+close to six millimeter
+close to two millimeter and i want to
+coming over to the icon we have the
+command
+command for
+command for scale 3d and we are going to
+continue flat to the bottom of the ring
+curve
+curve go from this point to this point
+cut any seat out of your stone just bury
+description below and what we wanted to
+distance let's pick up everybody and
+do is to size this stone first the way
+do now is having this surface that we
+doing a trim we can just draw a straight
+doing something like this again we want
+double check if see if this is what you
+double make sure that see what is this
+down something
+edges and we want to pick point two
+endpoint and kind of calm it
+exactly what i'm looking for
+extruded planar curve straight
+eyeball it for whatever size that is
+first you can download this stone for
+flat
+flat and to be something like this for
+flush with the surface now if you don't
+for piping this that's using the pipe
+for the next stone and that's using the
+for this gentleman ring it's an
+forget to join those two surface
+four and see how big is it and see if
+from midpoint i'm going to snapping to
+from the midpoint and i want it to be
+gentleman ring
+gentleman ring are you ready let's get
+go ahead to
+go ahead to make a frame uh we wanted
+going to again using the align tool this
+going to creating the surface
+going to draw a straight line and just
+going to make it into the red color
+going to move it a bit higher there
+going to pick up this curve
+going to the top so i'm actually going
+have
+here here
+i have a lot of uh trick and tips on my
+i just want to have a reference here i'm
+i might just wanted to
+i want to rebuild them to be
+i'm just going to use 16 millimeter just
+in between the row
+in the half of the shank and they become
+in zero then it will coming over here
+insert the kink and we want to insert
+inside so i'm going to pick up this
+interesting design to go from this edges
+into the right view we can simply just
+is pj we often model a lot of uh ladies
+it doesn't have to be too long in this
+it off there so you can have a really
+it the number in my case i want them to
+it two pointed
+it's a bit ugly right there i know but
+it's about 0.1 to 0.2 millimeter and so
+it's get a little bit smoother and
+it's going to be tapered to the bottom
+it's nice to have a bevel edges that
+it's very close to bottom then it will
+join all of them alright so all you have
+just a little bit smaller i want to have
+just created and coming into the front
+just created so now the stone was
+just move your mouse for whatever size
+left is on the top you need to cap it so
+let's give it a try i want to have a
+let's go ahead to
+let's group it so now it is a one unit
+let's take a look on the prong for the
+let's take a look on the size of the
+light to go from the bottom and make
+like this
+like this is too much cutting into the
+like this one need to be continuing
+like to have a three row now i'm looking
+line
+line coming over here
+line uh make sure your endpoint is on
+little bit
+little bit taller than the table
+look like this all right and
+look on the perspective
+lot of
+make it a little bit wider here
+make sure that the prong is not cutting
+make sure that you have the um
+making
+making a copy so i'm going to copy from
+maybe
+membership program you are more than
+middle and i want to move in this
+midpoint
+midpoint there so this is right in the
+might be a little bit too big
+millimeter
+mirror again so that's using the mirror
+mirror to the other side one more time
+move in those three points so it's
+need any end of the stone setting i just
+need to have one prong there so i'm just
+need to have the stone sitting lower if
+next stone uh this is will be the gap
+not be in the right place so we want to
+notice that this zigzag shape is going
+now
+now uh
+now when you bring in this stone it may
+now you have this bevel edges there or
+offset
+okay
+okay and that's
+okay so if this is what you want we are
+okay so now let's take a look ideally
+okay so now we have a basic ring done we
+on the construction plane so just type
+on the top i'm actually going to reuse a
+or close to where you want them to be
+or five millimeter there
+over there
+over there so i'm gonna use the align
+point
+point and also this point this point
+point we can pick up this point and this
+practice alone the link is in the
+pretty nice if you take a render view
+prong
+prong and just move it up a little bit
+prong there
+prong we are going to do is draw a
+radius for point
+rail this is the cross section
+rebuild this curve
+right and then with that we can use the
+right and you can have this curve
+right at the quadrant there
+right but that's okay we can just simply
+right in the middle here and we also
+right now um we have this inside of a
+right so now if we turn on the control
+right so now we have this but notice
+right so we want to do the same thing uh
+ring but not too many of the gentleman
+ring shank here the curve is over there
+rings so today i would like to dedicate
+roughly about
+same number on here as well
+say here it's a closed solid polished
+section and very last cross section all
+simply just one d scale and we can bring
+simply just wanted to have a 0.3
+since they are flat that's using the
+sitting in there if you take a look on
+smash the prong or kind of hurting the
+snapping into the vertex to the vertex
+snapping into the zero using the command
+so coming into the solid you got the
+so first of all we'll need to have a
+so i want to see like what button size
+so i'm sorry not cutting into the prong
+so ideally you don't want it to be prone
+so let's give it a try we want to use a
+so now we have this line let's take a
+so simply just scale it back up a little
+so that is adding one more control
+so that's starting with this b setting
+so the center
+so we can scale it up something like
+so we'll have something like this i want
+so what i like to do is to again using
+so you will become like that don't
+solid you have extruded planar curve and
+something a little bit wider than the
+something like this
+something like this and you also want to
+something really big let's give it a try
+somewhere close to the quadrant there
+space that you like now we need to have
+split this one split command
+started
+starting making the profile for the
+stone
+stone on the table so we actually wanted
+stone um
+stone we might need to scale it up like
+storm better and we don't need to have
+straight line over there all we need to
+straight line something look like this
+suitable
+sure you have a hole behind the stone
+surface form planar curve and we're
+surface so you need to make sure they
+sweep one rail this is a rail this is
+tapered there okay
+than my ring and that's perfect that's
+that it is not completely straight all
+that we created earlier as an interior
+that you want or you can actually type
+the
+the cross section this is another cross
+the curve at once
+the fourth one will be the center now
+the member thank you for your support
+the normal size it's about
+the one we just draw
+the other side
+the render view i mean it felt like they
+the same a point
+the same place so it's easier just
+the side to be flat and coming into the
+them in like this all right if you feel
+them line up so let's pick up all our
+then you can trim it off here and trim
+then you have a gap in between the wall
+then you want to go a little bit deeper
+there
+there so everybody will have the same
+there will be a little bit metal left so
+thickness will be fine then let's go
+this
+this align to the center just type it
+this curve
+this is the frame that we have and let's
+this it pretty much will
+this one
+this one and this one and we're creating
+this one right in the middle in between
+this point so then we'll have the prong
+this point to this point
+this surface with this surface coming
+this video to making this diamond
+those and remember we have that line
+three row but i also need to make sure
+time align horizontal center and just
+to be like so tall like that because
+to be really sharp pointed and coming to
+to be that's snapping into right here
+to be triangle so that's using the
+to do is make sure that the table is
+to do the boolean difference this one
+to draw a line snapping into this
+to go all the way to the bottom when
+to make sure that the red z exact shape
+to mirror to the other side
+to size it is you are going to use the
+today's demonstration
+too much ideally 20 percent of the
+tool and align
+trim over something like this
+type in zero here and the diameter for
+type it 0.1 millimeter so i know the
+type it zero and we can move it out a
+type it zero and we'll get something
+type it zero there so we will have a
+uh cut it out for this cutter that we
+uh the icon is leaving right there line
+uh this one just make sure it will be
+um all over you want to pick make sure
+um to do any of the bowling so we want
+um we want to
+use the cap and we close it
+use the command for align centers
+use the number maybe seven of them
+using this
+vertex here and to the endpoint over
+vertical centers and snapping into the
+video over there that i only share with
+view we simply just want to mirror to
+want
+we can fix it let's go ahead to trim uh
+we have this
+we just wanted to
+we need her we need to have some curve
+we want to split uh with the point
+we'll get something like this
+we're going to slip one rail this is a
+welcome back to future chain design this
+welcome to join the membership there's a
+what people will call is a bright cut
+what you want i feel like maybe i make
+whatever size that you want
+will be out of this one
+will come into the flat and will
+will make um the reflection to your
+with the line command line from the
+with this linear array i'm going to
+write to uh right in the middle here all
+you
+you can make it as many rows possible
+you have any stone uh stick it out like
+you just need to be have it just a
+you like it now when you have a 0.4 over
+you pick all
+you want and by in this case i would
+you wanted the gap in between the stone
+zero
+zero all right ideally we want this part

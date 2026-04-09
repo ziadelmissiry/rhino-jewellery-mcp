@@ -1,0 +1,290 @@
+All right. That will make sure if that
+And I wanted to use the polar array and
+And coming into my front view or
+And then I wanted to uh polar array for
+And then we can creating this surface.
+And then we just want them to be a bit
+And we want something like this. All
+But let's go ahead to try to try 16 and
+I'm going to coming into this view and
+I'm going to do something like this,
+I'm going to extrude the surface
+I'm going to move my stone in my front
+I'm going to simply just rotate like
+Let's take a look on the perspective.
+Let's take a look on the structure of
+Maybe I shouldn't tilted the prong like
+Okay. Now the surface has to pass the
+Okay. So once we have that um we are
+Once you have everything I'm just going
+PJ. Today I would like to show you how
+Right. It's tilted in the angle like the
+Right? And notice that it's only have
+Thank you for watching and I'll see you
+We want to pipe it for like a 6 mm. So
+Welcome back to PJ Chain Design. This is
+[Music]
+able to filling into the fitting into
+actually just using the one prong
+actually the top view. I actually want
+after putting the chain then you will
+again snapping into the zero. And then
+also those part right there. And I'm
+and and click okay. This one is too far
+and come back to here.
+and draw a straight line. And so that
+and see if that work better. And let's
+and you can trace over a real image if
+angle. So in this case, we might need to
+anything is stick it out. So when we
+apparent is is a little bit too loose.
+are all touching the stone correctly.
+are going to use exactly the same
+away from the surface. So I'm just going
+be cast for stone setting. If you are
+beginning and to the end. Um especially
+being stick it out. So I'm going to fast
+bit and make sure that it's not sticking
+bit higher. So let's go ahead to moving
+both side uh each side is 6 mm so that
+can I'm going to snapping into the zero
+can delete all those stone and using a
+can have another prong here if you want
+can have this one too. Uh just making
+can just pick up this end. Hit enter.
+cancel the history. All right. Uh you
+check out my course for the stone
+close the end to the that end point
+collection. Stone setting is one of the
+command for array along curve. And we
+correctly on it. Are you ready? Let's
+create one and polar array. Now the key
+cross-section here and here. And then
+curve that we have here. So I'm simply
+curve. You have extended curve and we
+demonstration, I'm going to leave it
+description below. That way you have a
+design a look, you also need to
+didn't join. So I just need to ungroup
+doesn't look too bad. Um, but if this
+everything, we're just going to coming
+exactly the same like mine because you
+example, I'm this is going to represent
+find a link in the description below.
+follow exactly angle that I have over
+forward here uh for quickly result.
+from this point to this point. All
+gap of the surface different is actually
+get it slightly smaller. I wanted to
+get started.
+go ahead to bring this one to the right
+go ahead to use the transform. And we
+going to pick it right here. Going to
+going to simply creating the surface by
+going to use the gumball to extrude it
+got rail one, you got rail two,
+guy as well. Uh you can tilt it later if
+guys can try and let me know like which
+happen to have something like this where
+have a good lucky leaf pendant into your
+have any weird twist. Uh so we don't
+have four of them. And make sure I want
+have like 0.25
+have the array along curve. And this is
+have the prong go straight. Um, since
+have the stone sitting in there. For
+have to adjust anything. All right. Now
+here. Right? So you can arrange the
+here. So you don't want them to be like
+if those two and those two are quite
+important if those two work correctly,
+instead of like two prong jamming
+into the center, right? Uh that will
+into the front view and we're going to
+into the top view and tilted my stone
+is the right place. Uh if it is the
+is when you have them all polar array
+it back. Right. And um if you have a
+it correct for the first one because we
+it the radius for.3. And let's take a
+it's creating 1.2 mm in order for me to
+it. Uh I'm going to delete half of them
+jamming here. Especially when you see um
+jewelry cat designer. Not only you
+just going to make it a little bit
+kind of tilt it the prong back a little
+know the size of the stone different the
+like a 1 mm. So, will be something like
+like if you are correct on inside the
+like it's a little bit sink too much. So
+like that. Okay, so that's one. Um, and
+line and follow the direction of this
+line. That's just for our cutting tool.
+little bit away from each other. So, we
+little bit closer.
+little bit higher and then uh if it is
+location and bring it up at the front
+longer. So I got to coming into the
+longer. The same thing right here. I'm
+look if that is the right place. Look
+look if this is too fat or not enough or
+look on the distance in between. Ideally
+looking things. First things we wanted
+lot more maybe 15 of them. And take a
+make it slightly longer. Right. So that
+middle point as you can see it's not on
+mirror command snapping into the zero.
+mirror there will be a good transition
+more in the angle of this. Okay. And
+move it out a little bit. All right. So
+need adjustment especially close to the
+need adjustment. Uh there will be few
+need to mirror and then we also need to
+need to moving those in a little bit. So
+next
+not flying out there. All right. So if
+not too many of them and we want to make
+offset curve and I want to offset on
+one is where the stone is going to run,
+one millimeter. So, in fact, I need to
+one that I have and I can make it a
+one work better. Maybe I just need to
+order to make sure that your piece can
+out. So I'm going to quickly to do
+outside may not be correct and those are
+pendant with the B setting arrange
+pick up everybody beside this stone and
+pick up the surface and I simply just
+place. All right. So, we can give it a
+play different role here. All right.
+point. and draw another straight line
+polish they are nice and shiny and
+pretty good surface right there. Doesn't
+prong I would like to draw a straight
+prong as an example like what I have
+prong because the prong after they
+prong that you have with is with the
+prong uh in detail and see which one
+put 1 mm stone right in the middle.
+really into the jewelry care design,
+record history, they may follow all of
+reference. And we want to uh explode it
+reflecting the stone or you can change
+right place, we want to move it down to
+right there. Okay. I also want to come
+right. I also want to make sure that as
+right. Notice that there's something
+right. So to creating the surface, we
+right? And it's always nice to trace
+see if it's touching. If it's not
+setting that will definitely level up
+side and to get this like a horshaped
+side. So, let's go ahead to use the
+simply just going to mirror to the other
+snapping into the zero. And I need to
+so that will cover all of them. Uh you
+something because it's maybe the shape
+something like that. Let's moving this
+something right there um to address
+somewhere in between here and take a
+sort of a depth there. And but if you
+stone arrange on it. So we just need to
+stone going to run all the way here and
+stone is actually on the surface. It's
+stone is going to run from here to
+stone to use for this demonstration. And
+straight line from this point to this
+straight. All right. So, once we have
+surface for the stone to sit on. So I
+temporary to hide it. And I'm also going
+that all the stone is going to jam in
+that is working for you, we will need to
+that will cover the prong area and then
+that will make it more interesting. So
+that's starting from the scratch. So,
+that's what we are looking for. All
+that, right? So, in that case, I might
+the bottom. Uh right here. You can
+the diamond of this one. We need to move
+the middle stone a little bit bigger and
+the object we're going to array. And
+the rest. Just want to use as a
+the same. Uh four leaf are the same. So
+the space. Right. Yours may not be
+the stone and my stone is going to be
+the stone is hidden hidden there, you
+the surface right here. All right. So
+them a little bit smaller so you know to
+them. Just make sure that you need to
+then I'm also want to come into my right
+then I'm going to mirror to the other
+there for my curve. Maybe a little bit
+there. All right. And once you are done
+there. And I also wanted to creating the
+there. Now in some cases uh because the
+there. Okay. Uh I'm going to delete this
+they will follow hopefully it's correct
+they're coming into the angle with the
+thing we're going to do for our prong on
+this guy one more time. Um actually I
+this is the curve we're going to have.
+this one I simply just want to pipe it.
+this one a a bit higher. So you got some
+this pendant. They all four pendant are
+this. All right. So this is where my
+those certain little tiny prong. They
+to check, let me group them together.
+to group all those things. Right. The
+to just for the decoration. And the same
+to making the stone flow really well, we
+to move it down. So the girdle of the
+to pick up all my curve and just
+to record a history on the bottom for
+to rotate it the angle a little bit. Uh
+to step by step design this lucky leaf
+to there. It look like it's too fat for
+together and having that prong to moving
+together. So we wanted those two going a
+too much like what I did earlier. So you
+touching it's close to the 0.1 mm and
+try and see how the things flow. Let's
+two jamming into each other. Okay. Once
+two of them. So I'm going to making a
+uh cutting into the stone we're going to
+uh polar array four times. So you just
+understand the production process in
+use the prong to replace it. Okay. So
+very important skill to know as a
+view and see if it is in the right
+view. And we want to to move it here.
+view. I'm going to move my stone and
+want to make sure they are right they
+want to pick up the curve and then so
+wanted to bring in the first stone. And
+wanted to have the sweep to rail. You
+wanted to uh using the command for
+way that we like. So I'm going to draw a
+way we can have this line to trim off
+we also need to make sure they are a
+we are going to pick up those two and we
+we want a distance to be 0.1 mm. So this
+we're going to come into a front view
+whatever it it should look like. And so,
+will get more close, but for this
+with, you know, your instinct for
+work on the prong. So basically for the
+work. And just make them slightly bigger
+you can download the stone at the
+you can have two of them get a little
+you can see I want to record a history
+you can see we got the solid right
+you get this one right there. It's
+you got that uh secure, we can delete
+you have something like this. And then
+you know on one end for both of the uh
+you that work for you better. And for
+you want to come in and check on all the
+you want to or you can just uh play
+you're also going to run all the way
+you're thinking about you have 1 mm
+your jewelry care design skill. You can

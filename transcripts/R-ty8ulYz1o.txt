@@ -1,0 +1,375 @@
+above or right at the surface of your
+adjust it until you find that the curve
+after i move it up i need to make sure
+after joining them you'll see it's
+after that i want to make sure it's back
+ahead to finish the bottom of the ring
+align them
+align those three so i'm gonna use the
+all of this we just have them to mirror
+all right but if you take a look in the
+all right let's talk about how to
+all right notice that it's kind of
+all right now you can see as soon as i'm
+all right so that will be one the other
+along the curve on surface all right so
+also
+and
+and base point is somewhere near here
+and coming into this file and hit
+and going something like this
+and i choose whatever how many stones so
+and i found that array along the curve
+and i'm going to bring it back a little
+and i'm going to move it up 90 degree
+and i'm going to pick up this one right
+and it will be really nicely hopping on
+and just click ok
+and mirror to the other side like this
+and seven apparently it's like too far
+and take a look on other view i want to
+and the surface which is our ring now if
+and then i'm going to
+and then we want the base point it's
+and to making this ring first if you
+and we want to make sure the stone is
+and we want to trim this off and trim
+and we'll get something like this
+and we're gonna trim the red on the
+and you just need a little adjustment
+angle changing at all that will be fine
+around
+arrange the stone on it you can download
+array along curve command and then with
+as close to the ring as possible and i'm
+away so i'm going to do
+back and make sure all the prong is in
+band once you have a ring ready and then
+become a curve flattened to the
+become one piece so now this is a closed
+bit like this
+both of them on either side if you're
+bottom of a ring shank you can go ahead
+bottom so it's only on the top like this
+bring out with the gumball and just hit
+bring the stone back in here the stone
+can correctly to
+can do it this way that will be fine but
+can simply just using the trim command
+center
+click it right here for the new curve
+click on
+color
+command bar
+construction plane all right so the next
+control point curve and you can draw it
+control v which is passed then you can
+create this ring now you can use any of
+curve and we hit enter and make sure
+demonstration here and hit enter and the
+description below and also like and
+detail notice that this one is kind of
+distance for 1.5 millimeter and hit
+diving into the
+don't like the kink that we may have
+double make sure with the perspective
+efficient
+enter so now you can see it is really
+evenly distributed into this screen
+example i'm gonna do 12 here and i look
+facing up if that bother you you can
+feel like you don't need that many stone
+fine let's click ok
+first and using the command
+follow correctly on all the stone
+follow some sort of a curve on this
+for array along the curve
+for example if i choose a base curve
+for the prong to be the right place
+from here
+from the scratch to do this matching
+front two view we're gonna click on this
+going one more and coming up here i
+going to delete two more right there all
+going to have this cross over there we
+going to have this one
+going to hold my shift
+going to mirror it right if you don't
+going to pipe it let's eyeball it for
+going to set the stone i need to make
+got two cross section and you want to
+great
+gumball 1d scale just type it zero so
+have so i kind of eyeball it where they
+have the stone right there your girdle
+have this curve follow this circle so
+here and bring down to whatever size in
+here and doesn't need to go too long and
+here and simply just changing this into
+hit enter and that will create the
+hit it right here now at the beginning
+how big it should be ideally you want
+however in the old time you might use
+i found the other way maybe more
+i would like to have 9 copy in my
+i'm going to come in back
+i'm going to draw a straight line right
+i'm going to have them align
+i'm going to use the duplicate h command
+i'm moving my prong and i'm able to
+if that looking correct for you you can
+in between two stone okay
+in the center so i'm going to use a line
+individual frame and moving back to
+interested in how to make this cathedral
+into a certain section or we can use a
+into it so i'm kind of coming into
+into the end point of this green curve
+is fitting into the profile on the top
+is not maybe the angle i was looking at
+is pj today i would like to talk about
+is this stone hit enter it will ask you
+it before i move it but since i already
+it doesn't work in this case it seems
+it is going to be red color and i don't
+it may not be 100
+it will align back in the center now let
+it's a small like a comfort fit there
+jamming a little bit so we might need to
+join this guy
+just a little bit i think it will look
+just adding another section right in the
+just coming over to the top view i'm
+just going to create some sort of
+keep the same distance in between so i'm
+kink over there now we can go ahead to
+let me show you other way to do it you
+let's go to the sweep
+let's say we do seven
+like a curve you can still go ahead to
+like it just go ahead to make a copy
+like this
+like to now we are going to starting
+link to download a roundstone
+make a duplication of this prong and
+make sure my only my near is on and so i
+make sure that this is not
+make sure the stone is in the right
+make sure they are aligned in this case
+making a copy right there
+me moving my stone up here
+middle let me show you what i mean i'm
+millimeter i'm going to hit enter there
+millimeter so it doesn't go all the way
+move in this one out just make sure that
+move it i want to show you another way
+moving my mouse my stone will follow it
+moving my prong there and double make
+multiply
+my
+my case i might need to have 1.2
+need the one on the bottom so simply
+need to open it hit ctrl c which is copy
+newsletter after that you will receive a
+nice
+nicely so i'm going to use the
+nicer to fitting into the width of the
+not new but possible i haven't been
+not only the top view also on the
+notice that sometimes it works sometimes
+notice that this may not be exactly
+now if that worked for you we need to
+now once you have it you can just mirror
+now the curve on the surface which is
+now we have the stone in place let me
+now you don't have to draw all the way
+of need to draw the curve that will fit
+of them it doesn't follow it and most of
+okay
+on both sides of the stone you want to
+on top of it are you ready let's get
+once we are done we just need to come
+once we have that i actually want those
+once you click it notice that the rest
+once you have the stone file you just
+one and also click on this one and that
+one and i'm also going to fast forward
+one command and we want to click on this
+one rail one more time this is the rail
+outside right there
+perspective look like the one on the
+place to start it with so i'm going to
+profile look like this and since i'm
+profile you want for example i'm simply
+prong over here
+quite simple we can just use in the 3d
+rail
+rail and we can starting doing the sweep
+really close to
+rectangle with the colony corner because
+right angle so we can kind of be moving
+right if you're going to sweep this guy
+right it seems covered more
+right now we have this looking at the
+right so this one look not too bad but
+right the next things we wanted to do is
+ring
+ring bending any of a shape
+ring i do have a video here at the right
+ring if it is go ahead to change the
+ring shank that i have now that's using
+rotate it
+rotate it copy equal yes here on my
+scale and we're going to snap in here to
+second thing is we actually need a ring
+section because i set it up for 1.5
+see now if you have done some of the
+setting playlist or on my course for
+shadow bend and how to make it match to
+shank in a circle to represent the size
+shank since i already move it i'm going
+shape and change the size all right the
+share my video more of the stone setting
+side which i'm gonna pick up the prong
+side you can simply just have this one
+simply just turn the stone into the cyan
+size is in five millimeter to size it is
+snapping into the zero and i'm going to
+snapping to the zero and i want to
+so i will do the same thing on the other
+so i'm going to use the circle command
+so let me make sure the near is on and
+so let's take a look what other things
+so now those two curves align and i also
+so then we'll go faster on this video
+so then we'll have it perfectly facing
+solid polished surface
+something close right in the middle
+something like this
+sorry the front view and we can pick up
+started
+stone flow before you might using this
+stone setting course on my website thank
+straight surface there's no twisting
+supposed to be a missing one there so
+supposed to be and we're just simply
+sure that my stone will while filling it
+sure they are in the right place if it
+surface
+surface i'm going to pick up this one
+surface so we do need to have a curve
+sweep it there now the key is i need to
+take a look also on
+technique you can find on the stone
+that circle so then we can
+that the seam is aligned and we want to
+that way i can prevent it this has a
+that way to do it is using the curve
+that we can do i just size up my stone
+that we just duplicated here's the new
+that will matching for example from the
+that you like if this is the curve that
+the
+the all key and so that way you were
+the base point we're going to snapping
+the curve is this one the target's this
+the curve on the surface
+the edges of this one right here and
+the engagement ring and do a b setting
+the green color just easier for you to
+the intersection all to the quadrant of
+the move command and snapping from here
+the newer command
+the object which we're going to pick up
+the prong along with this curve that i
+the prong and just move it back to the
+the prong area so i'm going to pick up
+the prong within the with the green line
+the right place
+the stone at the description below
+the surface
+the time you need to pick up the
+the top and bring it back here all right
+the top of you moving to where it's
+the top view and i'm going to use this
+the video please leave a comment at the
+the zero coming over here and you're
+them to be big enough to able to cover
+then which is the curve on the surface
+then you have array a long curve on
+there
+there so what i like to do to maintain
+there's a link for sign up the
+they are not jamming into each other all
+things we wanted to do is we need to
+this
+this b setting for this ring if you like
+this curve
+this is a demonstration how to making
+this is cross section you got one you
+this is in the right place that's using
+this is the cross section
+this is the red
+this matching band or what they call
+this not having a kink is i need to
+this off okay so now i have it i just
+this one right here i should have done
+this stone it will actually say where's
+this straight line i want to just be on
+this time we want to pick up this
+this we want to pick up the object which
+to
+to coming into the top view and we kind
+to here so now both cross section is on
+to hiding this one and duplicate
+to join all the surface together
+to make a perfect match
+to the bottom which is i think it's
+to the other side
+to the other side so that will complete
+to the the other side because we're just
+too much of a difference from your main
+top corner you can click on the video
+top view and see if this is the angle
+top view so you wear it you can wear
+transform under the transform you have
+two to be aligned so let's go ahead to
+under the transform you have array along
+under the transform you have array and
+up on the profile as you can see over
+use diameter for 16 or radius for 8.
+using in my demo before is the array
+using the mirror command snapping into
+vertical and just type it zero here so
+view look like even over there if you
+want to moving this one
+wanted to sit
+way let's pick up the
+we need to make a prong
+we want to snapping right in the center
+we're going to do the sweep one rail
+we're going to use the same command
+we're gonna just pick up this one
+welcome back to future chain design this
+what it does it will ask you to pick up
+what's the base curve and we're going to
+whatever it is supposed to be
+when you have on a really
+where i wanted the prong to be by moving
+which is this green one and what is the
+which you can divide a whole grain curve
+will give us this curve right there
+will have 2 there but
+with the align tool and that's a line to
+with this amount of the stone if you
+would like to have a really gentle curve
+you
+you can actually did it this one it will
+you can increasing the number so for
+you can keep changing until you get
+you for watching and i will see you next
+you have the option to using the divide
+you like if you like it then we can go
+you want to make a matching band we want
+you want to use the command
+you will the item is only 2 then you

@@ -1,0 +1,375 @@
+[Music]
+a bunch of them as well this stone
+a copy
+a little bit like this and if you need
+a little bit like this and then at the
+a test by doing a bowling difference
+about 0.1 millimeter to 0.2 millimeters
+about 22 millimeter and for
+about four millimeter high and the
+about four millimeter wide and
+actually want them to be
+again click on both of them and
+again get rid of the one in the middle
+again we are going to use a surface from
+align to the center
+all right and if surface from planar
+all right let's take a look on the
+all right so now that i have this i'm
+all right so now we have
+all right so once you do that make sure
+all right so that looks nice and if that
+all right so uh for the stone setting i
+all right so when you have a chamfer and
+all snap so i'm going to stamping to
+all the corner which has an
+all the surface
+also this tiny triangle here and here
+and again mirror one more time
+and also mirror our stone to the other
+and also the line here and we're gonna
+and also the one at the end
+and depends on how you like your stone
+and don't forget to join them we are
+and double check this is still a poly
+and having that to mirror to
+and i basically want to have about 1.2
+and i need to rotate this one back to
+and i want them to go in down about 0.8
+and i want to to cut it down i want to
+and join them let me temporarily to hide
+and just type it 1.2
+and kind of moving this up to whatever
+and let's go ahead to delete some extra
+and let's go ahead to trim the extra
+and let's take a look on the ghost view
+and make sure solid equal no because we
+and make sure you join them all right
+and make sure you join them together and
+and once you do that make sure you join
+and simply just have this one to
+and that will be our reference line
+and then that will be my stone let's
+and then we are going to using the pipe
+and then we can moving and then we can
+and then we can pick up this one and
+and then we're going to pick up this
+and then you will have that opening
+and this extrusion and we can mirror to
+and this is kind of pretty easy fix here
+and this is will be my sheer prong i'm
+and this will be the cross all right so
+and two on the top all right so we have
+and we are going to do a test here
+and we are going to do the bowling on
+and we are going to draw the cross
+and we can simply pick up all this curve
+and we simply also going to have this
+and we want to mirror to the other side
+and we want to tilt it in the angle that
+and we want to trim somewhere in the
+and we want to trim the one we don't
+and we wanted to delete
+and we will like to trim the line here
+and we're gonna hit the trim command
+and you can do whatever proportion that
+and you want to have a gap
+are going to extrude this curve straight
+are going to use
+as soon as they are a little bit taller
+as you can see the render this is like
+at this place and now i'm looking at my
+because it's not flat we will not only
+below that will ask you to sign up my
+bit bigger and then we can mirror again
+bit if you feel like it's too
+bit over one millimeter let's go ahead
+both sides equal no and going from this
+cap so now it is solid that's double
+chamfer
+chamfered a little bit it will look much
+check on my
+command
+command we can use
+connect it to the top piece and i want
+cross pendant with the b
+curve
+curve it doesn't work mean
+curve we can extrude it straight down
+dealing with this curve here we are
+define a space that we are going to do
+difference
+do my stone setting on the side first
+do the bowling difference and this one
+don't forget to join them back together
+don't need to have a lot of them for
+easy we simply just going to mirror to
+edges and let's transfer the edges for
+everybody and we are going to use the
+extrude it curve straight and we wanted
+extrusion
+first let's try this one and see how
+first one and very last one
+follow
+from here to
+front view i want to tilt it again
+go ahead to do that
+going to do the same on the other side
+going to make them into
+going to moving just a little bit
+going to trim each other
+going to use the same command
+gonna do a test
+gonna do that for
+gonna pick up
+harder to
+have a more than
+have that we can simply just mirror to
+here
+here after
+here so now we have it perfectly meet
+here to be equal size all right so this
+here to here
+here to here and type it minus 45
+i am going to shoot simply using the
+i do that i want to also want to making
+i mess up
+i would like to cut out a 45 degree
+i'll see you next
+i'm going to draw a straight line this
+i'm going to making a copy just in case
+i'm going to use the surface command and
+if the size is going to fit all right so
+in the middle so it's easier for you to
+in this direction okay so then we
+in you might just want to adjust one of
+interesting please check out the
+is surface from two three four uh edges
+is the individual prong and if you do
+is the line i'm going to pipe
+is to duplicate the edges
+is we can use the surface from planar
+is you can explode them and join it back
+it about
+it is a closed solid polished surface
+it is actually not flat so another uh
+it is closed solid poly surface on our
+it looked like it was fitting into the
+it's kind of inside of that shape and
+it's quite
+jam close to the center all right after
+jewelry cat tutorial video thank you for
+just move it back here
+know how to build a stone i have i will
+know where is the contour line and
+let me do this side as well since we are
+let's do the same we want to offset on
+let's go ahead to use the rectangle with
+let's group this one first and simply
+like this
+like this all right and that's giving a
+link at the description
+looks nice we're going to apply
+lot more trick and tip that i have on my
+make sure
+make sure both are equal yes
+make sure you flip it inside and we
+maybe 20 of them and to somewhere about
+membership program for llamo
+membership program so if you're
+middle a lot of time it may be hard for
+millimeter
+millimeters so i'm going to
+mirror to the top now the one on the top
+more than what i need so i'm just going
+move it into the right place
+moving around
+moving in a little bit or maybe a little
+my vertex it is
+need it so we don't need this one and
+need to
+need to get them a little bit bigger
+newsletter and it will give you a link
+nicer it's more like a bright cut there
+now i'm going to move my stone out and
+now let's go ahead to work on the other
+now we need to
+number
+of
+of this one this one
+offset a wall thickness there now
+offset the curve on the surface and it
+okay so this is a pretty good so far
+okay to make them not as sharp looking
+okay you don't need to have it like the
+on both sides then we can pick up this
+on how to do the 3d model in rhino for
+on our perspective which is something
+on this side so we kind of get
+once we have that again we're gonna pick
+one
+one two and the third one is going up
+opening right there
+opening there
+our reference i'm going to delete the
+out of those full color here all right
+outline first
+over here and flip it over trim it over
+pendant are you ready let's get started
+planar curves straight
+planet curve i'm going to pick up that
+point to this point
+property
+put a link on the
+really close to
+rectangle and we're going to creating a
+render view and see how they go
+right at the end so i'm going to use the
+right top corner here for you or if you
+rotate it 45 degrees so let's go from
+same time these two need to be moving
+set either is the shear prong or
+setting i hope you enjoy the video the a
+shorter
+side
+side and see how that look
+side is i'm gonna moving this and move
+simply what we're gonna do is pick up
+since this is symmetrical so i'm going
+since we got one and this is symmetrical
+so
+so i might need to move this stone out
+so i'm going to move it
+so i'm going to using this as a set we
+so i'm gonna using the chamfer and we're
+so now all we need to do is pulling
+so now everything will find that's
+so now you can see the line
+so then i'm going to giving
+so then we get that we're going to do
+so then we have that opening
+so then we will have the same profile
+so what we can do
+so you see that little bit triangle over
+solid command and you have extruded
+something really small like
+sometimes people will fill in the space
+sometimes what you can do
+somewhere over here it looks like we
+space really well
+step
+straight line from the midpoint
+straight one i'm going to do
+surface
+surface first so something a little bit
+take a look on here and see
+taller like this
+test
+than the table then you should be fine
+that fill
+that i want
+that just put
+that look
+that opening there
+that point we usually will have this
+that short horizontal arrangement
+that they are
+that's the right proportion
+the angle that i have and again i have
+the b setting i simply wanted to do
+the bail on it then you will have this
+the first one i'm going to do
+the linear array and we want to array go
+the next one it's going to be
+the other side
+the same point eight millimeter
+the same thing
+the same thing over here
+the same way let's duplicate the edges
+the stones shouldn't touch each other
+the surface and this is the base surface
+the three point
+the top all right
+them
+them together then we wanted to
+then i'm going to use a line tool to
+then that will be a surface there
+then we have both of them and then this
+then we will get that surface and we're
+there
+there okay so i'm going to go back one
+there there
+things like this after that i simply
+this cross
+this guy this guy this one
+this one
+this one and that's
+this one and this one
+this one first so that let's go ahead to
+this one is a little bit way too close
+this one let's go ahead to
+this one out of this
+this one out of this guy this guy
+this point
+three dimension i'm going to draw a
+to
+to adjust
+to all the surfaces all the edges there
+to be
+to download this
+to extrude it down maybe just a little
+to give a diameter about this compared
+to join them and use the command
+to mirror to the other side
+to rotate 45 degree here and again we
+to the stone
+to the top alright so then we'll have
+trim
+trim so we're gonna pick up both of them
+trim tool
+try to use the mirror instead of just
+turning back what we were hiding so now
+two end um
+two tall it just
+uh closed solid poly surface all right
+uh dealing with the stone if you like to
+uh file now we have a strong here and i
+uh let's mirror this one to the other
+uh prong if that worked for you you can
+uh scale 3d and make sure um
+uh simply just copy this one to here
+um i'm just rendering to come up this
+ungroup it and delete the extra
+up all three of them
+up and roughly about 1.5 millimeter
+up here for 0.6 millimeter
+up something like this and make this one
+want to have a shared prong you might
+want to size the stone into the size
+want to uh practice i want to download
+want to use the offset we want to
+wanted to do 0.6 as well
+wanted to mirror to the other side so
+watching
+way too sharp i want to give it a
+we
+we are going to start it at the top view
+we can kind of we're moving up a little
+we just need to ungroup bunch of them
+we're going to snap in here here and
+welcome back to pj chain design today we
+what is the distance i'm going to set it
+what we need so i'm going to ungroup
+when all the point coming into
+which one is which is because it's
+will ask you like
+will be
+with another
+with the triangle that we have on that
+with this
+would like to take a look
+you
+you can download the storm file with the
+you know that first one and then uh i
+you like
+you to see

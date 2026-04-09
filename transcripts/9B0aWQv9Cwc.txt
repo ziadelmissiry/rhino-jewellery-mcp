@@ -1,0 +1,204 @@
+Clos polish surface and we are ready to
+I'm going to make it diameter 16 mm and
+Quant second quadrant and the third one
+Square the oval that's using the move
+[Music]
+ahead to create the other shape we are
+ahead to offset this surface let's pick
+all right so now I have this nice and
+also another tab here so instead of draw
+also use the other way to get a smoother
+and I personally like them to be aligned
+and for the high I wanted to go over a
+and furthermore I would like to make it
+and going up for
+and that will be the thickness of my
+and that's moving the gumball up so we
+because it's coming from offset I'm
+blend from this point to this
+bowling split this one out of the shell
+bump if you like to and once we have
+but it does make the bowling job much
+by the shrinkage for the demonstration
+by two and then so that give us the base
+casting and set the stone for the whole
+casting now we have everything in the
+center to the quadon and let's take a
+certain shrinkage you might want to go
+coming down roughly about here we want
+coming to the front view let's make a
+command we'll make this surface into the
+creating the ring shap I'm going to use
+crosssection and
+crosssection make sure they are align
+curve and creating this surface right
+curve let's go into the front view we're
+definitely you need to consider the
+depends on the shrinkage of your wax and
+diameter that's clicking on the first
+difference this out of this
+direction it's going to do only half of
+do is to mirror that to the top I'm
+double let double check this is still
+easier let's go into bowling difference
+edges command and let's do try one and
+ellipsoid and we are going to use the
+everything we just need to go ahead to
+everywhere so I'm going to giveing a
+first and pick up one of it we want to
+first number we're going to put it in
+for 2
+for our
+for the stone I want to measure the
+going to be to creating this surface I'm
+going to change it to 12 of
+going to pick up the rail and and tell
+going to pull it back one more time this
+going to the surface with the sweep one
+going to use next to creating the stone
+going to use the 3D scale from here to
+going to use the curve tool coming at
+going to use the line Command right here
+going to use this Command right here for
+guideline that I have there so let's go
+have a seam over there it's really
+have the basic shape over there let's go
+here and moving up a little bit like
+hopping on this surface with that curve
+how to prepare a 3D model for this Stone
+how we get this one using the cap
+in
+in this video we are going to look into
+inside now let's go ahead to bowling
+into 13.2 29 by
+into a ring with the 3D printing and
+into the end
+is Select let's go ahead to trim the top
+is this time the offset will be the
+it down so you get something look like
+it here is 18.33%
+it may not exactly the same with your
+it the Rhino where is the AIS and that's
+it the second number we're going to put
+it to look very nice and wrong on
+it's because all the seam is currently
+it's called rail revolve we're going to
+join everything double check that if
+let's make a copy
+like to do is actually I want to make
+line by putting a little tab here and
+little bit and so that will giveing a
+little bit fet so let's go to the fet
+look on the Right View and let's move it
+make sure all the arrow is aligned to
+metal over here and I'm going to rebuild
+mm we don't want it to be solid just
+more time because every time you pull
+move my stone
+moving to inside of the ring shank and
+next
+nice and we're going to try that again
+nice taper looking to actually to cut
+off that's how we get our first shell
+offset a little bit bigger it's really
+okay and you may notice that you have
+one all right so now we have everything
+one sometimes your difference will fit
+other control
+perfectly aligned right now so what I
+pick up the the curve and then we're
+pick up this edes you can adjust the
+pick up those control Point like every
+planer curve and let's pick up this
+point and
+point so holding your shift and click
+point so that way you will get really
+position I do want to have this curve
+process are you ready let's get
+property showing close solid poly
+pull we're going to pull this curve back
+purpose I'm just going to go 2 mm
+quadrant so it's not cutting inside of
+quadron starting from the end point and
+rail this is going to be the rail
+ready this is
+rendering purpose the key component is
+result and how I set this stor see you
+ring shank size
+round we need to cut off anything is
+see how this go all right look really
+shouldn't be inside of a ring shank go
+show you my printing result casting
+simple to solve we just need to pull one
+slightly bigger for the stone so that
+smooth line over there the command we're
+snapping in the
+snapping into the quadrant so this is
+so we are going to pull and we're going
+solid and then this is will be our Stone
+something like this is because we we
+started first let's find out the size
+still closed solid polish
+stone on the profile but it's for the
+straight and let's use the bowling
+surface
+surface now we have done that we need to
+surface once we have done that I do like
+sweep on the option here so that's how
+that it's really hard to tell by the eye
+that surface right there and we are
+that we pick and let's Del it everything
+the
+the curve that we have on the bottom
+the curve that we have over here you can
+the front view I will like to snaping
+the inside of the ring shank so that's
+the line I will use the blend tool to
+the oval command and Friendly Center
+the ring shank second things I wanted to
+the same
+the surface over
+the uh Cony Corners rectangle tool and
+them is because we need to close the
+them just slightly bigger roughly about
+them so I have the curve look like this
+there due to the shrinkage I would like
+there is
+there let's join this one and this one
+there okay that's using the surface from
+there that's using the blend surface
+thickness on the bottom for the better
+thickness so I'm going to make it 1 mm
+this curve currently it has 50 point is
+this curve is attached to the surface so
+this is a solid right here on my
+this one will be out of this
+this we are not able to trim it unless
+time pull this curve back to this
+to check the video on the Thursday I'll
+to join them and use them to trim off
+to make sure that SM track is on and
+to pull from that to this surface so now
+to the solid extrude a planer curve
+to the top view and we are going to use
+to this surface follow that point2
+to this surface now you see the curve is
+together second things we need to do is
+tool and make sure that the chain age is
+tool to move from the quadrant to the
+unit together double check that it is
+up roughly about here for the high
+up this surface and we want to offset
+way when my model shrink a little bit it
+we get this one we're going to have a
+we have those two curve let's go ahead
+we want to creating the surface over
+we're going to come into the top and
+we're going to hit zero to center it the
+we're going to use the command called
+whatever size that is suitable we're
+width length and the height it is coming
+will fit let me offset this guy and this
+yes so we want to pick up this ages and
+you can only pull into a single surface
+your casting if you know that it's a

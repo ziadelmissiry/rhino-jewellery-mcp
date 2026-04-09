@@ -1,0 +1,254 @@
+Greenspan if I pronounced correct your
+I could use that to pull back to the
+I make the top it's like square and
+I wanted to pipe it over there but if we
+I'm going to rebuild this guy to make it
+I'm going to use this command and then
+[Music]
+a stone and then roughly about
+about a millimeter something a big
+about six of them so we want to make
+accurate enough so what I do to make it
+ahead and hide that layer so one thing I
+all just a little bit above the middle
+alright
+alright so now we have this we can pick
+alright then we can have that using the
+always like to rebuild the curve and
+and I hope Ramba answer your question
+and also all the cutter so then you will
+and four point five millimeter each so
+and if this is like too tall to you not
+and then you want to snapping here so
+and turn on the smart track so we'll
+and yes I kind of a cut it way too high
+are coming down to the button and the
+at this surface right here if the
+be super good this little things over
+but then when I need to have a thickness
+button is halfway of the six prong so
+by the stone so that's what we wanted to
+can also take a look on the render view
+can see we will have this surface over
+certain of a cutting tool and to cut out
+change another way to do it
+circumference point there so what we
+click okay then we get those start there
+collar follow this but we don't want to
+color before we making the cutter we
+color to cut it out later on in the
+colored somewhere in the middle of it
+completely flat to the bottom so next
+construction for this six prong setting
+control point curve and interpolate
+curry morning 20% of the prawn thickness
+cut it all the way to the top is somehow
+degrees so that will be right in the
+demonstration I'm going to using that
+depends on how high you want it I
+detail and still moving up a little bit
+diamond there and then I'm going to
+difference one more timee and let's see
+discussed two way to make this type of a
+do the command going to be divided and
+enough room for your tutor to set the
+extend it the curve by line make this
+extended curve by line and we want to
+extended this curve so that's going to
+finish there if that's what you want
+first I need to offset that piece coming
+first of all we bringing the stone and
+fitted perfectly because the curvature
+go ahead to duplicate the edges and it's
+go ahead to use try to use seven point
+going to answer a question from Ren
+going to see something like a rounded
+gonna do the same thing on the other
+hair to offset outside and solid equal
+happened to be the seam that we are
+have a little bit extra there we can
+have the prong enough prone to bend over
+have this cut it really nicely looking
+have those stuff on the outside those
+here I show you step-by-step making the
+here and that's they did this one okay
+here is not a problem we can just make a
+hide this one as well as you can see we
+high now we have this let's go ahead to
+how that fit in there okay so if that
+however that kind of overlapping there
+if it is better all right
+if you wanted to know how to make the
+in four point five millimeter after that
+indifference this one I love this one
+is bowling difference and you can take a
+is now what exactly I'm looking for we
+is the shape that we want so let's do
+is way too high we may want to scale one
+join all of them so now this will be our
+just don't like that a little bit
+just go ahead and delete those little
+just take the look on this and I'm gonna
+just tilt it a little bit and see if
+let's do a simple test we are going to
+let's go ahead to pick up the color and
+like that long next step we can use the
+like that small I also notice they are
+like the picture there maybe the girdle
+line that is definitely past those point
+location on the top six prong and they
+longer than the table so that way I will
+look all right to you that's making into
+look into it alright so now we got that
+look nice let's click OK
+look on the render view right now as I
+looks fine and if your tutor kind of
+make a duplication and scale them down
+make sure that they come up the same
+make sure that's not cutting too much of
+make sure they are nice and smooth
+make the line way too long but all
+making the surface that go around it so
+maybe I need to go back to make it
+mean I wanted to cut it that long and
+middle I also wanted to move those down
+middle that will not be the issue
+more in the stone setting see you next
+name it's interesting to looking at this
+need to alter the cutter a little bit so
+need to make sure that it's evenly
+needed to be over the age there and then
+needed to go straight because I just
+nice and rounded and then I'm going to
+now completely aligned with the bigger
+number four 6360 four six of them and
+of them 360 degree so all we need to do
+of them for 360 degree and we can get
+offset i'm poss-eye
+offset in zile alcide you want to make
+offset this one so first things is
+offset your curve I'm going to make my
+okay now let's take a look on the
+okay so that will be the position that
+once we get those stud if you take a
+one and project to the sea plane and I
+one but I kind of noticed the top is
+one just a little bit longer and we're
+one so again we want to polar array six
+one that's through a test cut maybe I
+other side we want to extend it this one
+out my course on my website for the
+over here and that's hit enter and see
+overlap in there right so they may not
+overlapping over there so I'm going to
+person okay so double check if they look
+perspective now if I turn on my surface
+pick up the extrusion and we are going
+pick up this curve and want to go all
+picking up and then so we gotta make a
+picture if you take a detailed look on
+pieces there okay so once you get that
+pipe it just stop it right here you're
+piping tool we're gonna pipe it
+point at this scenario we want to make
+point on this one somewhere about right
+polar array Center is zero
+polar array and we want to create in six
+polish of that that might be okay but I
+process on this one with you when we get
+prong it's about one millimeter so
+rebuild it so it will be more even let's
+right here you can see you have this
+right so let's go ahead to use the curve
+right so the render view it actually
+roughly somewhere like this okay
+say earlier I might cut it like too tall
+see if that is the curve you want you
+setting are you ready let's get started
+shorter but I'm just gonna for this
+side make sure you're smart track is on
+so I gonna show you both ways and see
+so I want to have something like this
+so I'm going to walk through my thinking
+so let's go ahead to split with the
+so now let me hide the stone and that's
+so now we have this curve
+so once you get that we also need to cut
+so that we'll call it done the other way
+so we are going to make a copy of this
+so we're gonna do the same thing on the
+so what we're gonna do today is kind of
+so you kind of see the angle right there
+something like this if you like this one
+something pretty big over here and then
+spread it out for the six prong so let's
+stone for you I hope you enjoy the video
+stone setting if you are interesting
+stone with all the cuts there so if
+stone you can look at this video right
+stray so let's get something like this
+stuff from inside and we need to draw a
+super accurate I'm going to select this
+sure the segment is six and then we
+sure we use interpolate point and so
+sure your prong is
+surface
+surface is not what you want you might
+thank you everybody for watching check
+that come out better and we can again
+that we're thinking about is we have a
+that will be great we'll just use this
+that will be the same high and we want
+that will go through the point exactly
+that won't be
+that's fine if not let's go ahead to use
+that's what we get that's two bowling
+the ball and design open there so let's
+the bowling and pick up this other shape
+the extended curve by line and I'm just
+the second things we wanted to do is we
+the second way we are going to do is
+the shape like this
+the solid by offset the surface and we
+the stoning whatever the size that you
+the way up so it's continuing of it over
+there let's turn on the stone and see
+things I wanted to do is I want to
+things like that you need to leave
+thinking about is to making each of the
+this is for the printing file that's why
+this is the new curve that I get I
+this six prong here one thing we can
+this those that is representing the
+time
+to close with the line let's go ahead to
+to come in here extrude a planar curve
+to do polar array six of them Center is
+to other layer and then we might need to
+tool you got to curve tool right here
+trim the surface over there so now you
+u-shape and then we polar array and then
+up those top six point ctrl-c and ctrl-v
+up those two and use those two curve to
+use them later on so that's just go
+usually will like to have my prong
+video once you have the stone I bring
+want it to be my happen to be roughly
+want them to coming outside and then we
+want to delete the input so now they are
+want to make sure it is solid right so
+want to offset this surface it's called
+wanted to do is rotate it about thirty
+we are going to set it up to the zero
+we have thinking about you're going to
+we're gonna divide this other age for
+we're gonna have something really small
+welcome back to PGA InDesign today I'm
+what we come up with now we have that
+what we wanted to do is we're gonna pick
+whichever way that you will like it
+whole block and we kind of create
+would like to do is I would like to
+yes for one millimeter and we are going
+you're interested in check out this
+zero type is six of them and see if that

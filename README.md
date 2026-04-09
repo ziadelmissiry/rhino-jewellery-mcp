@@ -505,13 +505,6 @@ rhino-jewellery-mcp/
   README.md          # This file
 ```
 
-## Credits
-
-- Tool design informed by [PJ Chen Jewelry CAD Design](https://www.pjchendesign.com/) tutorial series
-- Gemstone proportions from GIA (Gemological Institute of America) standards
-- Built on the [Model Context Protocol](https://modelcontextprotocol.io/) by Anthropic
-- Requires [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp) for Rhino connectivity
-
 ## License
 
 MIT

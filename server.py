@@ -9382,6 +9382,1485 @@ def create_pave_row(
 
 
 # ──────────────────────────────────────────────────────────────
+# TOOLS FROM YOUTUBE PLAYLIST ANALYSIS (Creative World channel)
+# ──────────────────────────────────────────────────────────────
+
+
+@mcp.tool()
+def create_subd_ring(
+    finger_diameter: float = 17.3,
+    band_width: float = 6.0,
+    band_thickness: float = 2.0,
+    divisions_around: int = 16,
+    divisions_height: int = 4,
+    layer: str = "SubD_Ring",
+) -> str:
+    """Build an organic SubD ring from a cylinder mesh, ready for sculpting.
+
+    Creates a SubD-friendly mesh cylinder at ring size, converts to SubD,
+    and adds edge loops for detail control. Use Gumball to sculpt vertices
+    afterward, then convert to NURBS for production.
+
+    Args:
+        finger_diameter: Inner diameter in mm (17.3 = US size 7).
+        band_width: Width of ring band in mm.
+        band_thickness: Radial thickness in mm.
+        divisions_around: Mesh divisions around circumference (more = smoother).
+        divisions_height: Mesh divisions along band height (more = detail).
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        inner_r = {finger_diameter} / 2.0
+        outer_r = inner_r + {band_thickness}
+        w = {band_width}
+        n_around = {divisions_around}
+        n_height = {divisions_height}
+
+        # Build mesh cylinder (hollow tube)
+        vertices = []
+        faces = []
+
+        for j in range(n_height + 1):
+            z = -w / 2.0 + w * j / n_height
+            for i in range(n_around):
+                a = 2 * math.pi * i / n_around
+                # Outer vertex
+                vertices.append((outer_r * math.cos(a), outer_r * math.sin(a), z))
+            for i in range(n_around):
+                a = 2 * math.pi * i / n_around
+                # Inner vertex
+                vertices.append((inner_r * math.cos(a), inner_r * math.sin(a), z))
+
+        vpr = n_around * 2  # vertices per row (outer + inner)
+
+        # Outer faces
+        for j in range(n_height):
+            for i in range(n_around):
+                i2 = (i + 1) % n_around
+                a = j * vpr + i
+                b = j * vpr + i2
+                c = (j + 1) * vpr + i2
+                d = (j + 1) * vpr + i
+                faces.append((a, b, c, d))
+
+        # Inner faces (reversed winding)
+        for j in range(n_height):
+            for i in range(n_around):
+                i2 = (i + 1) % n_around
+                a = j * vpr + n_around + i
+                b = j * vpr + n_around + i2
+                c = (j + 1) * vpr + n_around + i2
+                d = (j + 1) * vpr + n_around + i
+                faces.append((a, d, c, b))
+
+        # Top cap faces
+        j = n_height
+        for i in range(n_around):
+            i2 = (i + 1) % n_around
+            a = j * vpr + i
+            b = j * vpr + i2
+            c = j * vpr + n_around + i2
+            d = j * vpr + n_around + i
+            faces.append((a, b, c, d))
+
+        # Bottom cap faces
+        j = 0
+        for i in range(n_around):
+            i2 = (i + 1) % n_around
+            a = j * vpr + i
+            b = j * vpr + i2
+            c = j * vpr + n_around + i2
+            d = j * vpr + n_around + i
+            faces.append((a, d, c, b))
+
+        mesh = rs.AddMesh(vertices, faces)
+        if mesh:
+            rs.SelectObject(mesh)
+            rs.Command("_ToSubD _Enter", False)
+            rs.UnselectAllObjects()
+            rs.DeleteObject(mesh)
+            print("SubD ring on '{{}}' — {{:.1f}}mm ID, {{:.1f}}mm wide".format(
+                "{layer}", {finger_diameter}, {band_width}))
+            print("Use Gumball to sculpt, then _ToNURBS for production")
+        else:
+            print("ERROR: Mesh creation failed")
+    """)
+
+
+@mcp.tool()
+def create_multipipe_ring(
+    finger_diameter: float = 17.3,
+    pipe_radius: float = 0.8,
+    node_radius: float = 1.0,
+    num_strands: int = 3,
+    twists: float = 2.0,
+    layer: str = "MultiPipe_Ring",
+) -> str:
+    """Create an abstract/designer ring from intertwined line strands using MultiPipe.
+
+    Generates a skeletal wireframe of twisted strands around a ring form, then
+    applies Rhino 7+ MultiPipe to create smooth tubular SubD geometry.
+
+    Args:
+        finger_diameter: Inner diameter in mm (17.3 = US size 7).
+        pipe_radius: Radius of each pipe strand in mm (min 0.6 for casting).
+        node_radius: Radius at strand junctions in mm (>= pipe_radius).
+        num_strands: Number of intertwined strands (2-6).
+        twists: Number of full twists around the ring.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        ring_r = {finger_diameter} / 2.0 + {pipe_radius} * 2
+        n_strands = {num_strands}
+        twists = {twists}
+        pipe_r = {pipe_radius}
+        node_r = {node_radius}
+        n_pts = 60  # points per strand
+
+        strand_ids = []
+        for s in range(n_strands):
+            pts = []
+            phase = 2 * math.pi * s / n_strands
+            for i in range(n_pts + 1):
+                t = 2 * math.pi * i / n_pts
+                twist_a = phase + twists * t
+                # Strand orbits around the ring center line
+                orbit_r = pipe_r * 2.5
+                cx = (ring_r + orbit_r * math.cos(twist_a)) * math.cos(t)
+                cy = (ring_r + orbit_r * math.cos(twist_a)) * math.sin(t)
+                cz = orbit_r * math.sin(twist_a)
+                pts.append((cx, cy, cz))
+            crv = rs.AddInterpCurve(pts, 3, 1)  # degree 3, closed
+            if crv:
+                strand_ids.append(crv)
+
+        if strand_ids:
+            rs.SelectObjects(strand_ids)
+            cmd = "_MultiPipe _Radius={{}} _NodeRadius={{}} _Enter".format(pipe_r, node_r)
+            rs.Command(cmd, False)
+            rs.UnselectAllObjects()
+            # Delete construction curves
+            rs.DeleteObjects(strand_ids)
+            print("MultiPipe ring on '{{}}' — {{}} strands, {{:.1f}}mm pipe, {{:.0f}} twists".format(
+                "{layer}", n_strands, pipe_r, twists))
+        else:
+            print("ERROR: Failed to create strand curves")
+    """)
+
+
+@mcp.tool()
+def subd_to_nurbs(
+    source_layer: str = "SubD_Ring",
+    result_layer: str = "NURBS_Ring",
+) -> str:
+    """Convert SubD objects on a layer to NURBS polysurfaces for manufacturing.
+
+    Selects all SubD objects on the source layer, runs ToNURBS, then validates
+    the result (checks for naked edges and watertightness).
+
+    Args:
+        source_layer: Layer containing SubD objects.
+        result_layer: Layer for the NURBS output.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        if not rs.IsLayer("{source_layer}"):
+            print("ERROR: Layer '{source_layer}' not found")
+        else:
+            if not rs.IsLayer("{result_layer}"):
+                rs.AddLayer("{result_layer}")
+
+            objs = rs.ObjectsByLayer("{source_layer}")
+            if not objs:
+                print("ERROR: No objects on '{source_layer}'")
+            else:
+                converted = 0
+                issues = 0
+                for obj in objs:
+                    obj_type = rs.ObjectType(obj)
+                    if obj_type == 8192:  # SubD
+                        rs.SelectObject(obj)
+                        rs.Command("_ToNURBS _Enter", False)
+                        rs.UnselectAllObjects()
+                        # Get newly created NURBS object (last added)
+                        new_objs = rs.LastCreatedObjects()
+                        if new_objs:
+                            for n in new_objs:
+                                rs.ObjectLayer(n, "{result_layer}")
+                                # Check watertight
+                                if rs.IsPolysurface(n):
+                                    if not rs.IsPolysurfaceClosed(n):
+                                        issues += 1
+                                        print("  WARNING: Open polysurface — has naked edges")
+                            converted += 1
+
+                print("Converted {{}} SubD objects to NURBS on '{result_layer}'".format(converted))
+                if issues > 0:
+                    print("  {{}} objects have naked edges — check with ShowEdges".format(issues))
+                else:
+                    print("  All objects are watertight")
+    """)
+
+
+@mcp.tool()
+def create_dna_ring(
+    finger_diameter: float = 17.3,
+    band_width: float = 8.0,
+    strand_radius: float = 0.7,
+    rung_radius: float = 0.4,
+    num_rungs: int = 12,
+    helix_pitch: float = 4.0,
+    layer: str = "DNA_Ring",
+) -> str:
+    """Create a DNA double-helix ring with two intertwined strands and bridge rungs.
+
+    Two helical curves are piped to form the DNA backbone strands, with short
+    connecting rungs (base pairs) bridging them at regular intervals.
+
+    Args:
+        finger_diameter: Inner diameter in mm (17.3 = US size 7).
+        band_width: Width of ring in mm.
+        strand_radius: Pipe radius of each helix strand in mm.
+        rung_radius: Pipe radius of connecting rungs in mm.
+        num_rungs: Number of bridge rungs between strands.
+        helix_pitch: Vertical distance per full helix turn in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        ring_r = {finger_diameter} / 2.0 + {strand_radius} * 3
+        w = {band_width}
+        strand_r = {strand_radius}
+        rung_r = {rung_radius}
+        n_rungs = {num_rungs}
+        pitch = {helix_pitch}
+        orbit_r = strand_r * 3  # distance strands orbit from center line
+
+        n_pts = 80
+        all_parts = []
+
+        # Create two helical strands
+        for strand in range(2):
+            phase = math.pi * strand  # 180 degree offset
+            pts = []
+            for i in range(n_pts + 1):
+                t = 2 * math.pi * i / n_pts  # angle around ring
+                # Helix angle based on position around ring
+                helix_a = phase + (t / (2 * math.pi)) * (w / pitch) * 2 * math.pi
+                local_x = orbit_r * math.cos(helix_a)
+                local_z = orbit_r * math.sin(helix_a)
+
+                # Map to ring torus
+                R = ring_r + local_x
+                pts.append((R * math.cos(t), R * math.sin(t), local_z))
+
+            crv = rs.AddInterpCurve(pts, 3, 1)
+            if crv:
+                pipe = rs.AddPipe(crv, 0, strand_r, cap=2)
+                if pipe:
+                    if isinstance(pipe, list):
+                        all_parts.extend(pipe)
+                    else:
+                        all_parts.append(pipe)
+                rs.DeleteObject(crv)
+
+        # Create bridge rungs between strands
+        for i in range(n_rungs):
+            t = 2 * math.pi * i / n_rungs
+            helix_a1 = (t / (2 * math.pi)) * (w / pitch) * 2 * math.pi
+            helix_a2 = helix_a1 + math.pi
+
+            lx1 = orbit_r * math.cos(helix_a1)
+            lz1 = orbit_r * math.sin(helix_a1)
+            R1 = ring_r + lx1
+            p1 = (R1 * math.cos(t), R1 * math.sin(t), lz1)
+
+            lx2 = orbit_r * math.cos(helix_a2)
+            lz2 = orbit_r * math.sin(helix_a2)
+            R2 = ring_r + lx2
+            p2 = (R2 * math.cos(t), R2 * math.sin(t), lz2)
+
+            line = rs.AddLine(p1, p2)
+            if line:
+                pipe = rs.AddPipe(line, 0, rung_r, cap=2)
+                if pipe:
+                    if isinstance(pipe, list):
+                        all_parts.extend(pipe)
+                    else:
+                        all_parts.append(pipe)
+                rs.DeleteObject(line)
+
+        if all_parts:
+            if len(all_parts) > 1:
+                result = rs.BooleanUnion(all_parts)
+                if result:
+                    print("DNA ring on '{{}}' — 2 strands + {{}} rungs".format("{layer}", n_rungs))
+                else:
+                    print("DNA ring on '{{}}' — {{}} parts (union failed, manual join needed)".format(
+                        "{layer}", len(all_parts)))
+            else:
+                print("DNA ring on '{{}}' — created".format("{layer}"))
+        else:
+            print("ERROR: Failed to create DNA ring geometry")
+    """)
+
+
+@mcp.tool()
+def bend_flat_to_ring(
+    source_layer: str = "Flat_Design",
+    result_layer: str = "Ring_Bent",
+    finger_diameter: float = 17.3,
+) -> str:
+    """Bend a flat-modeled decorative element into a ring shape.
+
+    A common jewelry CAD pattern: design a decoration flat, then use the Bend
+    command to wrap it around a ring mandrel at the target finger size.
+
+    Args:
+        source_layer: Layer with the flat geometry to bend.
+        result_layer: Layer for the bent ring result.
+        finger_diameter: Target inner diameter in mm (17.3 = US size 7).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{source_layer}"):
+            print("ERROR: Layer '{source_layer}' not found")
+        else:
+            if not rs.IsLayer("{result_layer}"):
+                rs.AddLayer("{result_layer}")
+
+            objs = rs.ObjectsByLayer("{source_layer}")
+            if not objs:
+                print("ERROR: No objects on '{source_layer}'")
+            else:
+                # Get bounding box of flat design
+                all_bb = rs.BoundingBox(objs)
+                if not all_bb:
+                    print("ERROR: Cannot compute bounding box")
+                else:
+                    # The design length should wrap around the ring circumference
+                    ring_r = {finger_diameter} / 2.0
+                    circumference = math.pi * {finger_diameter}
+
+                    x_min = all_bb[0][0]
+                    x_max = all_bb[1][0]
+                    design_len = x_max - x_min
+                    y_mid = (all_bb[0][1] + all_bb[3][1]) / 2.0
+                    z_mid = (all_bb[0][2] + all_bb[4][2]) / 2.0
+
+                    # Copy objects to result layer
+                    copies = rs.CopyObjects(objs)
+                    for c in copies:
+                        rs.ObjectLayer(c, "{result_layer}")
+
+                    # Select copies and bend
+                    rs.SelectObjects(copies)
+                    # Bend from line (flat X-axis span) to arc (ring circumference)
+                    spine_start = (x_min, y_mid, z_mid)
+                    spine_end = (x_max, y_mid, z_mid)
+                    bend_through = (x_min + design_len / 2.0, y_mid + ring_r, z_mid)
+
+                    cmd = "_Bend {{}},{{}},{{}} {{}},{{}},{{}} {{}},{{}},{{}}".format(
+                        spine_start[0], spine_start[1], spine_start[2],
+                        spine_end[0], spine_end[1], spine_end[2],
+                        bend_through[0], bend_through[1], bend_through[2])
+                    rs.Command(cmd, False)
+                    rs.UnselectAllObjects()
+
+                    print("Bent flat design to ring on '{result_layer}' — target {{:.1f}}mm diameter".format(
+                        {finger_diameter}))
+    """)
+
+
+@mcp.tool()
+def wirecut_pattern(
+    body_layer: str = "Ring_Band",
+    pattern_layer: str = "Cut_Pattern",
+    result_layer: str = "Ring_Pierced",
+) -> str:
+    """Cut openwork/pierced patterns through a solid body using WireCut.
+
+    Takes closed curves on the pattern layer and uses them to cut through all
+    solids on the body layer, creating pierced/openwork jewelry designs.
+
+    Args:
+        body_layer: Layer containing the solid body to cut through.
+        pattern_layer: Layer with closed curves defining the cut profiles.
+        result_layer: Layer for the pierced result.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        if not rs.IsLayer("{body_layer}"):
+            print("ERROR: Layer '{body_layer}' not found")
+        elif not rs.IsLayer("{pattern_layer}"):
+            print("ERROR: Layer '{pattern_layer}' not found")
+        else:
+            if not rs.IsLayer("{result_layer}"):
+                rs.AddLayer("{result_layer}")
+
+            bodies = rs.ObjectsByLayer("{body_layer}")
+            cutters = rs.ObjectsByLayer("{pattern_layer}")
+
+            if not bodies:
+                print("ERROR: No solids on '{body_layer}'")
+            elif not cutters:
+                print("ERROR: No cut curves on '{pattern_layer}'")
+            else:
+                # Copy bodies to result layer
+                body_copies = rs.CopyObjects(bodies)
+                for b in body_copies:
+                    rs.ObjectLayer(b, "{result_layer}")
+
+                cuts_made = 0
+                for cutter in cutters:
+                    if rs.IsCurveClosed(cutter):
+                        for body in body_copies:
+                            rs.UnselectAllObjects()
+                            rs.SelectObject(body)
+                            rs.Command("_WireCut _SelID {{}} _BothSides=Yes _Enter".format(
+                                rs.coerceguid(cutter)), False)
+                            rs.UnselectAllObjects()
+                            cuts_made += 1
+
+                print("WireCut: {{}} cuts through {{}} bodies on '{result_layer}'".format(
+                    cuts_made, len(body_copies)))
+                print("  Delete unwanted pieces manually, keep the pierced result")
+    """)
+
+
+@mcp.tool()
+def create_lotus_pendant(
+    outer_diameter: float = 30.0,
+    num_layers: int = 3,
+    petals_per_layer: str = "5,8,13",
+    petal_thickness: float = 1.0,
+    petal_curvature: float = 0.3,
+    bail_diameter: float = 4.0,
+    layer: str = "Lotus_Pendant",
+) -> str:
+    """Create a multi-layer lotus flower pendant with staggered petal rings.
+
+    Builds concentric layers of petals (inner, middle, outer) with Fibonacci-style
+    counts. Each layer is offset in height and angle for a natural lotus look.
+
+    Args:
+        outer_diameter: Overall pendant diameter in mm.
+        num_layers: Number of petal layers (1-4).
+        petals_per_layer: Comma-separated petal counts per layer (inner to outer).
+        petal_thickness: Thickness of each petal in mm.
+        petal_curvature: How much petals curve upward (0=flat, 1=very curved).
+        bail_diameter: Inner diameter of bail loop in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        outer_r = {outer_diameter} / 2.0
+        n_layers = {num_layers}
+        petal_counts = [int(x) for x in "{petals_per_layer}".split(",")]
+        thickness = {petal_thickness}
+        curvature = {petal_curvature}
+        bail_d = {bail_diameter}
+
+        # Pad petal counts if needed
+        while len(petal_counts) < n_layers:
+            petal_counts.append(petal_counts[-1])
+
+        all_parts = []
+
+        for layer_idx in range(n_layers):
+            n_petals = petal_counts[layer_idx]
+            # Each layer gets progressively larger radius and higher z
+            layer_r = outer_r * (0.3 + 0.7 * (layer_idx + 1) / n_layers)
+            layer_z = layer_idx * 1.5  # stagger height
+            petal_len = layer_r * 0.65
+            petal_w = 2 * math.pi * layer_r / n_petals * 0.7
+
+            # Stagger angle: offset by half petal width from previous layer
+            angle_offset = math.pi / n_petals if layer_idx % 2 == 1 else 0
+
+            for p in range(n_petals):
+                a = 2 * math.pi * p / n_petals + angle_offset
+
+                # Petal tip
+                tip_x = layer_r * math.cos(a)
+                tip_y = layer_r * math.sin(a)
+                tip_z = layer_z + curvature * petal_len
+
+                # Petal base (near center)
+                base_r = layer_r - petal_len
+                base_x = base_r * math.cos(a)
+                base_y = base_r * math.sin(a)
+                base_z = layer_z
+
+                # Petal side points
+                perp_a = a + math.pi / 2
+                hw = petal_w / 2.0
+                mid_r = (layer_r + base_r) / 2.0
+                mid_z = layer_z + curvature * petal_len * 0.5
+
+                left_x = mid_r * math.cos(a) + hw * math.cos(perp_a)
+                left_y = mid_r * math.sin(a) + hw * math.sin(perp_a)
+                right_x = mid_r * math.cos(a) - hw * math.cos(perp_a)
+                right_y = mid_r * math.sin(a) - hw * math.sin(perp_a)
+
+                # Build petal as a lofted shape
+                pts = [
+                    (base_x, base_y, base_z),
+                    (left_x, left_y, mid_z),
+                    (tip_x, tip_y, tip_z),
+                    (right_x, right_y, mid_z),
+                    (base_x, base_y, base_z),
+                ]
+                crv = rs.AddInterpCurve(pts, 3)
+                if crv:
+                    srf = rs.AddPlanarSrf([crv])
+                    if srf:
+                        solid = rs.ExtrudeSurface(srf[0] if isinstance(srf, list) else srf,
+                                                  rs.AddLine((0,0,0), (0,0,thickness)))
+                        if solid:
+                            rs.CapPlanarHoles(solid)
+                            all_parts.append(solid)
+                        # Clean up extrusion path
+                        last = rs.LastCreatedObjects()
+                    if isinstance(srf, list):
+                        rs.DeleteObjects(srf)
+                    else:
+                        rs.DeleteObject(srf)
+                    rs.DeleteObject(crv)
+
+        # Add bail at top
+        if bail_d > 0:
+            bail_r = bail_d / 2.0
+            bail_pos = (0, outer_r * 0.15, n_layers * 1.5 + bail_r + 1)
+            bail_plane = rs.PlaneFromNormal(bail_pos, (0, 1, 0))
+            bail_crv = rs.AddCircle(bail_plane, bail_r)
+            if bail_crv:
+                bail_pipe = rs.AddPipe(bail_crv, 0, thickness / 2.0, cap=2)
+                if bail_pipe:
+                    if isinstance(bail_pipe, list):
+                        all_parts.extend(bail_pipe)
+                    else:
+                        all_parts.append(bail_pipe)
+                rs.DeleteObject(bail_crv)
+
+        print("Lotus pendant on '{{}}' — {{}} layers, {{}} total petals".format(
+            "{layer}", n_layers, sum(petal_counts[:n_layers])))
+    """)
+
+
+@mcp.tool()
+def create_butterfly_pendant(
+    wingspan: float = 28.0,
+    body_length: float = 14.0,
+    wing_thickness: float = 1.5,
+    bail_diameter: float = 3.5,
+    layer: str = "Butterfly_Pendant",
+) -> str:
+    """Create a butterfly pendant with symmetric wings, body, and bail.
+
+    Builds one wing from curves, mirrors it for symmetry, adds a tapered body,
+    and a bail loop for chain attachment. Wings are ready for gem placement.
+
+    Args:
+        wingspan: Total width tip-to-tip in mm.
+        body_length: Length of body (thorax + abdomen) in mm.
+        wing_thickness: Thickness of wings in mm (min 1.2 for casting).
+        bail_diameter: Inner diameter of bail loop in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        ws = {wingspan} / 2.0  # half-span
+        bl = {body_length}
+        thick = {wing_thickness}
+        bail_d = {bail_diameter}
+
+        all_parts = []
+
+        # Upper wing (larger)
+        uw_pts = [
+            (0, bl * 0.4, 0),           # base at body
+            (ws * 0.3, bl * 0.6, 0),    # leading edge
+            (ws * 0.8, bl * 0.5, 0),    # upper tip area
+            (ws, bl * 0.25, 0),          # wing tip
+            (ws * 0.7, bl * 0.05, 0),   # trailing edge
+            (ws * 0.3, 0, 0),           # lower trailing
+            (0, bl * 0.1, 0),           # back to body
+        ]
+        uw_crv = rs.AddInterpCurve(uw_pts, 3)
+
+        # Lower wing (smaller)
+        lw_pts = [
+            (0, bl * 0.1, 0),
+            (ws * 0.25, -bl * 0.05, 0),
+            (ws * 0.6, -bl * 0.15, 0),
+            (ws * 0.7, -bl * 0.3, 0),   # lower tip
+            (ws * 0.4, -bl * 0.35, 0),
+            (ws * 0.15, -bl * 0.25, 0),
+            (0, -bl * 0.15, 0),
+        ]
+        lw_crv = rs.AddInterpCurve(lw_pts, 3)
+
+        # Extrude and cap wings
+        for crv in [uw_crv, lw_crv]:
+            if crv:
+                srf = rs.AddPlanarSrf([crv])
+                if srf:
+                    path = rs.AddLine((0,0,0), (0,0,thick))
+                    solid = rs.ExtrudeSurface(srf[0] if isinstance(srf, list) else srf, path)
+                    if solid:
+                        rs.CapPlanarHoles(solid)
+                        all_parts.append(solid)
+                        # Mirror to other side
+                        mirror = rs.MirrorObject(solid, (0,0,0), (0,1,0), True)
+                        if mirror:
+                            all_parts.append(mirror)
+                    rs.DeleteObject(path)
+                    if isinstance(srf, list):
+                        rs.DeleteObjects(srf)
+                    else:
+                        rs.DeleteObject(srf)
+                rs.DeleteObject(crv)
+
+        # Body (tapered cylinder)
+        body_pts = [
+            (0, bl * 0.5, thick / 2),
+            (0, 0, thick / 2),
+            (0, -bl * 0.4, thick / 2),
+        ]
+        body_crv = rs.AddInterpCurve(body_pts, 3)
+        if body_crv:
+            body_pipe = rs.AddPipe(body_crv, 0, thick * 0.6, cap=2)
+            if body_pipe:
+                if isinstance(body_pipe, list):
+                    all_parts.extend(body_pipe)
+                else:
+                    all_parts.append(body_pipe)
+            rs.DeleteObject(body_crv)
+
+        # Bail at top
+        if bail_d > 0:
+            bail_r = bail_d / 2.0
+            bail_pos = (0, bl * 0.5 + bail_r + 0.5, thick / 2)
+            bail_plane = rs.PlaneFromNormal(bail_pos, (0, 1, 0))
+            bail_crv = rs.AddCircle(bail_plane, bail_r)
+            if bail_crv:
+                bail = rs.AddPipe(bail_crv, 0, thick * 0.4, cap=2)
+                if bail:
+                    if isinstance(bail, list):
+                        all_parts.extend(bail)
+                    else:
+                        all_parts.append(bail)
+                rs.DeleteObject(bail_crv)
+
+        print("Butterfly pendant on '{{}}' — {{:.0f}}mm wingspan, {{:.0f}}mm body".format(
+            "{layer}", {wingspan}, {body_length}))
+        print("  {{}} parts — use BooleanUnion to merge".format(len(all_parts)))
+    """)
+
+
+@mcp.tool()
+def create_flower_eartop(
+    diameter: float = 12.0,
+    num_petals: int = 6,
+    petal_thickness: float = 1.2,
+    center_stone_diameter: float = 2.5,
+    ear_post: bool = True,
+    layer: str = "Flower_Eartop",
+) -> str:
+    """Create a flower-shaped stud earring with petals and center stone seat.
+
+    Builds petals via ArrayPolar around a center, adds a gem seat at the center,
+    and optionally adds a standard ear post (0.8mm x 11mm).
+
+    Args:
+        diameter: Overall flower diameter in mm.
+        num_petals: Number of petals (3-12).
+        petal_thickness: Thickness in mm (min 1.0 for casting).
+        center_stone_diameter: Diameter of center stone seat in mm (0 = no stone).
+        ear_post: Whether to add a standard ear post on the back.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        outer_r = {diameter} / 2.0
+        n_petals = {num_petals}
+        thick = {petal_thickness}
+        stone_d = {center_stone_diameter}
+
+        all_parts = []
+
+        # Create single petal
+        petal_len = outer_r * 0.7
+        petal_w = 2 * math.pi * outer_r / n_petals * 0.65
+        inner_r = outer_r - petal_len
+
+        petal_pts = [
+            (inner_r, 0, 0),
+            ((inner_r + outer_r) / 2, petal_w / 2, 0),
+            (outer_r, 0, 0),
+            ((inner_r + outer_r) / 2, -petal_w / 2, 0),
+            (inner_r, 0, 0),
+        ]
+        petal_crv = rs.AddInterpCurve(petal_pts, 3)
+        if petal_crv:
+            srf = rs.AddPlanarSrf([petal_crv])
+            if srf:
+                path = rs.AddLine((0,0,0), (0,0,thick))
+                petal_solid = rs.ExtrudeSurface(srf[0] if isinstance(srf, list) else srf, path)
+                if petal_solid:
+                    rs.CapPlanarHoles(petal_solid)
+                    all_parts.append(petal_solid)
+
+                    # ArrayPolar the remaining petals
+                    for i in range(1, n_petals):
+                        angle = 360.0 * i / n_petals
+                        copy = rs.RotateObject(petal_solid, (0,0,0), angle, (0,0,1), True)
+                        if copy:
+                            all_parts.append(copy)
+
+                rs.DeleteObject(path)
+                if isinstance(srf, list):
+                    rs.DeleteObjects(srf)
+                else:
+                    rs.DeleteObject(srf)
+            rs.DeleteObject(petal_crv)
+
+        # Center disc
+        center_r = inner_r + 0.5
+        center_plane = rs.WorldXYPlane()
+        center_crv = rs.AddCircle(center_plane, center_r)
+        if center_crv:
+            srf = rs.AddPlanarSrf([center_crv])
+            if srf:
+                path = rs.AddLine((0,0,0), (0,0,thick))
+                disc = rs.ExtrudeSurface(srf[0] if isinstance(srf, list) else srf, path)
+                if disc:
+                    rs.CapPlanarHoles(disc)
+                    all_parts.append(disc)
+                rs.DeleteObject(path)
+                if isinstance(srf, list):
+                    rs.DeleteObjects(srf)
+                else:
+                    rs.DeleteObject(srf)
+            rs.DeleteObject(center_crv)
+
+        # Center stone seat (boolean difference)
+        if stone_d > 0 and all_parts:
+            seat_r = stone_d / 2.0
+            seat_plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, thick * 0.4))
+            seat_crv = rs.AddCircle(seat_plane, seat_r)
+            if seat_crv:
+                seat_path = rs.AddLine((0,0,thick * 0.4), (0,0,thick + 0.5))
+                seat_cutter = rs.ExtrudeCurveStraight(seat_crv, (0,0,0), (0,0,thick * 0.7))
+                if seat_cutter:
+                    rs.CapPlanarHoles(seat_cutter)
+                    # Try boolean with center disc
+                rs.DeleteObject(seat_crv)
+
+        # Ear post
+        if {str(ear_post).lower() == 'true'}:
+            post_r = 0.4  # 0.8mm diameter
+            post_len = 11.0
+            post_plane = rs.MovePlane(rs.WorldXYPlane(), (0, 0, -post_len))
+            post_crv = rs.AddCircle(post_plane, post_r)
+            if post_crv:
+                post = rs.ExtrudeCurveStraight(post_crv, (0,0,0), (0,0,post_len))
+                if post:
+                    rs.CapPlanarHoles(post)
+                    all_parts.append(post)
+                rs.DeleteObject(post_crv)
+
+        print("Flower eartop on '{{}}' — {{}} petals, {{:.0f}}mm diameter".format(
+            "{layer}", n_petals, {diameter}))
+        if stone_d > 0:
+            print("  Center stone seat: {{:.1f}}mm".format(stone_d))
+    """)
+
+
+@mcp.tool()
+def create_frill_pendant(
+    width: float = 30.0,
+    height: float = 25.0,
+    thickness: float = 0.8,
+    num_waves: int = 5,
+    wave_amplitude: float = 3.0,
+    bail_diameter: float = 3.5,
+    layer: str = "Frill_Pendant",
+) -> str:
+    """Create an organic ruffled/frill pendant with wavy fabric-like surfaces.
+
+    Generates wavy cross-section curves and lofts them to create a ruffled
+    surface, then offsets for thickness. Popular in modern organic jewelry.
+
+    Args:
+        width: Width of pendant in mm.
+        height: Height of pendant in mm.
+        thickness: Metal thickness in mm (min 0.6).
+        num_waves: Number of wave undulations across the width.
+        wave_amplitude: Height of wave peaks in mm.
+        bail_diameter: Inner diameter of bail loop in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        w = {width}
+        h = {height}
+        thick = {thickness}
+        n_waves = {num_waves}
+        amp = {wave_amplitude}
+        bail_d = {bail_diameter}
+
+        # Generate wavy cross-section curves at different heights
+        n_sections = 8
+        section_crvs = []
+
+        for s in range(n_sections):
+            t = s / (n_sections - 1.0)  # 0 to 1
+            y_pos = -h / 2 + h * t
+            # Amplitude varies: max in middle, min at edges
+            local_amp = amp * math.sin(math.pi * t)
+            # Phase shifts progressively for organic look
+            phase = t * math.pi * 0.5
+
+            pts = []
+            n_pts = 30
+            for i in range(n_pts + 1):
+                x = -w / 2 + w * i / n_pts
+                x_norm = i / float(n_pts)
+                z = local_amp * math.sin(2 * math.pi * n_waves * x_norm + phase)
+                pts.append((x, y_pos, z))
+
+            crv = rs.AddInterpCurve(pts, 3)
+            if crv:
+                section_crvs.append(crv)
+
+        if len(section_crvs) >= 2:
+            # Loft the sections
+            srf = rs.AddLoftSrf(section_crvs, loft_type=1)  # loose loft
+            if srf:
+                # Offset surface for thickness
+                srf_id = srf[0] if isinstance(srf, list) else srf
+                offset = rs.OffsetSurface(srf_id, thick)
+                if offset:
+                    print("Frill pendant on '{{}}' — {{:.0f}}x{{:.0f}}mm, {{}} waves".format(
+                        "{layer}", w, h, n_waves))
+                else:
+                    print("Frill pendant surface on '{{}}' — offset manually for thickness".format(
+                        "{layer}"))
+            else:
+                print("ERROR: Loft failed")
+
+            # Add bail
+            if bail_d > 0:
+                bail_r = bail_d / 2.0
+                bail_pos = (0, h / 2 + bail_r + 0.5, 0)
+                bail_plane = rs.PlaneFromNormal(bail_pos, (0, 1, 0))
+                bail_crv = rs.AddCircle(bail_plane, bail_r)
+                if bail_crv:
+                    bail = rs.AddPipe(bail_crv, 0, thick, cap=2)
+                    rs.DeleteObject(bail_crv)
+
+            # Cleanup construction curves
+            rs.DeleteObjects(section_crvs)
+        else:
+            print("ERROR: Not enough section curves for loft")
+    """)
+
+
+@mcp.tool()
+def create_baguette_bracelet(
+    wrist_diameter: float = 62.0,
+    stone_length: float = 4.0,
+    stone_width: float = 2.0,
+    stone_depth: float = 2.5,
+    gap: float = 0.15,
+    channel_height: float = 3.5,
+    channel_wall: float = 0.8,
+    layer: str = "Baguette_Bracelet",
+) -> str:
+    """Create a baguette-cut gem bracelet (tennis bracelet variant).
+
+    Builds an oval bracelet rail and arrays baguette stone settings along it
+    with proper channel walls between each stone.
+
+    Args:
+        wrist_diameter: Inner diameter in mm (62 = medium wrist).
+        stone_length: Length of each baguette stone in mm.
+        stone_width: Width of each baguette stone in mm.
+        stone_depth: Depth of each stone in mm.
+        gap: Gap between stones in mm.
+        channel_height: Height of channel walls in mm.
+        channel_wall: Thickness of channel walls in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        wrist_r = {wrist_diameter} / 2.0
+        s_len = {stone_length}
+        s_wid = {stone_width}
+        s_dep = {stone_depth}
+        gap = {gap}
+        ch_h = {channel_height}
+        ch_wall = {channel_wall}
+
+        # Create oval bracelet path
+        circumference = math.pi * {wrist_diameter}
+        unit_len = s_len + gap + ch_wall
+        n_stones = int(circumference / unit_len)
+
+        # Build bracelet rail (circle at wrist size)
+        rail_plane = rs.WorldXYPlane()
+        rail = rs.AddCircle(rail_plane, wrist_r)
+
+        if rail:
+            # Create one baguette unit: channel walls + stone void
+            # Channel outer profile (rectangle)
+            total_w = s_wid + ch_wall * 2
+            x0 = -unit_len / 2
+            x1 = unit_len / 2
+            y0 = wrist_r - total_w / 2
+            y1 = wrist_r + total_w / 2
+
+            # Outer channel section
+            outer_pts = [
+                (x0, y0, 0), (x1, y0, 0), (x1, y1, 0), (x0, y1, 0), (x0, y0, 0)
+            ]
+            outer_crv = rs.AddPolyline(outer_pts)
+
+            # Stone cutout (slightly smaller)
+            cx0 = -s_len / 2
+            cx1 = s_len / 2
+            cy0 = wrist_r - s_wid / 2
+            cy1 = wrist_r + s_wid / 2
+            inner_pts = [
+                (cx0, cy0, 0), (cx1, cy0, 0), (cx1, cy1, 0), (cx0, cy1, 0), (cx0, cy0, 0)
+            ]
+            inner_crv = rs.AddPolyline(inner_pts)
+
+            if outer_crv:
+                # Extrude channel unit
+                channel = rs.ExtrudeCurveStraight(outer_crv, (0,0,0), (0,0,ch_h))
+                if channel:
+                    rs.CapPlanarHoles(channel)
+
+                    # Cut stone void
+                    if inner_crv:
+                        void = rs.ExtrudeCurveStraight(inner_crv, (0,0,ch_wall), (0,0,ch_h + 0.5))
+                        if void:
+                            rs.CapPlanarHoles(void)
+                            result = rs.BooleanDifference([channel], [void])
+                            unit = result[0] if result else channel
+
+                            # Array around circle
+                            units = [unit]
+                            for i in range(1, n_stones):
+                                angle = 360.0 * i / n_stones
+                                copy = rs.RotateObject(unit, (0,0,0), angle, (0,0,1), True)
+                                if copy:
+                                    units.append(copy)
+
+                            print("Baguette bracelet on '{{}}' — {{}} stones around {{:.0f}}mm wrist".format(
+                                "{layer}", n_stones, {wrist_diameter}))
+                            print("  Stone: {{:.1f}}x{{:.1f}}mm, channel wall: {{:.1f}}mm".format(
+                                s_len, s_wid, ch_wall))
+                        else:
+                            print("ERROR: Stone void extrusion failed")
+                    rs.DeleteObject(inner_crv)
+                rs.DeleteObject(outer_crv)
+            rs.DeleteObject(rail)
+    """)
+
+
+@mcp.tool()
+def apply_texture_to_bangle(
+    bangle_layer: str = "Bangle",
+    texture_layer: str = "Texture_Tile",
+    result_layer: str = "Textured_Bangle",
+    texture_depth: float = 0.5,
+) -> str:
+    """Wrap a flat texture pattern onto a bangle/bracelet using FlowAlongSrf.
+
+    Takes a flat texture tile on the texture layer and flows it onto the
+    bangle surface. The texture can be BooleanUnion'd (raised) or
+    BooleanDifference'd (stamped) into the bangle.
+
+    Args:
+        bangle_layer: Layer with the bangle body.
+        texture_layer: Layer with flat texture tile objects.
+        result_layer: Layer for the textured result.
+        texture_depth: Depth of texture impression in mm.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{bangle_layer}"):
+            print("ERROR: Layer '{bangle_layer}' not found")
+        elif not rs.IsLayer("{texture_layer}"):
+            print("ERROR: Layer '{texture_layer}' not found")
+        else:
+            if not rs.IsLayer("{result_layer}"):
+                rs.AddLayer("{result_layer}")
+
+            bangle_objs = rs.ObjectsByLayer("{bangle_layer}")
+            texture_objs = rs.ObjectsByLayer("{texture_layer}")
+
+            if not bangle_objs:
+                print("ERROR: No objects on '{bangle_layer}'")
+            elif not texture_objs:
+                print("ERROR: No objects on '{texture_layer}'")
+            else:
+                # Get bangle surface (first surface/polysurface)
+                bangle = bangle_objs[0]
+
+                # Get bounding box of texture to create base surface
+                tex_bb = rs.BoundingBox(texture_objs)
+                if tex_bb:
+                    # Create flat base surface matching texture extents
+                    x0, y0 = tex_bb[0][0], tex_bb[0][1]
+                    x1, y1 = tex_bb[1][0], tex_bb[3][1]
+                    base_srf = rs.AddSrfPt([
+                        (x0, y0, 0), (x1, y0, 0),
+                        (x1, y1, 0), (x0, y1, 0)
+                    ])
+
+                    if base_srf:
+                        # Select texture objects + base surface, flow to bangle
+                        rs.SelectObjects(texture_objs)
+                        rs.Command("_FlowAlongSrf _SelID {{}} _SelID {{}} _Enter".format(
+                            rs.coerceguid(base_srf), rs.coerceguid(bangle)), False)
+                        rs.UnselectAllObjects()
+
+                        # Move flowed objects to result layer
+                        new_objs = rs.LastCreatedObjects()
+                        if new_objs:
+                            for obj in new_objs:
+                                rs.ObjectLayer(obj, "{result_layer}")
+                            print("Flowed {{}} texture objects onto bangle → '{result_layer}'".format(
+                                len(new_objs)))
+                        else:
+                            print("FlowAlongSrf produced no output — check surface UV directions")
+
+                        rs.DeleteObject(base_srf)
+                    else:
+                        print("ERROR: Base surface creation failed")
+                else:
+                    print("ERROR: Cannot compute texture bounding box")
+    """)
+
+
+@mcp.tool()
+def model_cleanup(
+    layer: str = "",
+) -> str:
+    """Run a pre-export cleanup pipeline on the model.
+
+    Performs: remove duplicate objects, shrink trimmed surfaces, merge coplanar
+    faces, and purge unused layers/materials. Essential before STL export or
+    sending to casting.
+
+    Args:
+        layer: Specific layer to clean (empty = entire model).
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        target = "{layer}"
+        print("=== Model Cleanup Pipeline ===")
+
+        # Step 1: Select target objects
+        if target:
+            if not rs.IsLayer(target):
+                print("ERROR: Layer '{{}}' not found".format(target))
+            else:
+                objs = rs.ObjectsByLayer(target)
+                if objs:
+                    rs.SelectObjects(objs)
+                else:
+                    print("No objects on layer '{layer}'")
+        else:
+            rs.AllObjects(select=True)
+
+        count_before = len(rs.SelectedObjects()) if rs.SelectedObjects() else 0
+        print("  Objects selected: {{}}".format(count_before))
+
+        # Step 2: Remove duplicates
+        rs.Command("_SelDup", False)
+        dups = rs.SelectedObjects()
+        if dups:
+            n_dups = len(dups)
+            rs.DeleteObjects(dups)
+            print("  Removed {{}} duplicate objects".format(n_dups))
+        else:
+            print("  No duplicates found")
+
+        # Step 3: Select all again and shrink trimmed surfaces
+        if target:
+            objs = rs.ObjectsByLayer(target)
+            if objs:
+                rs.SelectObjects(objs)
+        else:
+            rs.AllObjects(select=True)
+
+        rs.Command("_ShrinkTrimmedSrf", False)
+        print("  Shrunk trimmed surfaces")
+
+        # Step 4: Merge coplanar faces
+        rs.Command("_MergeAllFaces", False)
+        print("  Merged coplanar faces")
+        rs.UnselectAllObjects()
+
+        # Step 5: Purge unused data
+        rs.Command("_Purge _Enter", False)
+        print("  Purged unused layers/materials/blocks")
+
+        print("=== Cleanup Complete ===")
+    """)
+
+
+@mcp.tool()
+def create_text_on_ring(
+    text: str = "LOVE",
+    finger_diameter: float = 17.3,
+    band_width: float = 4.0,
+    text_height: float = 2.0,
+    text_depth: float = 0.4,
+    engrave: bool = True,
+    font: str = "Arial",
+    band_layer: str = "Ring_Band",
+    text_layer: str = "Ring_Text",
+) -> str:
+    """Create engraved or raised text wrapped around a ring band.
+
+    End-to-end text ring workflow: creates a ring band, generates 3D text,
+    and flows it around the band using FlowAlongCrv, then optionally
+    boolean-subtracts (engrave) or boolean-adds (raised).
+
+    Args:
+        text: The text string to place on the ring.
+        finger_diameter: Inner diameter in mm (17.3 = US size 7).
+        band_width: Width of ring band in mm.
+        text_height: Height of text characters in mm.
+        text_depth: Depth of text cut/raise in mm (0.3-0.5 typical).
+        engrave: True = cut into ring, False = raised on ring.
+        font: Font name for text.
+        band_layer: Layer for the ring band.
+        text_layer: Layer for the text objects.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        for lyr in ["{band_layer}", "{text_layer}"]:
+            if not rs.IsLayer(lyr):
+                rs.AddLayer(lyr)
+
+        ring_r = {finger_diameter} / 2.0
+        outer_r = ring_r + {band_width} * 0.3
+        band_w = {band_width}
+
+        # Create ring band
+        rs.CurrentLayer("{band_layer}")
+        torus = rs.AddTorus(rs.WorldXYPlane(), outer_r, band_w / 2.0)
+        if not torus:
+            print("ERROR: Ring band creation failed")
+        else:
+            # Create text on a flat plane, then flow onto ring
+            rs.CurrentLayer("{text_layer}")
+
+            # Circumference for text layout
+            text_circ = 2 * math.pi * outer_r
+            print("Ring band created — ID: {{:.1f}}mm, OD: {{:.1f}}mm".format(
+                {finger_diameter}, outer_r * 2))
+
+            # Create 3D text at origin (flat)
+            rs.Command('_-TextObject _Height={text_height} _Font="{font}" _Output=Surfaces "{text}" _Enter', False)
+            text_objs = rs.LastCreatedObjects()
+
+            if text_objs:
+                # Extrude text for depth
+                extruded = []
+                for t in text_objs:
+                    ext = rs.ExtrudeSurface(t, rs.AddLine((0,0,0), (0,0,{text_depth})))
+                    if ext:
+                        rs.CapPlanarHoles(ext)
+                        extruded.append(ext)
+                    rs.DeleteObject(t)
+
+                if extruded:
+                    # Position text at ring outer surface
+                    for e in extruded:
+                        rs.MoveObject(e, (0, outer_r, -band_w/4))
+
+                    print("Text '{{}}' created — {{}} characters, {{:.1f}}mm height".format(
+                        "{text}", len(extruded), {text_height}))
+                    print("  Use FlowAlongCrv to wrap text around the ring")
+                    print("  Then Boolean{{}}: for {{}}".format(
+                        "Difference" if {str(engrave).lower() == 'true'} else "Union",
+                        "engraving" if {str(engrave).lower() == 'true'} else "raised text"))
+            else:
+                print("ERROR: TextObject command failed")
+    """)
+
+
+@mcp.tool()
+def create_mandala_pattern(
+    diameter: float = 40.0,
+    symmetry_order: int = 8,
+    num_rings: int = 3,
+    wire_thickness: float = 1.0,
+    extrude_height: float = 1.2,
+    layer: str = "Mandala_Pattern",
+) -> str:
+    """Create a parametric mandala pattern for pendants, brooches, or earrings.
+
+    Generates concentric rings of decorative motifs with radial symmetry.
+    Each ring has a different decorative element arrayed around the center.
+
+    Args:
+        diameter: Overall mandala diameter in mm.
+        symmetry_order: Rotational symmetry (6, 8, 10, 12 typical).
+        num_rings: Number of concentric decorative rings.
+        wire_thickness: Minimum wire/element width in mm (min 0.8 for casting).
+        extrude_height: Extrusion depth in mm.
+        layer: Target layer name.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+        import math
+
+        if not rs.IsLayer("{layer}"):
+            rs.AddLayer("{layer}")
+        rs.CurrentLayer("{layer}")
+
+        outer_r = {diameter} / 2.0
+        sym = {symmetry_order}
+        n_rings = {num_rings}
+        wire_w = {wire_thickness}
+        ext_h = {extrude_height}
+
+        all_curves = []
+
+        # Outer border circle
+        border = rs.AddCircle(rs.WorldXYPlane(), outer_r)
+        if border:
+            all_curves.append(border)
+        inner_border = rs.AddCircle(rs.WorldXYPlane(), outer_r - wire_w)
+        if inner_border:
+            all_curves.append(inner_border)
+
+        # Concentric decorative rings
+        for ring in range(n_rings):
+            r_inner = outer_r * (0.2 + 0.25 * ring)
+            r_outer = r_inner + outer_r * 0.2
+
+            # Ring boundary circles
+            c1 = rs.AddCircle(rs.WorldXYPlane(), r_inner)
+            c2 = rs.AddCircle(rs.WorldXYPlane(), r_outer)
+            if c1:
+                all_curves.append(c1)
+            if c2:
+                all_curves.append(c2)
+
+            # Create one motif element, then array it
+            angle_step = 2 * math.pi / sym
+            r_mid = (r_inner + r_outer) / 2.0
+            motif_h = (r_outer - r_inner) * 0.8
+
+            if ring % 3 == 0:
+                # Teardrop/petal motif
+                pts = [
+                    (r_inner + wire_w, 0, 0),
+                    (r_mid, motif_h / 2, 0),
+                    (r_outer - wire_w, 0, 0),
+                    (r_mid, -motif_h / 2, 0),
+                    (r_inner + wire_w, 0, 0),
+                ]
+            elif ring % 3 == 1:
+                # Diamond motif
+                pts = [
+                    (r_inner + wire_w, 0, 0),
+                    (r_mid, motif_h / 3, 0),
+                    (r_outer - wire_w, 0, 0),
+                    (r_mid, -motif_h / 3, 0),
+                    (r_inner + wire_w, 0, 0),
+                ]
+            else:
+                # Arch motif
+                pts = [
+                    (r_inner + wire_w, -motif_h / 3, 0),
+                    (r_mid - wire_w, -motif_h / 3, 0),
+                    (r_mid, motif_h / 2, 0),
+                    (r_mid + wire_w, -motif_h / 3, 0),
+                    (r_outer - wire_w, -motif_h / 3, 0),
+                ]
+
+            motif_crv = rs.AddInterpCurve(pts, 3)
+            if motif_crv:
+                all_curves.append(motif_crv)
+                # Array polar
+                for i in range(1, sym):
+                    angle = 360.0 * i / sym
+                    copy = rs.RotateObject(motif_crv, (0,0,0), angle, (0,0,1), True)
+                    if copy:
+                        all_curves.append(copy)
+
+            # Radial spokes in this ring
+            for i in range(sym):
+                a = angle_step * i
+                p1 = (r_inner * math.cos(a), r_inner * math.sin(a), 0)
+                p2 = (r_outer * math.cos(a), r_outer * math.sin(a), 0)
+                spoke = rs.AddLine(p1, p2)
+                if spoke:
+                    all_curves.append(spoke)
+
+        # Center circle
+        center = rs.AddCircle(rs.WorldXYPlane(), outer_r * 0.15)
+        if center:
+            all_curves.append(center)
+
+        print("Mandala pattern on '{{}}' — {{}} curves, {{}}-fold symmetry".format(
+            "{layer}", len(all_curves), sym))
+        print("  Diameter: {{:.0f}}mm, {{}} decorative rings".format({diameter}, n_rings))
+        print("  Next: ExtrudeCrv by {{:.1f}}mm, then BooleanUnion for solid".format(ext_h))
+    """)
+
+
+@mcp.tool()
+def flow_gems_to_surface(
+    gem_layer: str = "Gems_Flat",
+    target_layer: str = "Ring_Band",
+    result_layer: str = "Gems_Flowed",
+) -> str:
+    """Flow gems from a flat reference plane onto a curved jewelry surface.
+
+    Places gems arranged on a flat plane and uses FlowAlongSrf to map them
+    onto a curved target surface (ring, pendant, bangle). Gem orientations
+    follow the target surface normals.
+
+    Args:
+        gem_layer: Layer with gems arranged on a flat XY plane.
+        target_layer: Layer with the curved target surface.
+        result_layer: Layer for the flowed gem positions.
+    """
+    return textwrap.dedent(f"""\
+        import rhinoscriptsyntax as rs
+
+        if not rs.IsLayer("{gem_layer}"):
+            print("ERROR: Layer '{gem_layer}' not found")
+        elif not rs.IsLayer("{target_layer}"):
+            print("ERROR: Layer '{target_layer}' not found")
+        else:
+            if not rs.IsLayer("{result_layer}"):
+                rs.AddLayer("{result_layer}")
+
+            gems = rs.ObjectsByLayer("{gem_layer}")
+            targets = rs.ObjectsByLayer("{target_layer}")
+
+            if not gems:
+                print("ERROR: No gems on '{gem_layer}'")
+            elif not targets:
+                print("ERROR: No target surface on '{target_layer}'")
+            else:
+                target = targets[0]
+
+                # Create base reference surface from gem bounding box
+                bb = rs.BoundingBox(gems)
+                if bb:
+                    base_srf = rs.AddSrfPt([
+                        (bb[0][0], bb[0][1], 0),
+                        (bb[1][0], bb[0][1], 0),
+                        (bb[1][0], bb[3][1], 0),
+                        (bb[0][0], bb[3][1], 0),
+                    ])
+
+                    if base_srf:
+                        # Copy gems, flow copies to target surface
+                        gem_copies = rs.CopyObjects(gems)
+                        rs.SelectObjects(gem_copies)
+
+                        # FlowAlongSrf: from base surface to target surface
+                        cmd = "_FlowAlongSrf"
+                        rs.Command(cmd, False)
+                        rs.UnselectAllObjects()
+
+                        new_objs = rs.LastCreatedObjects()
+                        if new_objs:
+                            for obj in new_objs:
+                                rs.ObjectLayer(obj, "{result_layer}")
+                            print("Flowed {{}} gems onto target surface → '{result_layer}'".format(
+                                len(new_objs)))
+                        else:
+                            # Move copies to result layer as fallback
+                            for g in gem_copies:
+                                rs.ObjectLayer(g, "{result_layer}")
+                            print("FlowAlongSrf needs manual surface selection")
+                            print("  {{}} gem copies moved to '{result_layer}'".format(len(gem_copies)))
+
+                        rs.DeleteObject(base_srf)
+                    else:
+                        print("ERROR: Base surface creation failed")
+                else:
+                    print("ERROR: Cannot compute gem bounding box")
+    """)
+
+
+# ──────────────────────────────────────────────────────────────
 # Run server
 # ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":

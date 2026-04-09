@@ -1,8 +1,8 @@
 # Rhino Jewellery MCP
 
-A comprehensive Model Context Protocol (MCP) server providing **139 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
+A comprehensive Model Context Protocol (MCP) server providing **155 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
 
-Built from professional jewelry CAD workflows, GIA gemstone standards, techniques extracted from PJ Chen's 58-video tutorial series on jewelry design in Rhino 3D, and advanced techniques from *Advanced Jewellery CAD Modelling in Rhino*.
+Built from professional jewelry CAD workflows, GIA gemstone standards, techniques extracted from PJ Chen's 58-video tutorial series on jewelry design in Rhino 3D, advanced techniques from *Advanced Jewellery CAD Modelling in Rhino*, and workflows from the Creative World Rhino jewelry playlist (54 tutorials).
 
 ## How It Works
 
@@ -87,7 +87,7 @@ strings; the Rhino MCP server executes them inside Rhino.
 
 Ask Claude: "Create a size 7 solitaire ring". Geometry should appear in Rhino.
 
-## Tool Reference (139 tools)
+## Tool Reference (155 tools)
 
 ### Necklace & Base Structures (12 tools)
 
@@ -343,6 +343,27 @@ Complex jewelry patterns extracted from 58 PJ Chen tutorial transcripts.
 | `mesh_for_printing` | Optimized NURBS-to-mesh conversion for 3D printing |
 | `create_pave_row` | Pavé stone row with book-standard tolerances (0.25mm spacing) |
 
+### YouTube Playlist Techniques — from Creative World Rhino Tutorials (16 tools)
+
+| Tool | Description |
+|------|-------------|
+| `create_subd_ring` | Build organic SubD ring from cylinder mesh, ready for sculpting |
+| `create_multipipe_ring` | Abstract designer ring from twisted line strands via MultiPipe |
+| `subd_to_nurbs` | Convert SubD objects to NURBS polysurfaces with validation |
+| `create_dna_ring` | DNA double-helix ring with piped strands and bridge rungs |
+| `bend_flat_to_ring` | Bend a flat-modeled decoration into a ring shape at target size |
+| `wirecut_pattern` | Cut openwork/pierced patterns through solids using WireCut |
+| `create_lotus_pendant` | Multi-layer lotus pendant with staggered Fibonacci petal counts |
+| `create_butterfly_pendant` | Symmetric butterfly pendant with wings, body, and bail |
+| `create_flower_eartop` | Parametric flower stud earring with center stone and ear post |
+| `create_frill_pendant` | Organic ruffled/wavy pendant from lofted wave sections |
+| `create_baguette_bracelet` | Baguette-cut gem bracelet with channel settings |
+| `apply_texture_to_bangle` | Wrap flat texture pattern onto bangle via FlowAlongSrf |
+| `model_cleanup` | Pre-export pipeline: SelDup, ShrinkTrimmedSrf, MergeAllFaces, Purge |
+| `create_text_on_ring` | End-to-end engraved/raised text ring workflow |
+| `create_mandala_pattern` | Parametric mandala with radial symmetry for pendants/brooches |
+| `flow_gems_to_surface` | Flow flat-arranged gems onto a curved surface |
+
 ## Usage Examples
 
 ### Create a Solitaire Engagement Ring
@@ -456,7 +477,7 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 **Boolean Operations:** `BooleanUnion`, `BooleanDifference`, `BooleanIntersection`
 
-**Transforms:** `ScaleObject`, `RotateObject`, `RotateObjects`, `MirrorObject`, `MoveObject`, `CopyObject`, `Command` (Twist, Taper)
+**Transforms:** `ScaleObject`, `RotateObject`, `RotateObjects`, `MirrorObject`, `MoveObject`, `CopyObject`, `CopyObjects`, `Command` (Twist, Taper, Bend, WireCut, MultiPipe, ToSubD, ToNURBS, FlowAlongSrf, SelDup, ShrinkTrimmedSrf, MergeAllFaces, Purge, TextObject)
 
 **Curve Analysis:** `CurveDomain`, `EvaluateCurve`, `CurveTangent`, `CurvePerpFrame`, `CurveLength`, `CurveArcLengthPoint`, `CurveClosestPoint`
 
@@ -472,13 +493,13 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 **Dimensions:** `AddLinearDimension`, `WorldXYPlane`
 
-**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `LayerNames`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`, `MovePlane`, `ObjectName`, `DuplicateEdgeCurves`, `ExplodePolysurfaces`, `SurfaceDomain`, `SurfaceNormal`, `IsSurface`, `IsPolysurface`, `SelectObject`, `UnselectAllObjects`
+**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `LayerNames`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`, `MovePlane`, `ObjectName`, `DuplicateEdgeCurves`, `ExplodePolysurfaces`, `SurfaceDomain`, `SurfaceNormal`, `IsSurface`, `IsPolysurface`, `SelectObject`, `SelectObjects`, `UnselectAllObjects`, `AllObjects`, `LastCreatedObjects`, `SelectedObjects`, `AddMesh`, `ObjectType`, `AddSrfPt`, `OffsetSurface`, `AddLoftSrf`, `IsCurveClosed`, `ExtrudeSurface`
 
 ## Project Structure
 
 ```
 rhino-jewellery-mcp/
-  server.py          # MCP server (4,511 lines, 74 tools)
+  server.py          # MCP server (10,867 lines, 155 tools)
   .venv/             # Python virtual environment
   transcripts/       # 58 PJ Chen tutorial transcripts (reference)
   README.md          # This file

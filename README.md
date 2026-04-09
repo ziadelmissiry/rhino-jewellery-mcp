@@ -499,10 +499,23 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 ```
 rhino-jewellery-mcp/
-  server.py          # MCP server (10,867 lines, 155 tools)
-  .venv/             # Python virtual environment
-  transcripts/       # 58 PJ Chen tutorial transcripts (reference)
-  README.md          # This file
+  server.py              # Entry point — imports all modules, runs MCP server
+  app.py                 # Shared FastMCP instance
+  tools/
+    __init__.py
+    necklace.py          # 12 tools — necklace bases, gem rails, pendant, bail
+    gems.py              # 12 tools — all gem shapes (round, emerald, cabochon, etc.)
+    settings.py          # 15 tools — stone settings, galleries, pave rows
+    rings.py             # 20 tools — ring bands, solitaire, eternity, SubD rings
+    jewelry_types.py     # 15 tools — bangles, earrings, pendants, brooches, bracelets
+    chains.py            #  9 tools — chain links, clasps, hinges
+    patterns.py          # 11 tools — decorative shapes, filigree, textures, mandala
+    utils.py             # 18 tools — sweeps, booleans, arrays, loft, revolve, layers
+    finishing.py         #  9 tools — fillets, chamfers, engraving, milgrain
+    manufacturing.py     # 21 tools — QC checks, casting, BOM, mesh export, cleanup
+    presentation.py      # 13 tools — materials, lighting, viewport, STL export
+  .venv/                 # Python virtual environment
+  README.md              # This file
 ```
 
 ## License

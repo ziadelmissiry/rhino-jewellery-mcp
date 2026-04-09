@@ -1,6 +1,6 @@
 # Rhino Jewellery MCP
 
-A comprehensive Model Context Protocol (MCP) server providing **74 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
+A comprehensive Model Context Protocol (MCP) server providing **124 high-level jewelry CAD tools** for Rhino 3D. Each tool generates ready-to-execute RhinoScript Python code, designed to work alongside the [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp).
 
 Built from professional jewelry CAD workflows, GIA gemstone standards, and techniques extracted from PJ Chen's 58-video tutorial series on jewelry design in Rhino 3D.
 
@@ -19,13 +19,31 @@ No plugins required. Uses only vanilla RhinoScript (`rhinoscriptsyntax`) command
 
 ## Installation
 
-### Prerequisites
+### Step 1: Install Rhino MCP (required dependency)
 
-- Python 3.10+
-- [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp) installed and running
-- Rhino 7 or 8 open
+This server generates RhinoScript code but cannot execute it alone. [Rhino MCP](https://github.com/jingcheng-chen/rhinomcp) is the bridge that sends code to Rhino 3D.
 
-### Setup
+1. Install `uv` if you don't have it:
+   ```bash
+   # macOS
+   brew install uv
+   # or pip
+   pip install uv
+   ```
+
+2. Install the Rhino plugin:
+   - Open Rhino 7 or 8
+   - Go to **Tools > Package Manager**
+   - Search for **rhinomcp** and click **Install**
+
+3. Start the Rhino MCP server:
+   - In Rhino's command line, type `RunPythonScript`
+   - Then run `mcpstart`
+   - You should see a confirmation that the MCP socket server is running
+
+See the [Rhino MCP repo](https://github.com/jingcheng-chen/rhinomcp) for full setup details.
+
+### Step 2: Install Rhino Jewellery MCP
 
 ```bash
 cd ~/rhino-jewellery-mcp
@@ -34,9 +52,9 @@ source .venv/bin/activate
 pip install "mcp[cli]"
 ```
 
-### Register with Claude Code
+### Step 3: Register both servers with Claude Code
 
-Add to `~/.mcp.json`:
+Both servers must be in your `~/.mcp.json`. The `rhino` entry connects to Rhino itself; the `rhino-jewellery` entry provides the 76 jewelry CAD tools.
 
 ```json
 {
@@ -53,9 +71,23 @@ Add to `~/.mcp.json`:
 }
 ```
 
-Restart Claude Code to load the server.
+Restart Claude Code to load the servers.
 
-## Tool Reference (74 tools)
+### Architecture
+
+```
+rhinomcp              = bridge to Rhino 3D (executes code)
+rhino-jewellery-mcp   = jewelry CAD tools (generates code)
+
+Both must be running. The jewellery server generates RhinoScript code
+strings; the Rhino MCP server executes them inside Rhino.
+```
+
+### Verify
+
+Ask Claude: "Create a size 7 solitaire ring". Geometry should appear in Rhino.
+
+## Tool Reference (124 tools)
 
 ### Necklace & Base Structures (12 tools)
 
@@ -74,7 +106,7 @@ Restart Claude Code to load the server.
 | `create_gem_cutout` | Boolean-subtract gems from metal for precise seats |
 | `mirror_half_necklace` | Mirror one side to create bilateral symmetry |
 
-### Gem Library (8 tools)
+### Gem Library (10 tools)
 
 Proper faceted geometry with GIA-standard proportions using polyline cross-sections + `AddLoftSrf(loft_type=2)` for faceted appearance.
 
@@ -88,8 +120,10 @@ Proper faceted geometry with GIA-standard proportions using polyline cross-secti
 | `create_princess_cut_gem` | Princess | Square, no corner clipping |
 | `create_trillion_gem` | Trillion | Triangular with convex sides |
 | `create_cushion_gem` | Cushion | Rounded-corner rectangle |
+| `create_asscher_cut_gem` | Asscher | Square step-cut, deep clipped corners |
+| `create_radiant_cut_gem` | Radiant | Rectangular brilliant + step hybrid |
 
-### Stone Settings (6 tools)
+### Stone Settings (8 tools)
 
 | Tool | Setting Type | Description |
 |---|---|---|
@@ -99,6 +133,8 @@ Proper faceted geometry with GIA-standard proportions using polyline cross-secti
 | `create_halo_setting` | Halo | Ring(s) of small stones around center stone |
 | `create_claw_setting` | Claw | V-shaped prongs with curved tips |
 | `create_bead_setting` | Bead | Small metal beads pushed over stone edges |
+| `create_tension_setting` | Tension | Stone held by band spring pressure |
+| `create_bar_setting` | Bar | Horizontal metal bars between stones |
 
 ### Ring Tools (7 tools)
 
@@ -112,7 +148,7 @@ Proper faceted geometry with GIA-standard proportions using polyline cross-secti
 | `create_solitaire_ring` | Complete solitaire: band + round brilliant + prong setting |
 | `create_ring_head` | Basket/head with prongs + gallery wire |
 
-### Assembly & Utility (6 tools)
+### Assembly & Utility (8 tools)
 
 | Tool | Description |
 |---|---|
@@ -122,8 +158,10 @@ Proper faceted geometry with GIA-standard proportions using polyline cross-secti
 | `sweep1_profile` | Sweep cross-section along single rail |
 | `sweep2_rails` | Sweep profile between two rail curves |
 | `align_object_to_point` | Move objects by bounding-box center to target point |
+| `clear_layer` | Delete all objects on a named layer for selective rebuild |
+| `list_scene_layers` | Print all layers with object counts for scene inspection |
 
-### Manufacturing & Production (5 tools)
+### Manufacturing & Production (9 tools)
 
 | Tool | Description |
 |---|---|
@@ -132,6 +170,10 @@ Proper faceted geometry with GIA-standard proportions using polyline cross-secti
 | `shell_object` | Hollow out solids to specified wall thickness |
 | `prepare_stl_export` | Convert to jewelry-grade mesh for 3D printing |
 | `check_intersections` | Detect overlapping geometry between layers |
+| `create_sprue_tree` | Auto-generate casting sprue tree with trunk, button, and feed sprues |
+| `apply_shrinkage_compensation` | Scale model for metal shrinkage during casting (gold 1.5%, platinum 3%) |
+| `add_drain_holes` | Add drain holes to hollow objects for resin/wax 3D print drainage |
+| `resize_ring` | Resize ring from one US size to another, preserving cross-section |
 
 Supported metals for weight calculation:
 - `24k_gold` (19.32 g/cm3)
@@ -195,6 +237,92 @@ Complex jewelry patterns extracted from 58 PJ Chen tutorial transcripts.
 | `create_vintage_ring` | Filigree scrollwork around band with center stone | #484 |
 | `create_under_bezel_gallery` | Decorative window cutouts beneath bezel setting | #230 |
 
+### Quality Control & Analysis (5 tools)
+
+| Tool | Description |
+|---|---|
+| `check_naked_edges` | Detect open/naked edges — #1 cause of production failures |
+| `check_model_watertight` | Per-object closed polysurface verification across layers |
+| `check_gem_clearance` | Minimum gap between adjacent gems (pave: 0.1mm, channel: 0.3mm) |
+| `check_draft_angles` | Surface normal analysis for mold casting draft requirements |
+| `generate_dimension_report` | Overall dimensions, volume, and casting flask fit check |
+
+### Bill of Materials & Reporting (1 tool)
+
+| Tool | Description |
+|---|---|
+| `generate_bom_report` | Gem count, estimated carat weight, metal weight across all layers |
+
+### Design Tools (3 tools)
+
+| Tool | Description |
+|---|---|
+| `create_spiral_wire` | Helical/spiral wire for twisted wire jewelry and rope chains |
+| `twist_band` | Twist deformation for ring bands and decorative twists |
+| `taper_shank` | Taper deformation for narrowing ring shanks toward the setting |
+
+### Materials & Presentation (3 tools)
+
+| Tool | Description |
+|---|---|
+| `assign_metal_material` | Apply realistic metal rendering material (gold, platinum, silver, etc.) |
+| `assign_gem_material` | Apply gemstone rendering material (diamond, emerald, ruby, etc.) |
+| `setup_studio_lighting` | Multi-light studio setup for jewelry rendering (standard, dramatic, soft) |
+
+### Organization & Metadata (3 tools)
+
+| Tool | Description |
+|---|---|
+| `group_layer_objects` | Group all objects on a layer for easy selection and manipulation |
+| `set_gem_metadata` | Attach gem type, cut, color, clarity, and estimated carat as UserText |
+| `add_dimensions` | Add linear dimension annotations for manufacturing documentation |
+
+### Clasps & Mechanisms (4 tools)
+
+| Tool | Description |
+|---|---|
+| `create_toggle_clasp` | T-bar + ring toggle clasp mechanism |
+| `create_lobster_clasp` | Teardrop-shaped lobster clasp with spring lever |
+| `create_box_clasp` | Rectangular box clasp with tongue piece |
+| `create_jump_ring` | Split ring with configurable gap angle |
+
+### Chain Variants (4 tools)
+
+| Tool | Description |
+|---|---|
+| `create_rope_chain` | Two intertwined helical wires |
+| `create_ball_chain` | Spheres connected by thin wire segments |
+| `create_figaro_chain` | Alternating 3 small round + 1 elongated link pattern |
+| `flow_pattern_along_curve` | Array/flow an object along a target curve |
+
+### Additional Jewelry Types (4 tools)
+
+| Tool | Description |
+|---|---|
+| `create_brooch_base` | Oval front plate + pin stem + catch plate |
+| `create_cufflink` | Decorative face + post + whale-back toggle bar |
+| `create_tiara_base` | Semi-circular headband with graduated peaks |
+| `create_bezier_band` | Custom-profile ring band from user-specified cross-section |
+
+### Block & View Tools (5 tools)
+
+| Tool | Description |
+|---|---|
+| `create_gem_block` | Convert gems to reusable block instances (file size optimization) |
+| `create_section_view` | Cross-section cut through objects for internal inspection |
+| `create_turntable_frames` | Capture viewport rotation frames for animation |
+| `zoom_to_layer` | Zoom viewport to fit all objects on a layer |
+| `set_display_mode` | Set viewport display mode (wireframe, shaded, rendered, etc.) |
+
+### Export & Layer Utilities (4 tools)
+
+| Tool | Description |
+|---|---|
+| `export_layer_stl` | Export a specific layer to STL format |
+| `hide_layers_except` | Isolate specific layers by hiding all others |
+| `duplicate_and_mirror` | Copy and mirror objects for bilateral symmetry |
+| `validate_jewelry_params` | Check proposed dimensions against manufacturing minimums |
+
 ## Usage Examples
 
 ### Create a Solitaire Engagement Ring
@@ -248,6 +376,33 @@ create_cushion_cut_pendant(center_x=0, center_y=-75, center_z=-25, size=12)
 create_bail(pendant_x=0, pendant_y=-75, pendant_z=-25)
 ```
 
+## Layer-Based Workflow
+
+Every tool assigns its output to named layers (e.g., `Ring_Band`, `Ring_Gem`, `Ring_Setting`). This enables **selective rebuild** — fix one part without destroying the rest.
+
+### The Pattern
+
+1. **Build** — each element lands on its own layer automatically
+2. **Inspect** — use `list_scene_layers()` to see what's in the scene
+3. **Fix** — use `clear_layer("Ring_Setting")` to remove just the setting
+4. **Rebuild** — re-run only the setting tool with adjusted parameters
+
+### Example: Fix a Ring Setting
+
+```python
+# See what's in the scene
+list_scene_layers()
+# Output: Ring_Band (1 object), Ring_Gem (4 objects), Ring_Setting (6 objects)
+
+# Clear only the setting layer
+clear_layer(layer_name="Ring_Setting")
+
+# Rebuild with different parameters
+create_claw_setting(gem_layer="Ring_Gem", setting_layer="Ring_Setting", prong_count=6)
+```
+
+This avoids the costly pattern of deleting everything and rebuilding from scratch.
+
 ## Dimensional Standards
 
 Based on PJ Chen's professional standards and GIA specifications:
@@ -273,13 +428,23 @@ The generated code uses only vanilla `rhinoscriptsyntax` functions:
 
 **Boolean Operations:** `BooleanUnion`, `BooleanDifference`, `BooleanIntersection`
 
-**Transforms:** `ScaleObject`, `RotateObject`, `RotateObjects`, `MirrorObject`, `MoveObject`, `CopyObject`
+**Transforms:** `ScaleObject`, `RotateObject`, `RotateObjects`, `MirrorObject`, `MoveObject`, `CopyObject`, `Command` (Twist, Taper)
 
 **Curve Analysis:** `CurveDomain`, `EvaluateCurve`, `CurveTangent`, `CurvePerpFrame`, `CurveLength`, `CurveArcLengthPoint`, `CurveClosestPoint`
 
 **Surface Analysis:** `SurfaceVolume`, `SurfaceArea`, `OffsetSurface`, `CapPlanarHoles`, `ProjectCurveToSurface`
 
-**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`
+**Materials:** `AddMaterialToLayer`, `MaterialColor`, `MaterialReflectiveColor`, `MaterialShine`, `MaterialTransparency`, `MaterialName`
+
+**Lights:** `AddSpotLight`, `LightColor`
+
+**Groups:** `AddGroup`, `AddObjectsToGroup`
+
+**Metadata:** `SetUserText`, `GetUserText`
+
+**Dimensions:** `AddLinearDimension`, `WorldXYPlane`
+
+**Utilities:** `AddLayer`, `ObjectLayer`, `ObjectsByLayer`, `LayerNames`, `DeleteObject`, `DeleteObjects`, `BoundingBox`, `PlaneFromNormal`, `ObjectName`, `DuplicateEdgeCurves`, `ExplodePolysurfaces`, `SurfaceDomain`, `SurfaceNormal`, `IsSurface`
 
 ## Project Structure
 
